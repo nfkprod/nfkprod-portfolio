@@ -154,3 +154,21 @@ a {
     animation: none;
   }
 }
+
+@media (max-width: 767px) {
+  .hero-mobile-fix::before {
+    opacity: 0.12;
+  }
+
+  .hero-mobile-fix .hero-overlay-blur {
+    display: none;
+  }
+
+  .hero-mobile-fix .hero-overlay-base {
+    background: linear-gradient(170deg, rgba(5, 8, 14, 0.55) 0%, rgba(5, 8, 14, 0.38) 48%, rgba(5, 8, 14, 0.52) 100%);
+  }
+
+  .hero-mobile-fix .hero-showreel-bg {
+    filter: grayscale(0.32) saturate(0.9) contrast(0.99) brightness(0.9) blur(6px);
+  }
+}

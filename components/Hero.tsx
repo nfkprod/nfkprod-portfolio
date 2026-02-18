@@ -50,7 +50,7 @@ export default function Hero() {
 
   return (
     <section
-      className="glass-panel relative mt-8 overflow-hidden rounded-[2rem] px-6 py-10 md:px-10 md:py-14"
+      className="glass-panel hero-mobile-fix relative mt-8 overflow-hidden rounded-[2rem] px-6 py-10 md:px-10 md:py-14"
       onMouseMove={(event) => {
         if (!canParallax) return;
         const rect = event.currentTarget.getBoundingClientRect();
@@ -82,7 +82,7 @@ export default function Hero() {
               }`}
             />
             <iframe
-              className={`absolute left-1/2 top-1/2 block h-[154%] w-[154%] -translate-x-1/2 -translate-y-1/2 border-0 [filter:grayscale(0.35)_saturate(0.88)_contrast(0.98)_brightness(0.92)_blur(8px)] md:[filter:grayscale(0.3)_saturate(0.9)_contrast(0.99)_brightness(0.92)_blur(7px)] will-change-transform transition-opacity duration-700 ease-out ${
+              className={`hero-showreel-bg absolute left-1/2 top-1/2 block h-[190%] w-[190%] -translate-x-1/2 -translate-y-1/2 border-0 sm:h-[170%] sm:w-[170%] md:h-[154%] md:w-[154%] [filter:grayscale(0.35)_saturate(0.88)_contrast(0.98)_brightness(0.92)_blur(8px)] md:[filter:grayscale(0.3)_saturate(0.9)_contrast(0.99)_brightness(0.92)_blur(7px)] will-change-transform transition-opacity duration-700 ease-out ${
                 isVideoReady ? "opacity-100" : "opacity-0"
               }`}
               src={showreelEmbedUrl}
@@ -97,8 +97,8 @@ export default function Hero() {
           </>
         )}
       </motion.div>
-      <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(5,8,14,0.72)_0%,rgba(5,8,14,0.48)_52%,rgba(5,8,14,0.3)_100%)]" />
-      <div className="absolute inset-0 z-[2] bg-black/[0.03] backdrop-blur-[12px] [mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)] [-webkit-mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)]" />
+      <div className="hero-overlay-base absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(5,8,14,0.72)_0%,rgba(5,8,14,0.48)_52%,rgba(5,8,14,0.3)_100%)]" />
+      <div className="hero-overlay-blur absolute inset-0 z-[2] bg-black/[0.03] backdrop-blur-[12px] [mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)] [-webkit-mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)]" />
       <motion.div
         className="absolute inset-0 z-[3] bg-[linear-gradient(116deg,rgba(58,88,156,0.14)_0%,rgba(52,142,178,0.11)_46%,rgba(34,50,92,0.08)_100%)] mix-blend-soft-light"
         style={canParallax ? { x: tintX, y: tintY } : undefined}
