@@ -82,7 +82,7 @@ export default function Hero() {
               }`}
             />
             <iframe
-              className={`hero-showreel-bg absolute left-1/2 top-1/2 block h-[190%] w-[190%] -translate-x-1/2 -translate-y-1/2 border-0 sm:h-[170%] sm:w-[170%] md:h-[154%] md:w-[154%] [filter:grayscale(0.35)_saturate(0.88)_contrast(0.98)_brightness(0.92)_blur(8px)] md:[filter:grayscale(0.3)_saturate(0.9)_contrast(0.99)_brightness(0.92)_blur(7px)] will-change-transform transition-opacity duration-700 ease-out ${
+              className={`hero-showreel-bg absolute left-1/2 top-1/2 block h-[180%] w-[320%] -translate-x-1/2 -translate-y-1/2 border-0 sm:h-[170%] sm:w-[250%] md:h-[154%] md:w-[154%] [filter:grayscale(0.35)_saturate(0.88)_contrast(0.98)_brightness(0.92)_blur(8px)] md:[filter:grayscale(0.3)_saturate(0.9)_contrast(0.99)_brightness(0.92)_blur(7px)] will-change-transform transition-opacity duration-700 ease-out ${
                 isVideoReady ? "opacity-100" : "opacity-0"
               }`}
               src={showreelEmbedUrl}
