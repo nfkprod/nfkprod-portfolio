@@ -11,7 +11,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nfkprod-portfolio.vercel.app"),
+  metadataBase: new URL("https://nfkprod.vercel.app"),
   title: {
     default: "NFKPROD - Motion & CGI Designer",
     template: "%s | NFKPROD"
