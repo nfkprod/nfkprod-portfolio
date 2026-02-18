@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#0A1126"/>
+  <rect x="220" y="180" width="1160" height="640" rx="40" fill="#121A3A"/>
+  <circle cx="1170" cy="330" r="230" fill="#B51BFF" fill-opacity="0.42"/>
+  <text x="300" y="320" fill="#EAF0FF" font-size="64" font-family="Arial">PROJECT 02</text>
+</svg>

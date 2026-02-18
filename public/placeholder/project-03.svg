@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#090E1E"/>
+  <path d="M240 760L560 300L860 680L1140 220L1380 760" stroke="#2DE2FF" stroke-opacity="0.65" stroke-width="16"/>
+  <circle cx="860" cy="530" r="290" fill="#FF3CA6" fill-opacity="0.27"/>
+  <text x="240" y="180" fill="#EAF0FF" font-size="68" font-family="Arial">PROJECT 03</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#070A12"/>
+  <circle cx="880" cy="180" r="250" fill="#FF3CA6" fill-opacity="0.32"/>
+  <circle cx="320" cy="510" r="260" fill="#2DE2FF" fill-opacity="0.2"/>
+  <text x="100" y="240" fill="#EAF0FF" font-size="72" font-family="Arial">NFKPROD</text>
+  <text x="100" y="330" fill="#9BA6C7" font-size="34" font-family="Arial">Motion and CGI Portfolio</text>
+</svg>
