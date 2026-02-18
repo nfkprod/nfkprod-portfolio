@@ -16,10 +16,8 @@ export const metadata: Metadata = {
     default: "NFKPROD - Motion & CGI Designer",
     template: "%s | NFKPROD"
   },
-  description: "Премиальный digital-портфель motion/CGI: кейсы, пакеты услуг и бриф-форма.",
   openGraph: {
     title: "NFKPROD - Motion & CGI Designer",
-    description: "Премиальный digital-портфель и витрина услуг.",
     type: "website",
     locale: "ru_RU",
     siteName: "NFKPROD",
@@ -35,7 +33,6 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NFKPROD - Motion & CGI Designer",
-    description: "Премиальный digital-портфель и витрина услуг.",
     images: ["/og-nfk.png"]
   }
 };
