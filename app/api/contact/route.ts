@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 type ContactBriefPayload = {
   name: string;
-  email: string;
+  contact: string;
   company?: string;
   budget?: string;
   timeline?: string;
@@ -24,7 +24,7 @@ function buildTelegramMessage(payload: ContactBriefPayload, origin: string) {
     "New brief from site",
     "",
     `Name: ${asText(payload.name) || "-"}`,
-    `Email: ${asText(payload.email) || "-"}`,
+    `Contact (Email/Telegram): ${asText(payload.contact) || "-"}`,
     `Company/Project: ${asText(payload.company) || "-"}`,
     `Budget: ${asText(payload.budget) || "-"}`,
     `Timeline: ${asText(payload.timeline) || "-"}`,
@@ -51,10 +51,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const rawPayload = (await request.json()) as Partial<ContactBriefPayload>;
+  const rawPayload = (await request.json()) as Partial<ContactBriefPayload> & { email?: unknown; contact?: unknown };
   const payload: ContactBriefPayload = {
     name: asText(rawPayload.name),
-    email: asText(rawPayload.email),
+    contact: asText(rawPayload.contact) || asText(rawPayload.email),
     company: asText(rawPayload.company),
     budget: asText(rawPayload.budget),
     timeline: asText(rawPayload.timeline),
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
     consent: Boolean(rawPayload.consent)
   };
 
-  if (!payload.name || !payload.email || !payload.description || !payload.consent) {
+  if (!payload.name || !payload.contact || !payload.description || !payload.consent) {
     return NextResponse.json({ success: false, message: "Missing required fields." }, { status: 400 });
   }
 

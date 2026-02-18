@@ -7,7 +7,7 @@ const serviceOptions = ["Motion", "CGI", "3D", "VFX", "Explainer", "Social"];
 
 type FormState = {
   name: string;
-  email: string;
+  contact: string;
   company: string;
   budget: string;
   timeline: string;
@@ -19,7 +19,7 @@ type FormState = {
 
 const initialState: FormState = {
   name: "",
-  email: "",
+  contact: "",
   company: "",
   budget: "",
   timeline: "",
@@ -36,7 +36,7 @@ export default function ContactBriefForm() {
   const [loading, setLoading] = useState(false);
 
   const canSubmit = useMemo(() => {
-    return form.name.trim() && form.email.trim() && form.description.trim() && form.consent;
+    return form.name.trim() && form.contact.trim() && form.description.trim() && form.consent;
   }, [form]);
 
   function toggleService(value: string) {
@@ -91,12 +91,13 @@ export default function ContactBriefForm() {
         </label>
 
         <label className="grid gap-2 text-sm">
-          Email *
+          Email / Telegram *
           <input
-            type="email"
-            value={form.email}
-            onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+            type="text"
+            value={form.contact}
+            onChange={(event) => setForm((prev) => ({ ...prev, contact: event.target.value }))}
             className="input"
+            placeholder="email@example.com или @username"
             required
           />
         </label>
