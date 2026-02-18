@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,23 +11,32 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://nfkprod-portfolio.vercel.app"),
   title: {
     default: "NFKPROD - Motion & CGI Designer",
     template: "%s | NFKPROD"
   },
-  description: "Портфолио моушен и CGI-дизайнера: кейсы, пакеты услуг и форма брифа.",
+  description: "Премиальный digital-портфель motion/CGI: кейсы, пакеты услуг и бриф-форма.",
   openGraph: {
     title: "NFKPROD - Motion & CGI Designer",
     description: "Премиальный digital-портфель и витрина услуг.",
-    images: ["/placeholder/og-cover.svg"],
-    type: "website"
+    type: "website",
+    locale: "ru_RU",
+    siteName: "NFKPROD",
+    images: [
+      {
+        url: "/nfk-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "NFKPROD"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "NFKPROD - Motion & CGI Designer",
     description: "Премиальный digital-портфель и витрина услуг.",
-    images: ["/placeholder/og-cover.svg"]
+    images: ["/nfk-logo.png"]
   }
 };
 
