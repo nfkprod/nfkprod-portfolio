@@ -4,6 +4,8 @@ type ContactBriefPayload = {
   name: string;
   contact: string;
   company?: string;
+  budgetFrom?: string;
+  budgetTo?: string;
   budget?: string;
   timeline?: string;
   services?: string[];
@@ -17,6 +19,18 @@ function asText(value: unknown) {
   return value.trim();
 }
 
+function formatBudgetRange(payload: ContactBriefPayload) {
+  const from = asText(payload.budgetFrom);
+  const to = asText(payload.budgetTo);
+  const legacy = asText(payload.budget);
+
+  if (from && to) return `${from} - ${to}`;
+  if (from) return `from ${from}`;
+  if (to) return `to ${to}`;
+  if (legacy) return legacy;
+  return "-";
+}
+
 function buildTelegramMessage(payload: ContactBriefPayload, origin: string) {
   const services = Array.isArray(payload.services) && payload.services.length ? payload.services.join(", ") : "-";
 
@@ -26,7 +40,7 @@ function buildTelegramMessage(payload: ContactBriefPayload, origin: string) {
     `Name: ${asText(payload.name) || "-"}`,
     `Contact (Email/Telegram): ${asText(payload.contact) || "-"}`,
     `Company/Project: ${asText(payload.company) || "-"}`,
-    `Budget: ${asText(payload.budget) || "-"}`,
+    `Budget: ${formatBudgetRange(payload)}`,
     `Timeline: ${asText(payload.timeline) || "-"}`,
     `Services: ${services}`,
     "",
@@ -56,6 +70,8 @@ export async function POST(request: Request) {
     name: asText(rawPayload.name),
     contact: asText(rawPayload.contact) || asText(rawPayload.email),
     company: asText(rawPayload.company),
+    budgetFrom: asText(rawPayload.budgetFrom),
+    budgetTo: asText(rawPayload.budgetTo),
     budget: asText(rawPayload.budget),
     timeline: asText(rawPayload.timeline),
     services: Array.isArray(rawPayload.services) ? rawPayload.services.filter((item): item is string => typeof item === "string") : [],

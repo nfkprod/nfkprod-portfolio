@@ -2,14 +2,14 @@
 
 import { FormEvent, useMemo, useState } from "react";
 
-const budgetOptions = ["до 100 000 ₽", "100 000 - 250 000 ₽", "250 000 - 500 000 ₽", "500 000+ ₽"];
 const serviceOptions = ["Motion", "CGI", "3D", "VFX", "Explainer", "Social"];
 
 type FormState = {
   name: string;
   contact: string;
   company: string;
-  budget: string;
+  budgetFrom: string;
+  budgetTo: string;
   timeline: string;
   services: string[];
   description: string;
@@ -21,7 +21,8 @@ const initialState: FormState = {
   name: "",
   contact: "",
   company: "",
-  budget: "",
+  budgetFrom: "",
+  budgetTo: "",
   timeline: "",
   services: [],
   description: "",
@@ -111,21 +112,25 @@ export default function ContactBriefForm() {
           />
         </label>
 
-        <label className="grid gap-2 text-sm">
-          Бюджет
-          <select
-            value={form.budget}
-            onChange={(event) => setForm((prev) => ({ ...prev, budget: event.target.value }))}
-            className="input"
-          >
-            <option value="">Выберите диапазон</option>
-            {budgetOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </label>
+                <div className="grid gap-2 text-sm">
+          <span>Бюджет</span>
+          <div className="grid grid-cols-2 gap-2">
+            <input
+              type="text"
+              value={form.budgetFrom}
+              onChange={(event) => setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))}
+              className="input"
+              placeholder="От, ₽"
+            />
+            <input
+              type="text"
+              value={form.budgetTo}
+              onChange={(event) => setForm((prev) => ({ ...prev, budgetTo: event.target.value }))}
+              className="input"
+              placeholder="До, ₽"
+            />
+          </div>
+        </div>
       </div>
 
       <label className="mt-4 grid gap-2 text-sm">
