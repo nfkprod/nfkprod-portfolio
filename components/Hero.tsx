@@ -77,7 +77,7 @@ export default function Hero() {
         ) : (
           <>
             <div
-              className={`absolute inset-0 bg-[radial-gradient(80%_60%_at_76%_38%,rgba(118,141,232,0.18),rgba(118,141,232,0)_62%),linear-gradient(140deg,rgba(8,9,12,0.92),rgba(8,9,12,0.72))] transition-opacity duration-700 ease-out ${
+              className={`hero-fallback-gradient absolute inset-0 bg-[radial-gradient(80%_60%_at_76%_38%,rgba(118,141,232,0.18),rgba(118,141,232,0)_62%),linear-gradient(140deg,rgba(8,9,12,0.92),rgba(8,9,12,0.72))] transition-opacity duration-700 ease-out ${
                 isVideoReady ? "opacity-0" : "opacity-100"
               }`}
             />
@@ -100,13 +100,13 @@ export default function Hero() {
       <div className="hero-overlay-base absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(5,8,14,0.72)_0%,rgba(5,8,14,0.48)_52%,rgba(5,8,14,0.3)_100%)]" />
       <div className="hero-overlay-blur absolute inset-0 z-[2] bg-black/[0.03] backdrop-blur-[12px] [mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)] [-webkit-mask-image:linear-gradient(90deg,#000_0%,#000_48%,transparent_82%)]" />
       <motion.div
-        className="absolute inset-0 z-[3] bg-[linear-gradient(116deg,rgba(58,88,156,0.14)_0%,rgba(52,142,178,0.11)_46%,rgba(34,50,92,0.08)_100%)] mix-blend-soft-light"
+        className="hero-overlay-tint absolute inset-0 z-[3] bg-[linear-gradient(116deg,rgba(58,88,156,0.14)_0%,rgba(52,142,178,0.11)_46%,rgba(34,50,92,0.08)_100%)] mix-blend-soft-light"
         style={canParallax ? { x: tintX, y: tintY } : undefined}
       />
-      <div className="absolute inset-0 z-[4] bg-[radial-gradient(140%_120%_at_50%_48%,rgba(0,0,0,0)_54%,rgba(0,0,0,0.42)_100%)]" />
-      <div className="absolute inset-0 z-[5] bg-[linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0)_44%)]" />
-      <div className="absolute inset-0 z-[6] shadow-[inset_0_0_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(0,0,0,0.5)]" />
-      <div className="pointer-events-none absolute inset-0 z-[7] opacity-[0.02] [background-image:radial-gradient(rgba(255,255,255,0.82)_0.55px,transparent_0.55px)] [background-size:3px_3px]" />
+      <div className="hero-overlay-vignette absolute inset-0 z-[4] bg-[radial-gradient(140%_120%_at_50%_48%,rgba(0,0,0,0)_54%,rgba(0,0,0,0.42)_100%)]" />
+      <div className="hero-overlay-highlight absolute inset-0 z-[5] bg-[linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0)_44%)]" />
+      <div className="hero-overlay-shadow absolute inset-0 z-[6] shadow-[inset_0_0_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(0,0,0,0.5)]" />
+      <div className="hero-overlay-noise pointer-events-none absolute inset-0 z-[7] opacity-[0.02] [background-image:radial-gradient(rgba(255,255,255,0.82)_0.55px,transparent_0.55px)] [background-size:3px_3px]" />
       <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,58%)_minmax(0,42%)] lg:items-center">
         <div className="max-w-[64ch]">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">{copy.home.eyebrow}</p>
