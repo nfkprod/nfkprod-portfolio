@@ -14,7 +14,7 @@ const links = [
 ];
 
 const socials = [
-  { href: "https://t.me/nfkFM23", label: "Telegram", icon: Send },
+  { href: "https://t.me/Nfk23", label: "Telegram", icon: Send },
   { href: "https://www.instagram.com/nfkprod?igsh=bGxraWV1ejZ2bmJh&utm_source=qr", label: "Instagram", icon: Instagram },
   { href: "https://dribbble.com/", label: "Dribbble", icon: Dribbble }
 ];

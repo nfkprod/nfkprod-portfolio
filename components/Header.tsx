@@ -10,7 +10,7 @@ const navLinks = [
 const socials = [
   {
     label: "Telegram",
-    href: "https://t.me/nfkFM23",
+    href: "https://t.me/Nfk23",
     icon: (
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
         <path d="M21 4L3 11.2l5.8 2.1L11 19l3-4.1 4.2 3L21 4Z" />
