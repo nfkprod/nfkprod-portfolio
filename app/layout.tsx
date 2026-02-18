@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "NFKPROD",
     images: [
       {
-        url: "/nfk-logo.png",
-        width: 1200,
-        height: 630,
+        url: "/og-nfk.png",
+        width: 1024,
+        height: 1024,
         alt: "NFKPROD"
       }
     ]
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NFKPROD - Motion & CGI Designer",
     description: "Премиальный digital-портфель и витрина услуг.",
-    images: ["/nfk-logo.png"]
+    images: ["/og-nfk.png"]
   }
 };
 
