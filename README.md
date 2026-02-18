@@ -52,3 +52,19 @@ npm run dev
 - `components/FAQAccordion.tsx`
 - `components/FinalCta.tsx`
 - `components/ContactBriefForm.tsx`
+### Telegram integration
+
+Brief form sends data to Telegram Bot API from `app/api/contact/route.ts`.
+
+Required env variables:
+- `TELEGRAM_BOT_TOKEN` - bot token from BotFather
+- `TELEGRAM_CHAT_ID` - target chat id (DM, group, or channel)
+
+Local `.env.local` example:
+
+```bash
+TELEGRAM_BOT_TOKEN=123456:ABCDEF...
+TELEGRAM_CHAT_ID=123456789
+```
+
+On Vercel add the same values in `Project -> Settings -> Environment Variables`.
