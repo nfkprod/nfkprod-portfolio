@@ -11,23 +11,8 @@ const sectionVariants: Variants = {
   show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
 };
 
-const gridContainerVariants: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.03,
-      delayChildren: 0.03
-    }
-  }
-};
-
-const gridItemVariants: Variants = {
-  hidden: { opacity: 0, y: 8, scale: 0.99 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.24, ease: "easeOut" } }
-};
-
 const chipShellClass =
-  "group glass-chip flex h-12 items-center justify-center rounded-xl px-4 transition-all duration-200 border-white/24 text-[var(--text-main)] hover:border-white/40";
+  "group glass-chip flex h-12 items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-[var(--text-main)] transition-all duration-200 hover:border-white/40 [&::before]:opacity-0";
 const chipTextClass =
   "text-center text-[11px] font-semibold uppercase tracking-[0.13em] opacity-95 transition-opacity duration-200 group-hover:opacity-100";
 
@@ -80,7 +65,13 @@ export default function WorkedWithSection() {
       .map((name) => ({ name }));
   }, []);
 
-  const visibleItems = isExpanded ? fullListItems : featuredItems;
+  const expandedItems = useMemo(() => {
+    const featuredSet = new Set(featuredItems.map((item) => item.name.toLocaleLowerCase()));
+    const restItems = fullListItems.filter((item) => !featuredSet.has(item.name.toLocaleLowerCase()));
+    return [...featuredItems, ...restItems];
+  }, [featuredItems, fullListItems]);
+
+  const visibleItems = isExpanded ? expandedItems : featuredItems;
 
   return (
     <section className="mt-12" id="worked-with">
@@ -93,23 +84,17 @@ export default function WorkedWithSection() {
       >
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-soft)]">WORKED WITH</p>
 
-        <motion.ul
-          layout
-          variants={gridContainerVariants}
-          initial="hidden"
-          animate="show"
-          className="mt-6 grid grid-cols-1 gap-3 pr-3 md:grid-cols-2 lg:grid-cols-3"
-        >
+        <ul className="mt-6 grid grid-cols-1 gap-3 pr-3 md:grid-cols-2 lg:grid-cols-3">
           {visibleItems.map((item) => (
-            <motion.li layout key={item.name} variants={gridItemVariants}>
+            <li key={item.name}>
               <Chip item={item} />
-            </motion.li>
+            </li>
           ))}
-          <motion.li layout variants={gridItemVariants} className="md:col-span-2 lg:col-span-3">
+          <li className="md:col-span-2 lg:col-span-3">
             <button
               type="button"
               className={cn(
-                "glass-chip inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] transition-colors duration-200",
+                "glass-chip inline-flex h-12 w-full items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] transition-colors duration-200 [&::before]:opacity-0",
                 "hover:border-white/40",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090a0c]"
               )}
@@ -118,8 +103,8 @@ export default function WorkedWithSection() {
             >
               {isExpanded ? "Hide full list" : "View full list"}
             </button>
-          </motion.li>
-        </motion.ul>
+          </li>
+        </ul>
       </motion.div>
     </section>
   );
