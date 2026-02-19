@@ -6,11 +6,6 @@ import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer
 import { brands, fullList, topArtists, type WorkedWithItem } from "@/data/workedWith";
 import { cn } from "@/lib/cn";
 
-type GroupProps = {
-  title: string;
-  items: WorkedWithItem[];
-};
-
 type OverlayProps = {
   items: string[];
   query: string;
@@ -43,10 +38,10 @@ const gridItemVariants: Variants = {
 };
 
 const chipShellClass =
-  "group glass-chip flex h-12 items-center justify-center rounded-xl px-4 transition-all duration-200 border-white/20 text-[var(--text-muted)] hover:border-white/35 hover:text-[var(--text-main)]";
+  "group glass-chip flex h-12 items-center justify-center rounded-xl px-4 transition-all duration-200 border-white/24 text-[var(--text-main)] hover:border-white/40";
 const overlayChipShellClass = `${chipShellClass} overflow-hidden [&::before]:opacity-0`;
 const chipTextClass =
-  "text-center text-[11px] font-semibold uppercase tracking-[0.13em] opacity-80 transition-opacity duration-200 group-hover:opacity-100";
+  "text-center text-[11px] font-semibold uppercase tracking-[0.13em] opacity-95 transition-opacity duration-200 group-hover:opacity-100";
 
 function Chip({ item }: { item: WorkedWithItem }) {
   return (
@@ -63,21 +58,6 @@ function Chip({ item }: { item: WorkedWithItem }) {
         <span className={chipTextClass}>{item.name}</span>
       )}
     </div>
-  );
-}
-
-function Group({ title, items }: GroupProps) {
-  return (
-    <motion.div variants={gridItemVariants}>
-      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">{title}</h3>
-      <motion.ul variants={gridContainerVariants} className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
-          <motion.li key={item.name} variants={gridItemVariants}>
-            <Chip item={item} />
-          </motion.li>
-        ))}
-      </motion.ul>
-    </motion.div>
   );
 }
 
@@ -111,7 +91,7 @@ function FullListOverlay({
         aria-label="Full worked with list"
       >
       <div className="flex h-full min-h-0 flex-col">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">WORKED WITH</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-main)]">WORKED WITH</p>
         <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center">
           <label htmlFor={searchId} className="sr-only">
             Search full list
@@ -175,6 +155,20 @@ export default function WorkedWithSection() {
   const collapsedRef = useRef<HTMLDivElement>(null);
   const [lockedHeight, setLockedHeight] = useState<number | null>(null);
   const reducedMotion = useReducedMotion();
+
+  const featuredItems = useMemo(() => {
+    const seen = new Set<string>();
+    return [...brands, ...topArtists]
+      .filter((item) => {
+        const key = item.name.toLocaleLowerCase();
+        if (seen.has(key)) {
+          return false;
+        }
+        seen.add(key);
+        return true;
+      })
+      .slice(0, 12);
+  }, []);
 
   const uniqueFullList = useMemo(() => {
     const seen = new Set<string>();
@@ -244,32 +238,35 @@ export default function WorkedWithSection() {
         style={lockedHeight ? { minHeight: `${lockedHeight}px` } : undefined}
       >
         <div ref={collapsedRef} aria-hidden={isExpanded} className={isExpanded ? "hidden" : ""}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">WORKED WITH</p>
-          <motion.div variants={gridContainerVariants} initial="hidden" animate="show" className="mt-6 space-y-6 pr-3">
-            <Group title="Companies" items={brands} />
-            <Group title="Artists/Brands" items={topArtists} />
-          </motion.div>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-main)]">WORKED WITH</p>
 
-          <div className="mt-6 border-t border-white/10 pt-4">
-            <button
-              type="button"
-              className={cn(
-                "glass-chip inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-200",
-                "hover:border-white/35 hover:text-[var(--text-main)]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090a0c]"
-              )}
-              aria-expanded={isExpanded}
-              aria-controls={panelId}
-              onClick={() => {
-                if (collapsedRef.current) {
-                  setLockedHeight(collapsedRef.current.offsetHeight);
-                }
-                setIsExpanded(true);
-              }}
-            >
-              View full list
-            </button>
-          </div>
+          <motion.ul variants={gridContainerVariants} initial="hidden" animate="show" className="mt-6 grid grid-cols-1 gap-3 pr-3 md:grid-cols-2 lg:grid-cols-3">
+            {featuredItems.map((item) => (
+              <motion.li key={item.name} variants={gridItemVariants}>
+                <Chip item={item} />
+              </motion.li>
+            ))}
+            <motion.li variants={gridItemVariants} className="md:col-span-2 lg:col-span-3">
+              <button
+                type="button"
+                className={cn(
+                  "glass-chip inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] transition-colors duration-200",
+                  "hover:border-white/40",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090a0c]"
+                )}
+                aria-expanded={isExpanded}
+                aria-controls={panelId}
+                onClick={() => {
+                  if (collapsedRef.current) {
+                    setLockedHeight(collapsedRef.current.offsetHeight);
+                  }
+                  setIsExpanded(true);
+                }}
+              >
+                View full list
+              </button>
+            </motion.li>
+          </motion.ul>
         </div>
 
         <AnimatePresence initial={false}>
