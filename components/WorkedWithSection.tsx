@@ -112,7 +112,7 @@ function FullListOverlay({
       >
       <div className="flex h-full min-h-0 flex-col">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">WORKED WITH</p>
-        <p className="mt-2 text-sm text-[var(--text-muted)]">Selected clients & artists</p>
+        <p className="mt-2 text-sm text-[var(--text-muted)]">Artists/Brands</p>
 
         <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center">
           <label htmlFor={searchId} className="sr-only">
@@ -247,10 +247,10 @@ export default function WorkedWithSection() {
       >
         <div ref={collapsedRef} aria-hidden={isExpanded} className={isExpanded ? "hidden" : ""}>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">WORKED WITH</p>
-          <p className="mt-2 text-sm text-[var(--text-muted)]">Selected clients & artists</p>
+          <p className="mt-2 text-sm text-[var(--text-muted)]">Artists/Brands</p>
 
           <motion.div variants={gridContainerVariants} initial="hidden" animate="show" className="mt-6 space-y-6 pr-3">
-            <Group title="Brands" items={brands} />
+            <Group title="Companies" items={brands} />
             <Group title="Artists" items={topArtists} />
           </motion.div>
 
