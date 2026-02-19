@@ -5,7 +5,7 @@ export const projects: ProjectItem[] = [
     slug: "aurora-launch-system",
     title: "Институт Развития Интернета",
     summary: "Серия динамичных digital-роликов для привлечения новых участников конкурса ИРИ.",
-    year: "2025",
+    year: "2024",
     tags: ["Motion", "Product", "Social"],
     roles: ["Creative Direction", "Motion Design", "Edit"],
     tools: ["After Effects", "Premiere Pro", "Cinema 4D"],
