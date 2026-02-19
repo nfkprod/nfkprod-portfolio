@@ -118,7 +118,9 @@ export default function Hero() {
           >
             {copy.home.titleTop}
             <br />
-            <span className="bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent">{copy.home.titleMiddle}</span>
+            <span className="bg-[linear-gradient(135deg,#f5f8ff_0%,var(--accent-soft)_56%,var(--accent-main)_100%)] bg-clip-text text-transparent">
+              {copy.home.titleMiddle}
+            </span>
             {copy.home.titleBottom ? (
               <>
                 <br />
@@ -139,14 +141,9 @@ export default function Hero() {
               <Button href="/portfolio" variant="secondary" size="lg" className="border-white/28 bg-white/[0.05]">
                 {copy.home.ctaPrimary}
               </Button>
-              <p className="pl-1 text-xs tracking-[0.02em] text-[var(--text-muted)]">{copy.home.responseNote}</p>
+              <p className="pl-1 text-xs tracking-[0.02em] text-[color:var(--accent-soft)]">{copy.home.responseNote}</p>
             </div>
-            <Button
-              href="/contact"
-              variant="primary"
-              size="lg"
-              className="bg-[linear-gradient(135deg,#f5f8ff_0%,#d9e4ff_52%,#9db5ff_100%)] shadow-[0_0_0_1px_rgba(255,255,255,0.26),0_16px_30px_rgba(10,22,52,0.52)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.34),0_20px_34px_rgba(10,22,52,0.62)]"
-            >
+            <Button href="/contact" variant="primary" size="lg">
               {copy.home.ctaSecondary}
             </Button>
           </div>

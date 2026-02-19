@@ -28,7 +28,7 @@ export default function FinalCta() {
           show: { transition: { staggerChildren: 0.08, delayChildren: 0.03 } }
         }}
       >
-        <motion.p variants={itemVariants} className="text-xs uppercase tracking-[0.24em] text-[var(--text-muted)]">
+        <motion.p variants={itemVariants} className="text-xs uppercase tracking-[0.24em] text-[color:var(--accent-soft)]">
           Next Project
         </motion.p>
         <motion.h2 variants={itemVariants} className="mt-4 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-main)] md:text-5xl">

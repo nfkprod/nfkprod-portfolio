@@ -91,7 +91,7 @@ function FullListOverlay({
         aria-label="Full worked with list"
       >
       <div className="flex h-full min-h-0 flex-col">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-main)]">WORKED WITH</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-soft)]">WORKED WITH</p>
         <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center">
           <label htmlFor={searchId} className="sr-only">
             Search full list
@@ -238,7 +238,7 @@ export default function WorkedWithSection() {
         style={lockedHeight ? { minHeight: `${lockedHeight}px` } : undefined}
       >
         <div ref={collapsedRef} aria-hidden={isExpanded} className={isExpanded ? "hidden" : ""}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-main)]">WORKED WITH</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-soft)]">WORKED WITH</p>
 
           <motion.ul variants={gridContainerVariants} initial="hidden" animate="show" className="mt-6 grid grid-cols-1 gap-3 pr-3 md:grid-cols-2 lg:grid-cols-3">
             {featuredItems.map((item) => (
