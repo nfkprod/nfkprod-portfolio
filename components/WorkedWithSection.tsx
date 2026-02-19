@@ -12,7 +12,7 @@ const sectionVariants: Variants = {
 };
 
 const chipShellClass =
-  "group glass-chip flex h-12 items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-[var(--text-main)] transition-all duration-200 [&::before]:opacity-0";
+  "group flex h-12 items-center justify-center rounded-xl border border-white/20 bg-[#0b0f17] px-4 text-[var(--text-main)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors duration-200";
 const chipTextClass =
   "text-center text-[11px] font-semibold uppercase tracking-[0.13em] opacity-95 transition-opacity duration-200 group-hover:opacity-100";
 
@@ -94,7 +94,7 @@ export default function WorkedWithSection() {
             <button
               type="button"
               className={cn(
-                "glass-chip inline-flex h-12 w-full items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] transition-colors duration-200 [&::before]:opacity-0",
+                "inline-flex h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-[#0b0f17] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors duration-200",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090a0c]"
               )}
               aria-expanded={isExpanded}

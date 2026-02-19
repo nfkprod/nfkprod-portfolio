@@ -114,13 +114,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mt-5 font-display text-[clamp(2.4rem,8vw,5.8rem)] font-extrabold leading-[0.92] tracking-[-0.018em] text-[var(--text-main)]"
+            className="hero-title-balance mt-5 font-display text-[clamp(2.4rem,8vw,5.8rem)] font-extrabold leading-[0.92] tracking-[-0.018em]"
           >
             {copy.home.titleTop}
             <br />
-            <span className="bg-[linear-gradient(135deg,#f5f8ff_0%,var(--accent-soft)_56%,var(--accent-main)_100%)] bg-clip-text text-transparent">
-              {copy.home.titleMiddle}
-            </span>
+            <span>{copy.home.titleMiddle}</span>
             {copy.home.titleBottom ? (
               <>
                 <br />
