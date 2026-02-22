@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 import PricingCompare from "@/components/PricingCompare";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceCard from "@/components/ServiceCard";
-import { serviceAddons, servicePackages } from "@/data/services";
+import { serviceAddonsEn, servicePackagesEn } from "@/data/services.en";
 import { withLocalePath } from "@/lib/i18n";
 
 const sectionReveal = {
@@ -28,14 +28,14 @@ const itemReveal = {
   show: { opacity: 1, y: 0, transition: { duration: 0.42, ease: "easeOut" } }
 };
 
-export default function ServicesPage() {
+export default function ServicesPageEn() {
   return (
     <main className="pt-10">
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={sectionReveal}>
         <SectionHeader
           eyebrow="Services"
-          title="Пакеты услуг и custom production"
-          description="Выбирайте готовый пакет или собирайте индивидуальный scope под дедлайн, платформу и KPI."
+          title="Service packages and custom production"
+          description="Choose a ready-made package or build an individual scope around your deadline, platform, and KPI."
         />
       </motion.div>
 
@@ -46,15 +46,15 @@ export default function ServicesPage() {
         variants={gridReveal}
         className="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-4"
       >
-        {servicePackages.map((item) => (
+        {servicePackagesEn.map((item) => (
           <motion.div key={item.id} variants={itemReveal} className="h-full">
-            <ServiceCard item={item} locale="ru" />
+            <ServiceCard item={item} locale="en" />
           </motion.div>
         ))}
       </motion.div>
 
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
-        <PricingCompare packages={servicePackages} locale="ru" />
+        <PricingCompare packages={servicePackagesEn} locale="en" />
       </motion.div>
 
       <section className="mt-10">
@@ -75,7 +75,7 @@ export default function ServicesPage() {
           variants={gridReveal}
           className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4"
         >
-          {serviceAddons.map((addon) => (
+          {serviceAddonsEn.map((addon) => (
             <motion.article key={addon.id} variants={itemReveal} className="glass-card rounded-xl p-4">
               <h3 className="text-base font-semibold text-[var(--text-main)]">{addon.name}</h3>
               <p className="mt-1 text-sm text-[var(--text-muted)]">{addon.note}</p>
@@ -92,13 +92,13 @@ export default function ServicesPage() {
         variants={sectionReveal}
         className="glass-panel mt-10 rounded-3xl p-6 md:p-8"
       >
-        <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-[var(--text-main)]">Нужен расчет под ваш кейс?</h3>
+        <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-[var(--text-main)]">Need a quote for your case?</h3>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--text-muted)]">
-          Заполните бриф: получите реалистичную оценку сроков и стоимости, а также прозрачный production-план без лишних этапов.
+          Fill in the brief to get a realistic estimate for timing and budget with a transparent production plan.
         </p>
         <div className="mt-6">
-          <Button href={withLocalePath("/contact", "ru")} variant="primary" size="lg">
-            Заполнить бриф
+          <Button href={withLocalePath("/contact", "en")} variant="primary" size="lg">
+            Fill the brief
           </Button>
         </div>
       </motion.div>

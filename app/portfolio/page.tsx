@@ -1,4 +1,4 @@
-﻿import SectionHeader from "@/components/SectionHeader";
+import SectionHeader from "@/components/SectionHeader";
 import ProjectGrid from "@/components/ProjectGrid";
 import { getFeaturedProjects } from "@/data/projects";
 import { projectTags } from "@/data/types";
@@ -13,7 +13,7 @@ export default function PortfolioPage() {
         title="Кейсы по motion, CGI и 3D"
         description="Фильтруйте проекты по тегам и переходите в детальные страницы кейсов."
       />
-      <ProjectGrid projects={featuredProjects} tags={projectTags} groupByYear />
+      <ProjectGrid projects={featuredProjects} tags={projectTags} groupByYear locale="ru" />
     </main>
   );
 }

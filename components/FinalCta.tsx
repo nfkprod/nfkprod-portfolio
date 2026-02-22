@@ -3,11 +3,29 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import Button from "@/components/Button";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
 
-export default function FinalCta() {
+const copyByLocale = {
+  ru: {
+    eyebrow: "Next Project",
+    title: "Готов обсудить ваш motion/CGI проект",
+    description: "Заполните краткий бриф и получите оценку по срокам и бюджету. Первый ответ обычно в течение суток.",
+    cta: "Заполнить бриф"
+  },
+  en: {
+    eyebrow: "Next Project",
+    title: "Ready to discuss your motion/CGI project",
+    description: "Fill out a short brief and get a timeline and budget estimate. First reply usually comes within 24 hours.",
+    cta: "Fill the brief"
+  }
+} as const;
+
+export default function FinalCta({ locale = "ru" }: { locale?: Locale }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
   const prefersReducedMotion = useReducedMotion();
+  const copy = copyByLocale[locale];
 
   const itemVariants: Variants = prefersReducedMotion
     ? {
@@ -29,17 +47,17 @@ export default function FinalCta() {
         }}
       >
         <motion.p variants={itemVariants} className="text-xs uppercase tracking-[0.24em] text-[color:var(--accent-soft)]">
-          Next Project
+          {copy.eyebrow}
         </motion.p>
         <motion.h2 variants={itemVariants} className="mt-4 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-main)] md:text-5xl">
-          Готов обсудить ваш motion/CGI проект
+          {copy.title}
         </motion.h2>
         <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[var(--text-muted)]">
-          Заполните краткий бриф и получите оценку по срокам и бюджету. Первый ответ обычно в течение суток.
+          {copy.description}
         </motion.p>
         <motion.div variants={itemVariants} className="mt-7 flex justify-center">
-          <Button href="/contact" variant="primary" size="lg">
-            Заполнить бриф
+          <Button href={withLocalePath("/contact", locale)} variant="primary" size="lg">
+            {copy.cta}
           </Button>
         </motion.div>
       </motion.div>

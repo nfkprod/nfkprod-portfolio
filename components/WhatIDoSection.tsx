@@ -2,26 +2,54 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import type { Locale } from "@/lib/i18n";
 
-const cards = [
-  {
-    title: "Motion Design",
-    text: "Рекламные ролики, брендовые опенеры, social-креативы и титровые системы."
+const localizedCopy = {
+  ru: {
+    eyebrow: "Что я делаю",
+    title: "Motion, CGI и визуальные системы",
+    description: "Закрываю полный путь: от концепта и аниматика до финального рендера, адаптаций и передачи исходников.",
+    cards: [
+      {
+        title: "Motion Design",
+        text: "Рекламные ролики, брендовые опенеры, social-креативы и титровые системы."
+      },
+      {
+        title: "CGI / 3D",
+        text: "3D product shots, процедурные сцены, lookdev и аккуратный композ в финале."
+      },
+      {
+        title: "UIX / Interface Motion",
+        text: "UIX-анимации, интерфейсные переходы, micro-interactions, HUD/overlay, экраны продукта и прототип-анимации."
+      }
+    ]
   },
-  {
-    title: "CGI / 3D",
-    text: "3D product shots, процедурные сцены, lookdev и аккуратный композ в финале."
-  },
-  {
-    title: "UIX / Interface Motion",
-    text: "UIX-анимации, интерфейсные переходы, micro-interactions, HUD/overlay, экраны продукта, прототип-анимации."
+  en: {
+    eyebrow: "What I do",
+    title: "Motion, CGI, and visual systems",
+    description: "I cover the full pipeline: from concept and animatic to final render, platform adaptations, and source handoff.",
+    cards: [
+      {
+        title: "Motion Design",
+        text: "Ad videos, branded openers, social creatives, and title systems."
+      },
+      {
+        title: "CGI / 3D",
+        text: "3D product shots, procedural scenes, lookdev, and clean final compositing."
+      },
+      {
+        title: "UIX / Interface Motion",
+        text: "UI animations, transitions, micro-interactions, HUD/overlay elements, product screens, and prototype motion."
+      }
+    ]
   }
-];
+} as const;
 
-export default function WhatIDoSection() {
+export default function WhatIDoSection({ locale = "ru" }: { locale?: Locale }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.35 });
   const [hasScrolled, setHasScrolled] = useState(false);
+  const copy = localizedCopy[locale];
 
   useEffect(() => {
     const onScroll = () => {
@@ -46,7 +74,7 @@ export default function WhatIDoSection() {
         transition={{ duration: 0.42, ease: "easeOut" }}
         className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]/90"
       >
-        Что я делаю
+        {copy.eyebrow}
       </motion.p>
 
       <motion.h2
@@ -55,7 +83,7 @@ export default function WhatIDoSection() {
         transition={{ duration: 0.48, delay: 0.1, ease: "easeOut" }}
         className="mt-3 max-w-3xl font-display text-3xl font-extrabold leading-[1.02] tracking-[-0.02em] text-[var(--text-main)] md:text-5xl"
       >
-        Motion, CGI и визуальные системы
+        {copy.title}
       </motion.h2>
 
       <motion.p
@@ -64,7 +92,7 @@ export default function WhatIDoSection() {
         transition={{ duration: 0.48, delay: 0.18, ease: "easeOut" }}
         className="mt-4 max-w-3xl text-base leading-7 text-[var(--text-muted)]"
       >
-        Закрываю полный путь: от концепта и аниматика до финального рендера, адаптаций и передачи исходников.
+        {copy.description}
       </motion.p>
 
       <motion.div
@@ -81,7 +109,7 @@ export default function WhatIDoSection() {
           }
         }}
       >
-        {cards.map((card) => (
+        {copy.cards.map((card) => (
           <motion.article
             key={card.title}
             className="glass-card rounded-2xl p-5"

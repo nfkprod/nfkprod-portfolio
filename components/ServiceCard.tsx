@@ -1,6 +1,14 @@
-﻿import type { ServicePackage } from "@/data/types";
+import type { ServicePackage } from "@/data/types";
+import type { Locale } from "@/lib/i18n";
 
-export default function ServiceCard({ item }: { item: ServicePackage }) {
+type ServiceCardProps = {
+  item: ServicePackage;
+  locale?: Locale;
+};
+
+export default function ServiceCard({ item, locale = "ru" }: ServiceCardProps) {
+  const labels = locale === "en" ? { revisions: "Revisions", sourceFiles: "Source files" } : { revisions: "Правки", sourceFiles: "Исходники" };
+
   return (
     <article
       className={`glass-card grid h-full grid-rows-[auto_auto_7.5rem_auto_1fr_auto] rounded-2xl p-6 ${
@@ -21,8 +29,12 @@ export default function ServiceCard({ item }: { item: ServicePackage }) {
       </ul>
 
       <div className="mt-4 grid gap-2 text-xs text-[var(--text-muted)]">
-        <p>Правки: {item.revisions}</p>
-        <p>Исходники: {item.sourceFiles}</p>
+        <p>
+          {labels.revisions}: {item.revisions}
+        </p>
+        <p>
+          {labels.sourceFiles}: {item.sourceFiles}
+        </p>
       </div>
     </article>
   );

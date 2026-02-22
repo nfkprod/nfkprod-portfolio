@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import type { Locale } from "@/lib/i18n";
 
 const serviceOptions = ["Motion", "CGI", "3D", "VFX", "Explainer", "Social"];
 
@@ -30,11 +31,57 @@ const initialState: FormState = {
   consent: false
 };
 
-export default function ContactBriefForm() {
+const copyByLocale = {
+  ru: {
+    requiredError: "Заполните обязательные поля и подтвердите согласие.",
+    sendError: "Ошибка отправки",
+    success: "Бриф отправлен. Скоро вернусь с оценкой.",
+    unknownError: "Не удалось отправить форму",
+    name: "Имя *",
+    contact: "Email / Telegram *",
+    company: "Компания/проект",
+    budget: "Бюджет",
+    budgetFrom: "От, ₽",
+    budgetTo: "До, ₽",
+    timeline: "Сроки",
+    timelinePlaceholder: "Например: до 28 марта",
+    serviceType: "Тип услуги",
+    description: "Описание задачи *",
+    references: "Ссылки на референсы",
+    referencesPlaceholder: "https://...",
+    consent: "Согласен(на) на обработку данных для обратной связи.",
+    sending: "Отправка...",
+    submit: "Отправить бриф"
+  },
+  en: {
+    requiredError: "Please complete required fields and confirm consent.",
+    sendError: "Submit error",
+    success: "Brief sent. I will get back with an estimate soon.",
+    unknownError: "Could not send the form",
+    name: "Name *",
+    contact: "Email / Telegram *",
+    company: "Company / project",
+    budget: "Budget",
+    budgetFrom: "From, USD",
+    budgetTo: "To, USD",
+    timeline: "Timeline",
+    timelinePlaceholder: "For example: by March 28",
+    serviceType: "Service type",
+    description: "Task description *",
+    references: "References",
+    referencesPlaceholder: "https://...",
+    consent: "I agree to data processing for feedback.",
+    sending: "Sending...",
+    submit: "Send brief"
+  }
+} as const;
+
+export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale }) {
   const [form, setForm] = useState<FormState>(initialState);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const copy = copyByLocale[locale];
 
   const canSubmit = useMemo(() => {
     return form.name.trim() && form.contact.trim() && form.description.trim() && form.consent;
@@ -53,7 +100,7 @@ export default function ContactBriefForm() {
     setMessage("");
 
     if (!canSubmit) {
-      setError("Заполните обязательные поля и подтвердите согласие.");
+      setError(copy.requiredError);
       return;
     }
 
@@ -66,13 +113,13 @@ export default function ContactBriefForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Ошибка отправки");
+        throw new Error(copy.sendError);
       }
 
-      setMessage("Бриф отправлен. Скоро вернусь с оценкой.");
+      setMessage(copy.success);
       setForm(initialState);
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : "Не удалось отправить форму");
+      setError(submitError instanceof Error ? submitError.message : copy.unknownError);
     } finally {
       setLoading(false);
     }
@@ -82,7 +129,7 @@ export default function ContactBriefForm() {
     <form onSubmit={handleSubmit} className="glass-panel rounded-3xl p-6 md:p-8" noValidate>
       <div className="grid gap-4 md:grid-cols-2">
         <label className="grid gap-2 text-sm">
-          Имя *
+          {copy.name}
           <input
             value={form.name}
             onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
@@ -92,19 +139,19 @@ export default function ContactBriefForm() {
         </label>
 
         <label className="grid gap-2 text-sm">
-          Email / Telegram *
+          {copy.contact}
           <input
             type="text"
             value={form.contact}
             onChange={(event) => setForm((prev) => ({ ...prev, contact: event.target.value }))}
             className="input"
-            placeholder="email@example.com или @username"
+            placeholder="email@example.com or @username"
             required
           />
         </label>
 
         <label className="grid gap-2 text-sm">
-          Компания/проект
+          {copy.company}
           <input
             value={form.company}
             onChange={(event) => setForm((prev) => ({ ...prev, company: event.target.value }))}
@@ -112,39 +159,39 @@ export default function ContactBriefForm() {
           />
         </label>
 
-                <div className="grid gap-2 text-sm">
-          <span>Бюджет</span>
+        <div className="grid gap-2 text-sm">
+          <span>{copy.budget}</span>
           <div className="grid grid-cols-2 gap-2">
             <input
               type="text"
               value={form.budgetFrom}
               onChange={(event) => setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))}
               className="input"
-              placeholder="От, ₽"
+              placeholder={copy.budgetFrom}
             />
             <input
               type="text"
               value={form.budgetTo}
               onChange={(event) => setForm((prev) => ({ ...prev, budgetTo: event.target.value }))}
               className="input"
-              placeholder="До, ₽"
+              placeholder={copy.budgetTo}
             />
           </div>
         </div>
       </div>
 
       <label className="mt-4 grid gap-2 text-sm">
-        Сроки
+        {copy.timeline}
         <input
           value={form.timeline}
           onChange={(event) => setForm((prev) => ({ ...prev, timeline: event.target.value }))}
           className="input"
-          placeholder="Например: до 28 марта"
+          placeholder={copy.timelinePlaceholder}
         />
       </label>
 
       <fieldset className="mt-4">
-        <legend className="text-sm">Тип услуги</legend>
+        <legend className="text-sm">{copy.serviceType}</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {serviceOptions.map((option) => (
             <button
@@ -164,7 +211,7 @@ export default function ContactBriefForm() {
       </fieldset>
 
       <label className="mt-4 grid gap-2 text-sm">
-        Описание задачи *
+        {copy.description}
         <textarea
           value={form.description}
           onChange={(event) => setForm((prev) => ({ ...prev, description: event.target.value }))}
@@ -174,12 +221,12 @@ export default function ContactBriefForm() {
       </label>
 
       <label className="mt-4 grid gap-2 text-sm">
-        Ссылки на референсы
+        {copy.references}
         <input
           value={form.references}
           onChange={(event) => setForm((prev) => ({ ...prev, references: event.target.value }))}
           className="input"
-          placeholder="https://..."
+          placeholder={copy.referencesPlaceholder}
         />
       </label>
 
@@ -191,7 +238,7 @@ export default function ContactBriefForm() {
           className="mt-1"
           required
         />
-        <span>Согласен(на) на обработку данных для обратной связи.</span>
+        <span>{copy.consent}</span>
       </label>
 
       {error ? <p className="mt-3 text-sm text-rose-300">{error}</p> : null}
@@ -202,7 +249,7 @@ export default function ContactBriefForm() {
         disabled={loading}
         className="mt-6 rounded-xl border border-white/35 bg-[linear-gradient(135deg,#f5f5f7_0%,#d9dbe0_52%,#a8adb7_100%)] px-6 py-3 text-sm font-semibold text-[#131419] transition duration-200 hover:scale-[0.97] disabled:opacity-60"
       >
-        {loading ? "Отправка..." : "Отправить бриф"}
+        {loading ? copy.sending : copy.submit}
       </button>
     </form>
   );

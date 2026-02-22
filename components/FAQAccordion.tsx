@@ -2,30 +2,52 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
+import type { Locale } from "@/lib/i18n";
 
-const faq = [
-  {
-    question: "Можно ли работать без полного ТЗ?",
-    answer: "Да. Достаточно целей, дедлайна и референсов. Помогу сформировать структуру брифа и production-план."
-  },
-  {
-    question: "Что если нужны срочные сроки?",
-    answer: "Есть rush-режим. В этом случае фиксируем приоритеты и резервируем слот с надбавкой за ускорение."
-  },
-  {
-    question: "Вы отдаете исходники?",
-    answer: "Да, в зависимости от выбранного пакета. Формат и состав исходников прописываются заранее."
-  },
-  {
-    question: "Есть ли абонентское сопровождение?",
-    answer: "Да, можно собрать monthly-модель под регулярные релизы и постоянный контент-пайплайн."
-  }
-];
+const faqByLocale = {
+  ru: [
+    {
+      question: "Можно ли работать без полного ТЗ?",
+      answer: "Да. Достаточно целей, дедлайна и референсов. Помогу собрать структуру брифа и production-план."
+    },
+    {
+      question: "Что если нужны срочные сроки?",
+      answer: "Есть rush-режим. Фиксируем приоритеты и резервируем слот с надбавкой за ускорение."
+    },
+    {
+      question: "Вы отдаете исходники?",
+      answer: "Да, в зависимости от пакета. Формат и состав исходников согласуются заранее."
+    },
+    {
+      question: "Есть ли абонентское сопровождение?",
+      answer: "Да, можно собрать monthly-модель под регулярные релизы и постоянный контент-пайплайн."
+    }
+  ],
+  en: [
+    {
+      question: "Can we work without a full technical brief?",
+      answer: "Yes. Goals, deadline, and references are enough to start. I can help structure the brief and production plan."
+    },
+    {
+      question: "What if we need an urgent timeline?",
+      answer: "Rush mode is available. We fix priorities and reserve a slot with an acceleration fee."
+    },
+    {
+      question: "Do you provide source files?",
+      answer: "Yes, depending on the selected package. Source file format and scope are agreed in advance."
+    },
+    {
+      question: "Do you offer monthly support?",
+      answer: "Yes, we can set up a monthly model for recurring releases and continuous content production."
+    }
+  ]
+} as const;
 
-export default function FAQAccordion() {
+export default function FAQAccordion({ locale = "ru" }: { locale?: Locale }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
+  const faq = faqByLocale[locale];
 
   const cardVariants: Variants = prefersReducedMotion
     ? {

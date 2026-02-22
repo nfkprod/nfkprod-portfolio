@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { brands, fullList, topArtists, type WorkedWithItem } from "@/data/workedWith";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/lib/i18n";
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 14, filter: "blur(4px)" },
@@ -34,8 +35,12 @@ function Chip({ item }: { item: WorkedWithItem }) {
   );
 }
 
-export default function WorkedWithSection() {
+export default function WorkedWithSection({ locale = "ru" }: { locale?: Locale }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const labels =
+    locale === "en"
+      ? { show: "View full list", hide: "Hide full list" }
+      : { show: "Показать весь список", hide: "Скрыть список" };
 
   const featuredItems = useMemo(() => {
     const seen = new Set<string>();
@@ -100,7 +105,7 @@ export default function WorkedWithSection() {
               aria-expanded={isExpanded}
               onClick={() => setIsExpanded((prev) => !prev)}
             >
-              {isExpanded ? "Hide full list" : "View full list"}
+              {isExpanded ? labels.hide : labels.show}
             </button>
           </li>
         </ul>

@@ -3,9 +3,12 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
-import { copy } from "@/data/copy";
+import { getCopy } from "@/data/copy";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
 
-export default function Hero() {
+export default function Hero({ locale = "ru" }: { locale?: Locale }) {
+  const copy = getCopy(locale);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const [canParallax, setCanParallax] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -136,12 +139,12 @@ export default function Hero() {
           </motion.p>
           <div className="mt-9 flex flex-wrap items-start gap-3">
             <div className="flex flex-col items-start gap-2">
-              <Button href="/portfolio" variant="secondary" size="lg" className="border-white/28 bg-white/[0.05]">
+              <Button href={withLocalePath("/portfolio", locale)} variant="secondary" size="lg" className="border-white/28 bg-white/[0.05]">
                 {copy.home.ctaPrimary}
               </Button>
               <p className="pl-1 text-xs tracking-[0.02em] text-[color:var(--accent-soft)]">{copy.home.responseNote}</p>
             </div>
-            <Button href="/contact" variant="primary" size="lg">
+            <Button href={withLocalePath("/contact", locale)} variant="primary" size="lg">
               {copy.home.ctaSecondary}
             </Button>
           </div>

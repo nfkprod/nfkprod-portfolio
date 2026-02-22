@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProjectItem } from "@/data/types";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
 
-export default function ProjectCard({ project }: { project: ProjectItem }) {
+export default function ProjectCard({ project, locale = "ru" }: { project: ProjectItem; locale?: Locale }) {
   return (
     <article className="glass-card group h-full overflow-hidden rounded-2xl">
-      <Link href={`/portfolio/${project.slug}`} className="relative flex h-full flex-col focus-visible:outline-none">
+      <Link href={withLocalePath(`/portfolio/${project.slug}`, locale)} className="relative flex h-full flex-col focus-visible:outline-none">
         <span
           aria-hidden
           className="pointer-events-none absolute inset-y-[-20%] left-[-34%] z-20 w-[30%] rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.13)_52%,rgba(255,255,255,0)_100%)] opacity-0 blur-[4px] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[400%] group-hover:opacity-70"

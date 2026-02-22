@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ProjectCaseDetails from "@/components/ProjectCaseDetails";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeader from "@/components/SectionHeader";
-import { getProjectBySlug, getRelatedProjects, projects } from "@/data/projects";
+import { getProjectBySlugEn, getRelatedProjectsEn, projectsEn } from "@/data/projects.en";
 import type { ProjectMedia } from "@/data/types";
 import { withLocalePath } from "@/lib/i18n";
 
@@ -90,17 +90,17 @@ function getMediaFrameClass(media: ProjectMedia, area: "hero" | "gallery") {
 }
 
 export function generateStaticParams() {
-  return projects.map((item) => ({ slug: item.slug }));
+  return projectsEn.map((item) => ({ slug: item.slug }));
 }
 
-export default function ProjectCasePage({ params }: { params: { slug: string } }) {
-  const project = getProjectBySlug(params.slug);
+export default function ProjectCasePageEn({ params }: { params: { slug: string } }) {
+  const project = getProjectBySlugEn(params.slug);
 
   if (!project) {
     notFound();
   }
 
-  const related = getRelatedProjects(project.related).slice(0, 3);
+  const related = getRelatedProjectsEn(project.related).slice(0, 3);
 
   return (
     <main className="pt-10">
@@ -116,7 +116,7 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
           result={project.result}
           metrics={project.metrics}
           showContent={false}
-          locale="ru"
+          locale="en"
         />
 
         <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
@@ -162,13 +162,13 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
           result={project.result}
           metrics={project.metrics}
           showMeta={false}
-          locale="ru"
+          locale="en"
         />
       </div>
 
       {project.gallery.length ? (
         <section className="mt-10">
-          <SectionHeader eyebrow="Gallery" title="Материалы проекта" />
+          <SectionHeader eyebrow="Gallery" title="Project assets" />
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {project.gallery.map((media, index) => (
               <figure key={`${media.src}-${index}`} className="glass-card overflow-hidden rounded-2xl">
@@ -203,18 +203,18 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
 
       {related.length ? (
         <section className="mt-10">
-          <SectionHeader eyebrow="Related" title="Похожие работы" />
+          <SectionHeader eyebrow="Related" title="Related work" />
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {related.map((item) => (
-              <ProjectCard key={item.slug} project={item} locale="ru" />
+              <ProjectCard key={item.slug} project={item} locale="en" />
             ))}
           </div>
         </section>
       ) : null}
 
       <div className="mt-10">
-        <Link href={withLocalePath("/portfolio", "ru")} className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-[var(--text-main)] hover:bg-white/10">
-          Вернуться к портфолио
+        <Link href={withLocalePath("/portfolio", "en")} className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-[var(--text-main)] hover:bg-white/10">
+          Back to portfolio
         </Link>
       </div>
     </main>

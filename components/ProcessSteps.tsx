@@ -2,30 +2,52 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
+import type { Locale } from "@/lib/i18n";
 
-const steps = [
-  {
-    title: "Бриф",
-    text: "Созваниваемся или заполняем форму: цель, формат, дедлайн, бюджет, референсы."
-  },
-  {
-    title: "Концепт",
-    text: "Собираю направление: сториборд, ритм, визуальный язык и production-план."
-  },
-  {
-    title: "Производство",
-    text: "Анимация, CGI/VFX, саунд-пасс и промежуточные превью по согласованному этапу."
-  },
-  {
-    title: "Доставка",
-    text: "Финальные версии, адаптации под площадки и передача исходников по пакету."
-  }
-];
+const stepsByLocale = {
+  ru: [
+    {
+      title: "Бриф",
+      text: "Созвон или форма: цель, формат, дедлайн, бюджет, референсы."
+    },
+    {
+      title: "Концепт",
+      text: "Собираю направление: сториборд, ритм, визуальный язык и production-план."
+    },
+    {
+      title: "Производство",
+      text: "Анимация, CGI/VFX, саунд-пасс и промежуточные превью по этапам."
+    },
+    {
+      title: "Доставка",
+      text: "Финальные версии, адаптации под площадки и передача исходников по пакету."
+    }
+  ],
+  en: [
+    {
+      title: "Brief",
+      text: "Call or form: goal, format, deadline, budget, references."
+    },
+    {
+      title: "Concept",
+      text: "I prepare direction: storyboard, rhythm, visual language, and production plan."
+    },
+    {
+      title: "Production",
+      text: "Animation, CGI/VFX, sound pass, and intermediate previews by stage."
+    },
+    {
+      title: "Delivery",
+      text: "Final versions, platform adaptations, and source handoff based on package."
+    }
+  ]
+} as const;
 
-export default function ProcessSteps() {
+export default function ProcessSteps({ locale = "ru" }: { locale?: Locale }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.25 });
   const prefersReducedMotion = useReducedMotion();
+  const steps = stepsByLocale[locale];
 
   const cardVariants: Variants = prefersReducedMotion
     ? {

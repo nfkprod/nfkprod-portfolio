@@ -1,16 +1,18 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import TagFilter from "@/components/TagFilter";
 import type { ProjectItem } from "@/data/types";
+import type { Locale } from "@/lib/i18n";
 
 type ProjectGridProps = {
   projects: ProjectItem[];
   tags: readonly string[];
   initialPage?: number;
   groupByYear?: boolean;
+  locale?: Locale;
 };
 
 const PAGE_SIZE = 6;
@@ -41,17 +43,20 @@ function toYearNumber(year: string) {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
-export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYear = false }: ProjectGridProps) {
-  const [activeTag, setActiveTag] = useState<string>("All");
+export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYear = false, locale = "ru" }: ProjectGridProps) {
+  const allTag = locale === "en" ? "All" : "Все";
+  const [activeTag, setActiveTag] = useState<string>(allTag);
   const [currentPage, setCurrentPage] = useState(initialPage);
+  const moreLabel = locale === "en" ? "Show more" : "Показать еще";
+  const collapseLabel = locale === "en" ? "Collapse" : "Свернуть";
 
   const filtered = useMemo(() => {
-    if (activeTag === "All") {
+    if (activeTag === allTag) {
       return projects;
     }
 
     return projects.filter((project) => project.tags.includes(activeTag as never));
-  }, [projects, activeTag]);
+  }, [projects, activeTag, allTag]);
 
   const ordered = useMemo(() => {
     const list = [...filtered];
@@ -78,6 +83,10 @@ export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYe
     }
   }, [currentPage, totalPages]);
 
+  useEffect(() => {
+    setActiveTag(allTag);
+  }, [allTag]);
+
   const visible = useMemo(() => {
     return ordered.slice(0, currentPage * effectivePageSize);
   }, [ordered, currentPage, effectivePageSize]);
@@ -98,7 +107,7 @@ export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYe
 
   return (
     <div>
-      <TagFilter tags={["All", ...tags]} active={activeTag} onChange={setActiveTag} />
+      <TagFilter tags={[allTag, ...tags]} active={activeTag} onChange={setActiveTag} />
       <motion.div
         key={`${activeTag}-${currentPage}-${groupByYear ? "year" : "flat"}`}
         layout
@@ -114,7 +123,7 @@ export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYe
                 <div className="mt-3 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                   {items.map((project) => (
                     <motion.div key={project.slug} layout variants={cardVariants} className="h-full">
-                      <ProjectCard project={project} />
+                      <ProjectCard project={project} locale={locale} />
                     </motion.div>
                   ))}
                 </div>
@@ -122,7 +131,7 @@ export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYe
             ))
           : visible.map((project) => (
               <motion.div key={project.slug} layout variants={cardVariants} className="h-full">
-                <ProjectCard project={project} />
+                <ProjectCard project={project} locale={locale} />
               </motion.div>
             ))}
       </motion.div>
@@ -140,11 +149,10 @@ export default function ProjectGrid({ projects, tags, initialPage = 1, groupByYe
             }}
             className="rounded-full border border-white/20 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.12em] text-[var(--text-main)] transition hover:bg-white/10"
           >
-            {currentPage < totalPages ? "Показать еще" : "Свернуть"}
+            {currentPage < totalPages ? moreLabel : collapseLabel}
           </button>
         </div>
       ) : null}
     </div>
   );
 }
-

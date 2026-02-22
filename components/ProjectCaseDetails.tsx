@@ -3,6 +3,7 @@
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { useRef } from "react";
 import type { ProjectMetric } from "@/data/types";
+import type { Locale } from "@/lib/i18n";
 
 type ProjectCaseDetailsProps = {
   roles: string[];
@@ -14,7 +15,27 @@ type ProjectCaseDetailsProps = {
   metrics: ProjectMetric[];
   showMeta?: boolean;
   showContent?: boolean;
+  locale?: Locale;
 };
+
+const copyByLocale = {
+  ru: {
+    roles: "Roles",
+    tools: "Tools",
+    tags: "Tags",
+    challenge: "Задача",
+    solution: "Решение",
+    result: "Результат"
+  },
+  en: {
+    roles: "Roles",
+    tools: "Tools",
+    tags: "Tags",
+    challenge: "Challenge",
+    solution: "Solution",
+    result: "Result"
+  }
+} as const;
 
 export default function ProjectCaseDetails({
   roles,
@@ -25,13 +46,15 @@ export default function ProjectCaseDetails({
   result,
   metrics,
   showMeta = true,
-  showContent = true
+  showContent = true,
+  locale = "ru"
 }: ProjectCaseDetailsProps) {
   const metaRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
   const metaInView = useInView(metaRef, { once: true, amount: 0.35 });
   const contentInView = useInView(contentRef, { once: true, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
+  const copy = copyByLocale[locale];
 
   const cardVariants: Variants = prefersReducedMotion
     ? {
@@ -63,17 +86,17 @@ export default function ProjectCaseDetails({
           }}
         >
           <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">Roles</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.roles}</p>
             <p className="mt-2 text-sm text-[var(--text-main)]">{roles.join(", ")}</p>
           </motion.article>
 
           <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">Tools</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.tools}</p>
             <p className="mt-2 whitespace-pre-line text-sm text-[var(--text-main)]">{toolsText}</p>
           </motion.article>
 
           <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">Tags</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.tags}</p>
             <motion.div
               className="mt-2 flex flex-wrap gap-2"
               variants={{
@@ -107,17 +130,17 @@ export default function ProjectCaseDetails({
           }}
         >
           <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">Задача</h2>
+            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.challenge}</h2>
             <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[var(--text-muted)]">{challenge}</p>
           </motion.article>
 
           <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">Решение</h2>
+            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.solution}</h2>
             <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[var(--text-muted)]">{solution}</p>
           </motion.article>
 
           <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">Результат</h2>
+            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.result}</h2>
             <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{result}</p>
             <motion.div
               className="mt-4 grid gap-2"

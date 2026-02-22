@@ -15,9 +15,9 @@ export default function HomePage() {
 
   return (
     <main>
-      <Hero />
-      <WorkedWithSection />
-      <WhatIDoSection />
+      <Hero locale="ru" />
+      <WorkedWithSection locale="ru" />
+      <WhatIDoSection locale="ru" />
 
       <section className="mt-16" id="featured-projects">
         <SectionHeader
@@ -25,22 +25,22 @@ export default function HomePage() {
           title="Избранные работы"
           description="Ниже превью проектов. Внутри кейсов: задача, подход, результат, галерея и стек инструментов."
         />
-        <ProjectGrid projects={featuredProjects} tags={projectTags} />
+        <ProjectGrid projects={featuredProjects} tags={projectTags} locale="ru" />
       </section>
 
-      <ServicesPreview />
+      <ServicesPreview locale="ru" />
 
       <section className="mt-16" id="process">
         <SectionHeader eyebrow="Процесс" title="Понятный production в 4 шага" />
-        <ProcessSteps />
+        <ProcessSteps locale="ru" />
       </section>
 
       <section className="mt-16" id="faq">
         <SectionHeader eyebrow="FAQ" title="Частые вопросы" />
-        <FAQAccordion />
+        <FAQAccordion locale="ru" />
       </section>
 
-      <FinalCta />
+      <FinalCta locale="ru" />
     </main>
   );
 }
