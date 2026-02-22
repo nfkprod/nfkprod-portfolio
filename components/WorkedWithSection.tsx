@@ -7,6 +7,25 @@ import { brands, fullList, topArtists, type WorkedWithItem } from "@/data/worked
 import { cn } from "@/lib/cn";
 import type { Locale } from "@/lib/i18n";
 
+const nameMapEn: Record<string, string> = {
+  "Ваня Дмитриенко": "Vanya Dmitrienko",
+  "Григорий Лепс": "Grigory Leps",
+  "Три дня дождя": "Three days of rain",
+  "Пошлая Молли": "Naughty Molly",
+  "ИРИ": "IRI",
+  "Молодой Платон": "Young Platon",
+  "Платина": "PLATINA",
+  "Кишлак": "KISHLAK",
+  "Егор Крид": "Egor Kreed",
+  "ЕГОР КРИД": "Egor Kreed",
+  "Лали": "LALI"
+};
+
+function localizeName(name: string, locale: Locale) {
+  if (locale !== "en") return name;
+  return nameMapEn[name] ?? name;
+}
+
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 14, filter: "blur(4px)" },
   show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
@@ -45,6 +64,7 @@ export default function WorkedWithSection({ locale = "ru" }: { locale?: Locale }
   const featuredItems = useMemo(() => {
     const seen = new Set<string>();
     return [...brands, ...topArtists]
+      .map((item) => ({ ...item, name: localizeName(item.name, locale) }))
       .filter((item) => {
         const key = item.name.toLocaleLowerCase();
         if (seen.has(key)) {
@@ -54,11 +74,12 @@ export default function WorkedWithSection({ locale = "ru" }: { locale?: Locale }
         return true;
       })
       .slice(0, 12);
-  }, []);
+  }, [locale]);
 
   const fullListItems = useMemo<WorkedWithItem[]>(() => {
     const seen = new Set<string>();
     return fullList
+      .map((name) => localizeName(name, locale))
       .filter((item) => {
         const key = item.toLocaleLowerCase();
         if (seen.has(key)) {
@@ -68,7 +89,7 @@ export default function WorkedWithSection({ locale = "ru" }: { locale?: Locale }
         return true;
       })
       .map((name) => ({ name }));
-  }, []);
+  }, [locale]);
 
   const expandedItems = useMemo(() => {
     const featuredSet = new Set(featuredItems.map((item) => item.name.toLocaleLowerCase()));
