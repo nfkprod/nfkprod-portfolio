@@ -5,6 +5,10 @@ import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
 
 export default function ProjectCard({ project, locale = "ru" }: { project: ProjectItem; locale?: Locale }) {
+  const mediaFrame = project.heroMedia.frame ?? "landscape";
+  const mediaAspectClass =
+    mediaFrame === "square" ? "aspect-square" : mediaFrame === "portrait" ? "aspect-[4/5]" : mediaFrame === "cinema" ? "aspect-[21/9]" : "aspect-[16/10]";
+
   return (
     <article className="glass-card group h-full overflow-hidden rounded-2xl">
       <Link href={withLocalePath(`/portfolio/${project.slug}`, locale)} className="relative flex h-full flex-col focus-visible:outline-none">
@@ -12,12 +16,12 @@ export default function ProjectCard({ project, locale = "ru" }: { project: Proje
           aria-hidden
           className="pointer-events-none absolute inset-y-[-20%] left-[-34%] z-20 w-[30%] rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.13)_52%,rgba(255,255,255,0)_100%)] opacity-0 blur-[4px] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[400%] group-hover:opacity-70"
         />
-        <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10">
+        <div className={`relative ${mediaAspectClass} overflow-hidden border-b border-white/10`}>
           <Image
             src={project.heroMedia.poster ?? project.heroMedia.src}
             alt={project.heroMedia.alt}
             fill
-            className="object-cover scale-[1.01] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             sizes="(max-width: 1024px) 100vw, 33vw"
           />
         </div>
