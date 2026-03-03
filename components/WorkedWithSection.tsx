@@ -12,6 +12,8 @@ const nameMapEn: Record<string, string> = {
   "Григорий Лепс": "Grigory Leps",
   "Три дня дождя": "Three days of rain",
   "Пошлая Молли": "Naughty Molly",
+  "Динара Гараева (WHYNOEN)": "Dinara Garaeva (WHYNOEN)",
+  "Королевская семья Дубая": "Dubai Royal Family",
   "ИРИ": "IRI",
   "Молодой Платон": "Young Platon",
   "Платина": "PLATINA",

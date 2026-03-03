@@ -170,6 +170,43 @@ export const projects: ProjectItem[] = [
     related: ["pulse-ui-promo", "helio-product-loop"]
   },
   {
+    slug: "seville-artik-asti-fashion-cgi",
+    title: "Sasha Saharnaya x NFK | Seville (Artik & Asti)",
+    summary:
+      "Серия из 7 концептуальных имиджевых кадров для Seville (Artik & Asti): сложная интеграция CGI-цветов в fashion-съемку с кинематографичной эстетикой.",
+    year: "2024",
+    tags: ["CGI", "3D", "VFX", "Social"],
+    roles: ["CGI Artist", "Compositing", "Lookdev", "Post-Production"],
+    tools: ["After Effects", "Blender", "Cinema 4D", "Photoshop"],
+    heroMedia: {
+      type: "image",
+      src: "/seville/seville-cover.jpg",
+      frame: "square",
+      alt: "ARTIK & ASTI - Быть Счастливой - обложка релиза"
+    },
+    gallery: [
+      { type: "image", src: "/seville/seville-shot-01.jpg", frame: "portrait", alt: "Seville concept frame 01" },
+      { type: "image", src: "/seville/seville-shot-02.jpg", frame: "portrait", alt: "Seville concept frame 02" },
+      { type: "image", src: "/seville/seville-shot-03.jpg", frame: "portrait", alt: "Seville concept frame 03" },
+      { type: "image", src: "/seville/seville-shot-04.jpg", frame: "portrait", alt: "Seville concept frame 04" },
+      { type: "image", src: "/seville/seville-shot-05.jpg", frame: "portrait", alt: "Seville concept frame 05" },
+      { type: "image", src: "/seville/seville-shot-06.jpg", frame: "portrait", alt: "Seville concept frame 06" },
+      { type: "image", src: "/seville/seville-shot-07.jpg", frame: "portrait", alt: "Seville concept frame 07" }
+    ],
+    challenge:
+      "Создать серию из 7 концептуальных имиджевых кадров для Seville (Artik & Asti) в коллаборации с топовым визуализатором Сашей Сахарной. Важно было интегрировать сложные CGI-элементы (цветы) в живые снимки, сохранив эстетику высокой моды и кинематографичность уровня Dune. Основной вызов - добиться фотореалистичного взаимодействия органических объектов с кожей и одеждой артиста.",
+    solution:
+      "Разработал детализированные 3D-модели цветов с точной проработкой текстур и подповерхностного рассеивания (SSS) для естественного вида в кадре. Выполнил high-end compositing: прецизионный кеинг, ротоскопинг и цветокоррекцию для точного попадания в световую схему съемки. На этапе мудборда зафиксировал теплую «песочную» палитру и кинематографичные акценты в духе работ Дени Вильнева.",
+    result:
+      "Собран сет из 7 уникальных фотографий, каждая из которых работает как законченное произведение цифрового искусства. Уровень визуальной проработки позволил менеджменту артиста выбрать один из кадров в качестве официальной обложки музыкального релиза. Кейс успешно объединил традиционную fashion-фотографию и продвинутый постпродакшен «под ключ».",
+    metrics: [
+      { label: "Кадры", value: "7 финальных фото" },
+      { label: "Формат", value: "High-End Image Set" },
+      { label: "Результат", value: "Обложка официального релиза" }
+    ],
+    related: ["orbital-social-kit", "axiom-brand-film"]
+  },
+  {
     slug: "axiom-brand-film",
     title: "BOSE - Fanmade Spec Ad",
     summary: "Кинематографичный spec-ролик. Полный CG-пайплайн с нуля (моделинг, текстуры, шейдинг, анимация) без готовых ассетов.",

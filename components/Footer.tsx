@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
 
 const footerLinks = [
+  { href: "/about", labelRu: "О себе", labelEn: "About" },
   { href: "/portfolio", labelRu: "Портфолио", labelEn: "Portfolio" },
   { href: "/services", labelRu: "Услуги", labelEn: "Services" },
   { href: "/contact", labelRu: "Бриф", labelEn: "Brief" }

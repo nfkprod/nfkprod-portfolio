@@ -71,11 +71,14 @@ function formatTools(tools: string[]) {
   return `${tools.slice(0, 3).join(", ")}\n${tools.slice(3).join(", ")}`;
 }
 
-function getMediaFrameClass(media: ProjectMedia, area: "hero" | "gallery") {
+function getMediaFrameClass(media: ProjectMedia, area: "hero" | "gallery", projectSlug?: string) {
   const frame = media.frame ?? "landscape";
 
   if (frame === "portrait") {
-    return area === "hero" ? "mx-auto aspect-[9/16] w-full max-w-[430px]" : "mx-auto aspect-[9/16] w-full max-w-[360px]";
+    if (area === "gallery" && projectSlug === "seville-artik-asti-fashion-cgi") {
+      return "aspect-[71/100] w-full";
+    }
+    return area === "hero" ? "mx-auto aspect-[9/16] w-full max-w-[430px]" : "aspect-[9/16] w-full";
   }
 
   if (frame === "square") {
@@ -120,7 +123,7 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
         />
 
         <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-          <div className={getMediaFrameClass(project.heroMedia, "hero")}>
+          <div className={getMediaFrameClass(project.heroMedia, "hero", project.slug)}>
             {project.heroMedia.type === "video" ? (
               isEmbedVideoUrl(project.heroMedia.src) ? (
                 <iframe
@@ -172,7 +175,7 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {project.gallery.map((media, index) => (
               <figure key={`${media.src}-${index}`} className="glass-card overflow-hidden rounded-2xl">
-                <div className={getMediaFrameClass(media, "gallery")}>
+                <div className={getMediaFrameClass(media, "gallery", project.slug)}>
                   {media.type === "video" ? (
                     isEmbedVideoUrl(media.src) ? (
                       <iframe

@@ -9,11 +9,14 @@ export const brands: WorkedWithItem[] = [
   { name: "TNT" },
   { name: "A+" },
   { name: "VK" },
-  { name: "ИРИ" }
+  { name: "ИРИ" },
+  { name: "Королевская семья Дубая" }
 ];
 
 export const topArtists: WorkedWithItem[] = [
   { name: "Kali Uchis" },
+  { name: "Sasha Saharnaya" },
+  { name: "Динара Гараева (WHYNOEN)" },
   { name: "Егор Крид" },
   { name: "JONY" },
   { name: "Big Baby Tape" },
@@ -34,6 +37,7 @@ export const fullList: string[] = [
   "A+",
   "VK",
   "ИРИ",
+  "Королевская семья Дубая",
 
   // Top-6 artists (НЕ ТРОГАЮ порядок)
   "Ваня Дмитриенко",
@@ -42,6 +46,8 @@ export const fullList: string[] = [
   "ЕГОР КРИД",
   "JONY",
   "Big Baby Tape",
+  "Sasha Saharnaya",
+  "Динара Гараева (WHYNOEN)",
 
   // Extra / international
   "Kali Uchis",

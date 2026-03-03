@@ -108,6 +108,32 @@ const translations: Record<string, ProjectTranslation> = {
       "Character processing and compositing"
     ]
   },
+  "seville-artik-asti-fashion-cgi": {
+    title: "Sasha Saharnaya x NFK | Seville (Artik & Asti)",
+    summary:
+      "A 7-frame conceptual image set for Seville (Artik & Asti): complex CGI flower integration into fashion photography with a cinematic aesthetic.",
+    challenge:
+      "Create a series of seven conceptual visuals for Seville (Artik & Asti) in collaboration with top visual artist Sasha Saharnaya. The key task was to integrate complex CGI flowers into live photos while preserving high-fashion aesthetics and Dune-level cinematic tone. The main challenge was realistic interaction between organic CGI elements and skin/fabric surfaces.",
+    solution:
+      "I built detailed 3D flower models with advanced texturing and subsurface scattering (SSS) for natural rendering. Then I executed high-end compositing: precision keying, rotoscoping, and color matching to fit the original lighting scheme. At the moodboard stage, I locked a warm sandy palette and cinematic eye accents inspired by Denis Villeneuve visual language.",
+    result:
+      "The final output is a set of seven unique images, each treated as a complete digital artwork. The visual quality led the artist's management team to select one frame as the official music release cover. The case successfully merged traditional fashion photography with advanced end-to-end post-production.",
+    metrics: [
+      { label: "Frames", value: "7 final images" },
+      { label: "Format", value: "High-End Image Set" },
+      { label: "Outcome", value: "Official release cover selected" }
+    ],
+    heroAlt: "ARTIK & ASTI - Be Happy - official release cover",
+    galleryAlts: [
+      "Seville concept frame 01",
+      "Seville concept frame 02",
+      "Seville concept frame 03",
+      "Seville concept frame 04",
+      "Seville concept frame 05",
+      "Seville concept frame 06",
+      "Seville concept frame 07"
+    ]
+  },
   "axiom-brand-film": {
     summary: "Cinematic spec ad. Full CG pipeline from scratch (modeling, texturing, shading, animation) with no premade assets.",
     challenge: "Create a fanmade Bose spec ad with a cinematic premium product-ad feel.",

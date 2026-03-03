@@ -9,6 +9,7 @@ import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
 
 const links = [
   { href: "/", labelRu: "Главная", labelEn: "Home" },
+  { href: "/about", labelRu: "О себе", labelEn: "About" },
   { href: "/portfolio", labelRu: "Портфолио", labelEn: "Portfolio" },
   { href: "/services", labelRu: "Услуги", labelEn: "Services" },
   { href: "/contact", labelRu: "Контакт", labelEn: "Contact" }
