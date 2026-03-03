@@ -181,6 +181,7 @@ export const projects: ProjectItem[] = [
     heroMedia: {
       type: "image",
       src: "/seville/seville-cover.jpg",
+      poster: "/seville/seville-card.jpg",
       frame: "square",
       alt: "ARTIK & ASTI - Быть Счастливой - обложка релиза"
     },
