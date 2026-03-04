@@ -13,11 +13,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nfkprod.ru"),
   title: {
-    default: "NFKPROD - Motion & CGI Designer",
+    default: "NFKPROD - Motion, CGI, AI",
     template: "%s | NFKPROD"
   },
   openGraph: {
-    title: "NFKPROD - Motion & CGI Designer",
+    title: "NFKPROD - Motion, CGI, AI",
     type: "website",
     locale: "ru_RU",
     siteName: "NFKPROD",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NFKPROD - Motion & CGI Designer",
+    title: "NFKPROD - Motion, CGI, AI",
     images: ["/og-nfk.png"]
   }
 };
