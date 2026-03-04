@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n";
 
 export const copy = {
   home: {
-    eyebrow: "Motion - CGI - AI Designer",
+    eyebrow: "Motion - CGI - AI",
     titleTop: "Создаю визуал,",
     titleMiddle: "который работает",
     titleBottom: "",
@@ -15,7 +15,7 @@ export const copy = {
 
 export const copyEn = {
   home: {
-    eyebrow: "Motion - CGI - AI Designer",
+    eyebrow: "Motion - CGI - AI",
     titleTop: "I create visuals",
     titleMiddle: "that actually work",
     titleBottom: "",
