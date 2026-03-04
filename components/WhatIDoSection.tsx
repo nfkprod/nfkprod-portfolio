@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
 const localizedCopy = {
   ru: {
     eyebrow: "Что я делаю",
-    title: "Motion, CGI и визуальные системы",
+    title: "Motion, CGI, AI",
     description: "Закрываю полный путь: от концепта и аниматика до финального рендера, адаптаций и передачи исходников.",
     cards: [
       {
@@ -21,12 +21,16 @@ const localizedCopy = {
       {
         title: "UIX / Interface Motion",
         text: "UIX-анимации, интерфейсные переходы, micro-interactions, HUD/overlay, экраны продукта и прототип-анимации."
+      },
+      {
+        title: "AI / Creative Automation",
+        text: "AI-изображения и AI-анимации для быстрого продакшена: больше сильных вариативов, меньше итераций, предсказуемо чистый финал без потери качества."
       }
     ]
   },
   en: {
     eyebrow: "What I do",
-    title: "Motion, CGI, and visual systems",
+    title: "Motion, CGI, AI",
     description: "I cover the full pipeline: from concept and animatic to final render, platform adaptations, and source handoff.",
     cards: [
       {
@@ -40,6 +44,10 @@ const localizedCopy = {
       {
         title: "UIX / Interface Motion",
         text: "UI animations, transitions, micro-interactions, HUD/overlay elements, product screens, and prototype motion."
+      },
+      {
+        title: "AI / Creative Automation",
+        text: "AI visuals and AI animation for faster production: stronger options, fewer iterations, and a predictably clean final."
       }
     ]
   }
@@ -96,7 +104,7 @@ export default function WhatIDoSection({ locale = "ru" }: { locale?: Locale }) {
       </motion.p>
 
       <motion.div
-        className="mt-6 grid gap-4 md:grid-cols-3"
+        className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
         initial="hidden"
         animate={shouldReveal ? "show" : "hidden"}
         variants={{
