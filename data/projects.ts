@@ -234,126 +234,6 @@ export const projects: ProjectItem[] = [
     related: ["vanta-cgi-opener", "pulse-ui-promo"]
   },
   {
-    slug: "neon-pay-launch",
-    title: "Neon Pay Launch Visual",
-    summary: "Лонч-визуал для финтех-продукта: чистая графика, продуктовые акценты и динамичный монтаж.",
-    year: "2025",
-    tags: ["Motion", "Product", "CGI"],
-    roles: ["Creative Direction", "Motion", "Compositing"],
-    tools: ["After Effects", "Premiere Pro", "Blender"],
-    heroMedia: {
-      type: "image",
-      src: "/placeholder/project-01.svg",
-      alt: "Neon Pay Launch Visual"
-    },
-    gallery: [],
-    challenge: "Собрать короткий launch-ролик с премиальным ощущением и четкой демонстрацией продукта.",
-    solution: "Выстроил ритм из коротких продуктовых шотов, добавил акцентную графику и единый световой стиль.",
-    result: "Ролик легко адаптируется под digital-каналы и удерживает фокус на ключевых преимуществах продукта.",
-    metrics: [
-      { label: "Форматы", value: "16:9" },
-      { label: "Срок", value: "10 дней" },
-      { label: "Итерации", value: "3 раунда" }
-    ],
-    related: ["aurora-launch-system", "axiom-brand-film"]
-  },
-  {
-    slug: "atlas-watch-reveal",
-    title: "Atlas Watch Reveal",
-    summary: "Продуктовый reveal ролик часов: материалы, свет и микродетали в CGI-подаче.",
-    year: "2025",
-    tags: ["3D", "Product", "Motion"],
-    roles: ["3D", "Lookdev", "Motion"],
-    tools: ["Blender", "Substance Painter", "After Effects"],
-    heroMedia: {
-      type: "image",
-      src: "/placeholder/project-02.svg",
-      alt: "Atlas Watch Reveal"
-    },
-    gallery: [],
-    challenge: "Показать фактуру и сборку продукта без перегруза по графике.",
-    solution: "Собрал минималистичную сцену с акцентом на материалы корпуса, стекло и мягкие рефлексы.",
-    result: "Получился аккуратный reveal, который работает как hero-материал для промо и соцсетей.",
-    metrics: [
-      { label: "Форматы", value: "16:9, 9:16" },
-      { label: "Срок", value: "2 недели" },
-      { label: "Итерации", value: "4 раунда" }
-    ],
-    related: ["axiom-brand-film", "helio-product-loop"]
-  },
-  {
-    slug: "flux-ui-onboarding",
-    title: "Flux UI Onboarding",
-    summary: "UI-motion пакет для онбординга: фокус на ясной навигации, ритме и читаемости интерфейса.",
-    year: "2024",
-    tags: ["UIX", "Motion", "Product"],
-    roles: ["UI Motion", "Edit", "Compositing"],
-    tools: ["Figma", "After Effects", "Premiere Pro"],
-    heroMedia: {
-      type: "image",
-      src: "/placeholder/project-03.svg",
-      alt: "Flux UI Onboarding"
-    },
-    gallery: [],
-    challenge: "Упростить восприятие онбординга и сократить время входа пользователя в продукт.",
-    solution: "Сделал модульную анимационную систему с едиными переходами, таймингом и типографикой.",
-    result: "Онбординг стал последовательным и визуально цельным на всех точках контакта.",
-    metrics: [
-      { label: "Форматы", value: "16:9" },
-      { label: "Срок", value: "1 неделя" },
-      { label: "Итерации", value: "2 раунда" }
-    ],
-    related: ["pulse-ui-promo", "aurora-launch-system"]
-  },
-  {
-    slug: "terra-social-burst",
-    title: "Terra Social Burst",
-    summary: "Серия соц-креативов для коротких запусков: быстрый монтаж, ясные офферы и единый стиль.",
-    year: "2024",
-    tags: ["Social", "Motion", "Product"],
-    roles: ["Motion", "Edit", "Design"],
-    tools: ["After Effects", "Premiere Pro", "Audition"],
-    heroMedia: {
-      type: "image",
-      src: "/placeholder/project-05.svg",
-      alt: "Terra Social Burst"
-    },
-    gallery: [],
-    challenge: "Сделать набор коротких креативов под разные площадки и частые обновления оффера.",
-    solution: "Собрал шаблонный production-пайплайн и систему быстрых адаптаций по форматам.",
-    result: "Креативы выходят стабильно, с единым качеством и предсказуемыми сроками.",
-    metrics: [
-      { label: "Форматы", value: "9:16, 1:1, 16:9" },
-      { label: "Срок", value: "1 неделя" },
-      { label: "Итерации", value: "2 раунда" }
-    ],
-    related: ["orbital-social-kit", "aurora-launch-system"]
-  },
-  {
-    slug: "nova-device-loop",
-    title: "Nova Device Loop",
-    summary: "Бесшовный product-loop для digital-экрана: аккуратный light setup и плавная кинематика.",
-    year: "2025",
-    tags: ["3D", "CGI", "Product"],
-    roles: ["3D Generalist", "Lookdev", "Compositing"],
-    tools: ["Cinema 4D", "Redshift", "After Effects"],
-    heroMedia: {
-      type: "image",
-      src: "/placeholder/project-06.svg",
-      alt: "Nova Device Loop"
-    },
-    gallery: [],
-    challenge: "Создать бесшовный луп для витринного экрана без видимого стыка и падения динамики.",
-    solution: "Построил симметричный цикл движения и сбалансировал свет, чтобы луп выглядел естественно.",
-    result: "Финальный ролик работает как непрерывный hero-визуал для офлайн и digital-площадок.",
-    metrics: [
-      { label: "Форматы", value: "16:9" },
-      { label: "Срок", value: "9 дней" },
-      { label: "Итерации", value: "3 раунда" }
-    ],
-    related: ["helio-product-loop", "axiom-brand-film"]
-  },
-  {
     slug: "prism-energy-ident",
     title: "BUSHIDO ZHO, Aarne - Slim Shady",
     summary: "VFX и композитинг для музыкального клипа: интеграция графических элементов и эффектов в кадр с сохранением единого стиля.",
@@ -432,7 +312,7 @@ export const projects: ProjectItem[] = [
       { label: "Срок", value: "1 неделя" },
       { label: "Итерации", value: "3 раунда" }
     ],
-    related: ["pulse-ui-promo", "terra-social-burst"]
+    related: ["pulse-ui-promo", "orbit-bank-teaser"]
   },
   {
     slug: "lumen-headphones-loop",
@@ -460,7 +340,7 @@ export const projects: ProjectItem[] = [
       { label: "Срок", value: "8 дней" },
       { label: "Итерации", value: "3 раунда" }
     ],
-    related: ["axiom-brand-film", "nova-device-loop"]
+    related: ["axiom-brand-film", "helio-product-loop"]
   },
   {
     slug: "aether-drink-teaser",
@@ -501,7 +381,7 @@ export const projects: ProjectItem[] = [
       { label: "Срок", value: "6 дней" },
       { label: "Итерации", value: "2 раунда" }
     ],
-    related: ["terra-social-burst", "prism-energy-ident"]
+    related: ["gridos-platform-film", "prism-energy-ident"]
   },
   {
     slug: "gridos-platform-film",

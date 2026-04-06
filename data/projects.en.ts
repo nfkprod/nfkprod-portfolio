@@ -146,61 +146,6 @@ const translations: Record<string, ProjectTranslation> = {
       { label: "Iterations", value: "4 rounds" }
     ]
   },
-  "neon-pay-launch": {
-    summary: "Launch visual for a fintech product: clean graphics, product-first accents, and dynamic edit rhythm.",
-    challenge: "Build a short launch video with premium feel and clear product demonstration.",
-    solution: "I built pacing from short product shots, added focused graphics, and kept one coherent light style.",
-    result: "The video adapts well to digital channels and keeps attention on the core product benefits.",
-    metrics: [
-      { label: "Formats", value: "16:9" },
-      { label: "Timeline", value: "10 days" },
-      { label: "Iterations", value: "3 rounds" }
-    ]
-  },
-  "atlas-watch-reveal": {
-    summary: "Watch reveal video focused on materials, lighting, and micro-details in a CGI presentation.",
-    challenge: "Show product texture and assembly details without visual overload.",
-    solution: "I built a minimal scene with emphasis on body materials, glass behavior, and controlled reflections.",
-    result: "A clean reveal suitable as a hero asset for promo and social distribution.",
-    metrics: [
-      { label: "Formats", value: "16:9, 9:16" },
-      { label: "Timeline", value: "2 weeks" },
-      { label: "Iterations", value: "4 rounds" }
-    ]
-  },
-  "flux-ui-onboarding": {
-    summary: "UI motion package for onboarding with focus on clear navigation, rhythm, and readability.",
-    challenge: "Simplify onboarding perception and reduce time-to-understand for new users.",
-    solution: "I created a modular animation system with unified transitions, timing, and typographic rules.",
-    result: "Onboarding became sequential and visually coherent across all touchpoints.",
-    metrics: [
-      { label: "Formats", value: "16:9" },
-      { label: "Timeline", value: "1 week" },
-      { label: "Iterations", value: "2 rounds" }
-    ]
-  },
-  "terra-social-burst": {
-    summary: "A short-form social creative series for frequent launches: fast editing, clear offers, one visual system.",
-    challenge: "Produce a set of short creatives for multiple platforms with frequent offer updates.",
-    solution: "I built a template-based production pipeline with a fast adaptation system for each format.",
-    result: "The creatives ship consistently with stable quality and predictable timing.",
-    metrics: [
-      { label: "Formats", value: "9:16, 1:1, 16:9" },
-      { label: "Timeline", value: "1 week" },
-      { label: "Iterations", value: "2 rounds" }
-    ]
-  },
-  "nova-device-loop": {
-    summary: "Seamless product loop for digital screens with clean light setup and smooth motion.",
-    challenge: "Build a seamless loop for showcase screens without visible seam or pacing drop.",
-    solution: "I designed a symmetrical motion cycle and balanced lighting for a natural endless loop.",
-    result: "The final video works as a continuous hero visual for both offline and digital placements.",
-    metrics: [
-      { label: "Formats", value: "16:9" },
-      { label: "Timeline", value: "9 days" },
-      { label: "Iterations", value: "3 rounds" }
-    ]
-  },
   "prism-energy-ident": {
     title: "BUSHIDO ZHO, Aarne - Slim Shady",
     summary: "VFX and compositing for a music video: integrating graphic objects and effects while preserving one visual style.",
