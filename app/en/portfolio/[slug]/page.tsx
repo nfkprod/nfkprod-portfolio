@@ -118,6 +118,7 @@ export default function ProjectCasePageEn({ params }: { params: { slug: string }
           solution={project.solution}
           result={project.result}
           metrics={project.metrics}
+          credits={project.credits}
           showContent={false}
           locale="en"
         />
@@ -164,6 +165,7 @@ export default function ProjectCasePageEn({ params }: { params: { slug: string }
           solution={project.solution}
           result={project.result}
           metrics={project.metrics}
+          credits={project.credits}
           showMeta={false}
           locale="en"
         />

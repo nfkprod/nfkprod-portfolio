@@ -2,6 +2,35 @@
 
 export const projects: ProjectItem[] = [
   {
+    slug: "iceman-teaser-drake-concept-work",
+    title: "ICEMAN TEASER for DRAKE (CONCEPT WORK)",
+    summary: "AI-концепт тизера в холодной стилистике к грядущему альбому Drake ICEMAN.",
+    year: "2026",
+    tags: ["AI"],
+    roles: ["AI", "Edit"],
+    tools: ["Figma Weave", "Freepik", "Higgsfield", "After Effects"],
+    heroMedia: {
+      type: "video",
+      src: "https://vimeo.com/1187683309?share=copy&fl=sv&fe=ci",
+      poster: "/iceman/iceman-teaser-cover.jpg",
+      alt: "ICEMAN TEASER for DRAKE (CONCEPT WORK)"
+    },
+    gallery: [],
+    challenge:
+      "Собрать короткий AI fan teaser для ICEMAN: передать холодную, лабораторную и премиальную атмосферу, сохранить ощущение музыкального промо и сделать ролик достаточно выразительным для первой презентации идеи.",
+    solution:
+      "Выстроил визуальный язык вокруг льда, чистого лабораторного света и крупного центрального образа. AI-визуал использован как основа для кинематографичных сцен, после чего материал собран в цельный тизер с ритмом, монтажными акцентами и финальной обработкой.",
+    result:
+      "Получился готовый fan teaser с ясным настроением ICEMAN: холодная палитра, крупный узнаваемый герой-образ и рекламный темп, который работает как самостоятельный концепт-ролик.",
+    metrics: [
+      { label: "Формат", value: "16:9" },
+      { label: "Категория", value: "AI video" },
+      { label: "Тип", value: "CONCEPT WORK / AI" }
+    ],
+    credits: [{ label: "AI Artist", value: "1suzuyqwe, evancoric, nfkprod" }],
+    related: ["helio-product-loop", "nightline-event-opener", "prism-energy-ident"]
+  },
+  {
     slug: "aurora-launch-system",
     title: "Институт Развития Интернета",
     summary: "Серия динамичных digital-роликов для привлечения новых участников конкурса ИРИ.",

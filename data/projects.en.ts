@@ -18,6 +18,22 @@ type ProjectTranslation = {
 };
 
 const translations: Record<string, ProjectTranslation> = {
+  "iceman-teaser-drake-concept-work": {
+    title: "ICEMAN TEASER for DRAKE (CONCEPT WORK)",
+    summary: "An AI concept teaser in a cold visual style for Drake's upcoming album ICEMAN.",
+    challenge:
+      "Create a short AI fan teaser for ICEMAN: communicate a cold, premium laboratory mood, keep it in music-promo territory, and make the piece strong enough for a first idea presentation.",
+    solution:
+      "I built the visual language around ice, clean lab lighting, and a bold central image. AI visuals were used as the base for cinematic scenes, then shaped into a coherent teaser with pacing, edit accents, and final post-production.",
+    result:
+      "The final fan teaser has a clear ICEMAN mood: cold palette, a recognizable hero image, and promo pacing that works as a standalone concept piece.",
+    metrics: [
+      { label: "Format", value: "16:9" },
+      { label: "Category", value: "AI video" },
+      { label: "Type", value: "CONCEPT WORK / AI" }
+    ],
+    heroAlt: "ICEMAN TEASER for DRAKE (CONCEPT WORK)"
+  },
   "aurora-launch-system": {
     title: "Internet Development Institute (IRI)",
     summary: "A series of dynamic digital videos created to attract new applicants to the IRI competition.",

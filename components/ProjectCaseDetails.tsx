@@ -2,7 +2,7 @@
 
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { useRef } from "react";
-import type { ProjectMetric } from "@/data/types";
+import type { ProjectCredit, ProjectMetric } from "@/data/types";
 import type { Locale } from "@/lib/i18n";
 
 type ProjectCaseDetailsProps = {
@@ -13,6 +13,7 @@ type ProjectCaseDetailsProps = {
   solution: string;
   result: string;
   metrics: ProjectMetric[];
+  credits?: ProjectCredit[];
   showMeta?: boolean;
   showContent?: boolean;
   locale?: Locale;
@@ -45,6 +46,7 @@ export default function ProjectCaseDetails({
   solution,
   result,
   metrics,
+  credits = [],
   showMeta = true,
   showContent = true,
   locale = "ru"
@@ -55,6 +57,7 @@ export default function ProjectCaseDetails({
   const contentInView = useInView(contentRef, { once: true, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
   const copy = copyByLocale[locale];
+  const metaGridClass = credits.length ? "grid gap-4 md:grid-cols-2 xl:grid-cols-4" : "grid gap-4 md:grid-cols-3";
 
   const cardVariants: Variants = prefersReducedMotion
     ? {
@@ -77,7 +80,7 @@ export default function ProjectCaseDetails({
       {showMeta ? (
         <motion.div
           ref={metaRef}
-          className="grid gap-4 md:grid-cols-3"
+          className={metaGridClass}
           initial="hidden"
           animate={metaInView ? "show" : "hidden"}
           variants={{
@@ -115,6 +118,13 @@ export default function ProjectCaseDetails({
               ))}
             </motion.div>
           </motion.article>
+
+          {credits.map((credit) => (
+            <motion.article key={credit.label} variants={cardVariants} className="glass-chip rounded-xl p-4">
+              <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{credit.label}</p>
+              <p className="mt-2 whitespace-pre-line text-sm text-[var(--text-main)]">{credit.value}</p>
+            </motion.article>
+          ))}
         </motion.div>
       ) : null}
 

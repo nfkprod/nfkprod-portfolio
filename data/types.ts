@@ -1,4 +1,4 @@
-export const projectTags = ["Motion", "CGI", "3D", "VFX", "Product", "Social", "UIX"] as const;
+export const projectTags = ["Motion", "CGI", "3D", "VFX", "Product", "Social", "UIX", "AI"] as const;
 
 export type ProjectTag = (typeof projectTags)[number];
 
@@ -11,6 +11,11 @@ export type ProjectMedia = {
 };
 
 export type ProjectMetric = {
+  label: string;
+  value: string;
+};
+
+export type ProjectCredit = {
   label: string;
   value: string;
 };
@@ -29,6 +34,7 @@ export type ProjectItem = {
   solution: string;
   result: string;
   metrics: ProjectMetric[];
+  credits?: ProjectCredit[];
   related: string[];
 };
 
