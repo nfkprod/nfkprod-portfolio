@@ -8,7 +8,7 @@ type PricingCompareProps = {
 
 const headByLocale = {
   ru: ["Пакет", "Deliverables", "Срок", "Правки", "Исходники", "Цена от"],
-  en: ["Package", "Deliverables", "Timeline", "Revisions", "Source files", "Price from"]
+  en: ["Package", "Deliverables", "Timeline", "Revisions", "Source files", "Budget"]
 } as const;
 
 export default function PricingCompare({ packages, locale = "ru" }: PricingCompareProps) {

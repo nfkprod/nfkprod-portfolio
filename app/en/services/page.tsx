@@ -34,8 +34,8 @@ export default function ServicesPageEn() {
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={sectionReveal}>
         <SectionHeader
           eyebrow="Services"
-          title="Service packages and custom production"
-          description="Choose a ready-made package or build an individual scope around your deadline, platform, and KPI."
+          title="Production scopes and custom quotes"
+          description="Choose the closest production direction, then get a project estimate based on your brief, market, deadline, and delivery format."
         />
       </motion.div>
 
@@ -94,11 +94,11 @@ export default function ServicesPageEn() {
       >
         <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-[var(--text-main)]">Need a quote for your case?</h3>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--text-muted)]">
-          Fill in the brief to get a realistic estimate for timing and budget with a transparent production plan.
+          Share the brief to get a realistic production estimate, timeline, and workflow plan for your market.
         </p>
         <div className="mt-6">
           <Button href={withLocalePath("/contact", "en")} variant="primary" size="lg">
-            Fill the brief
+            Get a quote
           </Button>
         </div>
       </motion.div>
