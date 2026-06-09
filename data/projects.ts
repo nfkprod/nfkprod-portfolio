@@ -15,6 +15,12 @@ export const projects: ProjectItem[] = [
       poster: "/iceman/iceman-teaser-cover.jpg",
       alt: "ICEMAN TEASER for DRAKE (CONCEPT WORK)"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/iceman-teaser-drake-concept-work.mp4",
+      poster: "/iceman/iceman-teaser-cover.jpg",
+      alt: "ICEMAN TEASER preview"
+    },
     gallery: [],
     challenge:
       "Собрать короткий AI fan teaser для ICEMAN: передать холодную, лабораторную и премиальную атмосферу, сохранить ощущение музыкального промо и сделать ролик достаточно выразительным для первой презентации идеи.",
@@ -43,6 +49,12 @@ export const projects: ProjectItem[] = [
       src: "https://vimeo.com/1164397506?share=copy&fl=sv&fe=ci",
       poster: "/placeholder/iri-zastavka.png",
       alt: "Главный ролик кейса Институт Развития Интернета"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/aurora-launch-system.mp4",
+      poster: "/placeholder/iri-zastavka.png",
+      alt: "IRI preview"
     },
     gallery: [
       {
@@ -91,6 +103,12 @@ export const projects: ProjectItem[] = [
       poster: "/placeholder/iceberg-avatar.png",
       alt: "Hero-кадр ICEBERG UI PROMO"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/pulse-ui-promo.mp4",
+      poster: "/placeholder/iceberg-avatar.png",
+      alt: "ICEBERG UI PROMO preview"
+    },
     gallery: [],
     challenge:
       "Собрать понятный UI-promo ролик без лишнего визуального шума и удержать фокус на функциях продукта.",
@@ -120,6 +138,12 @@ export const projects: ProjectItem[] = [
       frame: "cinema",
       alt: "Comedy club Новогодний выпуск - основной ролик"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/vanta-cgi-opener.mp4",
+      poster: "/placeholder/comedy-cover.png",
+      alt: "Comedy Club preview"
+    },
     gallery: [],
     challenge: "Создать премиальный новогодний анимированный фон для выпуска Comedy Club, который: выглядит «дорого», не спорит с остальным визуалом: титрами, графикой, зациклен seamless loop ~30 сек, легко адаптируется под проекцию/LED-мэппинг на ёлку из экранов.",
     solution: "Создан новогодний анимированный бэкграунд для выпуска Comedy Club и подготовлены версии под проекцию на ёлку из экранов.",
@@ -145,6 +169,12 @@ export const projects: ProjectItem[] = [
       poster: "/placeholder/heartz-2-0-cover.png",
       frame: "portrait",
       alt: "HEARTZ 2.0 - основной ролик"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/helio-product-loop.mp4",
+      poster: "/placeholder/heartz-2-0-cover.png",
+      alt: "HEARTZ 2.0 preview"
     },
     gallery: [
       { type: "image", src: "/placeholder/mat-heartz-00000.png", alt: "Техническое задание" },
@@ -174,6 +204,12 @@ export const projects: ProjectItem[] = [
       poster: "/lakres/luka-icecream-2.jpg",
       frame: "portrait",
       alt: "Кадр Orbital Social Kit"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/orbital-social-kit.mp4",
+      poster: "/lakres/luka-icecream-2.jpg",
+      alt: "Lacres product promo preview"
     },
     gallery: [
       { type: "image", src: "/lakres/lakres-01.jpg", alt: "Обработка и композитинг персонажей" },
@@ -250,6 +286,12 @@ export const projects: ProjectItem[] = [
       poster: "/bose/BOSE_1987417.png",
       alt: "BOSE - Fanmade Spec Ad"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/axiom-brand-film.mp4",
+      poster: "/bose/BOSE_1987417.png",
+      alt: "BOSE spec ad preview"
+    },
     gallery: [],
     challenge: "Сделать fanmade spec ad для Bose — кинематографичный ролик в духе продуктовой рекламы наушников.",
     solution:
@@ -275,6 +317,12 @@ export const projects: ProjectItem[] = [
       src: "https://www.youtube.com/watch?v=vldpxVI-EdY&list=RDvldpxVI-EdY&start_radio=1",
       poster: "/bushido/bushido-slim-shady.jpg",
       alt: "BUSHIDO ZHO, Aarne - Slim Shady"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/prism-energy-ident.mp4",
+      poster: "/bushido/bushido-slim-shady.jpg",
+      alt: "BUSHIDO ZHO, Aarne - Slim Shady preview"
     },
     gallery: [
       {
@@ -329,6 +377,12 @@ export const projects: ProjectItem[] = [
       poster: "/xxxmanera/xxxmanera-ne-spyat.jpg",
       alt: "xxxmanera - Не Спят"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/orbit-bank-teaser.mp4",
+      poster: "/xxxmanera/xxxmanera-ne-spyat.jpg",
+      alt: "xxxmanera - Не Спят preview"
+    },
     gallery: [],
     challenge:
       "Выполнить VFX и композитинг для музыкального клипа: создать и интегрировать графические элементы/эффекты в кадр, создав единую стилистику.",
@@ -357,6 +411,12 @@ export const projects: ProjectItem[] = [
       poster: "/plohaya/plohaya-cover.jpg",
       alt: "GAVRILINA, nkeeei - ПЛОХАЯ"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/lumen-headphones-loop.mp4",
+      poster: "/plohaya/plohaya-cover.jpg",
+      alt: "GAVRILINA, nkeeei - ПЛОХАЯ preview"
+    },
     gallery: [],
     challenge:
       "Сделать музыкальный клип в формате экранной истории со старым Apple-стайл телефоном: в начале на экране играет трек (обложка и таймбар), затем свайп, разблокировка, карта Москвы с двумя иконками-пойнтами, внутри которых герои едут за рулем. После выбора сделать залет в одну из иконок и переход внутрь сцены. Весь визуальный язык стилизовать под MTV примерно 2007 года.",
@@ -384,6 +444,12 @@ export const projects: ProjectItem[] = [
       src: "https://vimeo.com/1164984915?share=copy&fl=sv&fe=ci",
       poster: "/istorichesky-kubok-1812/cover.png",
       alt: "Исторический кубок 1812 - основной ролик"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/aether-drink-teaser.mp4",
+      poster: "/istorichesky-kubok-1812/cover.png",
+      alt: "Исторический кубок 1812 preview"
     },
     gallery: [
       {
@@ -426,6 +492,12 @@ export const projects: ProjectItem[] = [
       poster: "/placeholder/tri-kota-cover.png",
       alt: "ТРИ КОТА: МТС,OZON"
     },
+    previewVideo: {
+      type: "video",
+      src: "/previews/gridos-platform-film.mp4",
+      poster: "/placeholder/tri-kota-cover.png",
+      alt: "Three Cats preview"
+    },
     gallery: [
       {
         type: "video",
@@ -465,6 +537,12 @@ Ozon Travel
       type: "image",
       src: "/connection-studio-2025.jpg",
       alt: "CONNECTION STUDIO 2025 season teaser"
+    },
+    previewVideo: {
+      type: "video",
+      src: "/previews/nightline-event-opener.mp4",
+      poster: "/connection-studio-2025.jpg",
+      alt: "CONNECTION STUDIO 2025 preview"
     },
     gallery: [
       {

@@ -29,6 +29,7 @@ export type ProjectItem = {
   roles: string[];
   tools: string[];
   heroMedia: ProjectMedia;
+  previewVideo?: ProjectMedia;
   gallery: ProjectMedia[];
   challenge: string;
   solution: string;
