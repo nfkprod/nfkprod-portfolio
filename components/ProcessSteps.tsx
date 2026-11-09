@@ -1,7 +1,8 @@
 "use client";
+import { useReducedMotion } from "@/components/MotionPreference";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import type { Locale } from "@/lib/i18n";
 
 const stepsByLocale = {

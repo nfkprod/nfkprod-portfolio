@@ -10,7 +10,9 @@ export const brands: WorkedWithItem[] = [
   { name: "A+" },
   { name: "VK" },
   { name: "ИРИ" },
-  { name: "Королевская семья Дубая" }
+  { name: "Королевская семья Дубая" },
+  { name: "STREETBEAT" },
+  { name: "RYZE AI" }
 ];
 
 export const topArtists: WorkedWithItem[] = [
@@ -21,7 +23,10 @@ export const topArtists: WorkedWithItem[] = [
   { name: "JONY" },
   { name: "Big Baby Tape" },
   { name: "Ваня Дмитриенко" },
-  { name: "Григорий Лепс" }
+  { name: "Григорий Лепс" },
+  { name: "LIL NAKU" },
+  { name: "Waka Flocka Flame" },
+  { name: "GORILLA GLU" }
 ];
 
 // Backward-compatible alias
@@ -95,5 +100,10 @@ export const fullList: string[] = [
   "FLAMEBAKER",
   "Adore Moscow",
   "JOHNNY DANG",
-  "Heartz"
+  "Heartz",
+  "LIL NAKU",
+  "Waka Flocka Flame",
+  "GORILLA GLU",
+  "STREETBEAT",
+  "RYZE AI"
 ].filter((x) => !removed.includes(x));

@@ -3,31 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
-
-const footerLinks = [
-  { href: "/about", labelRu: "О себе", labelEn: "About" },
-  { href: "/portfolio", labelRu: "Портфолио", labelEn: "Portfolio" },
-  { href: "/services", labelRu: "Услуги", labelEn: "Services" },
-  { href: "/contact", labelRu: "Бриф", labelEn: "Brief" }
-];
+import { linkedinUrl } from "@/lib/contact";
 
 export default function Footer() {
-  const pathname = usePathname();
-  const locale = getLocaleFromPathname(pathname);
-
+  const locale = getLocaleFromPathname(usePathname());
   return (
-    <footer className="mt-16 border-t border-white/10 pb-10 pt-8">
-      <div className="mx-auto flex w-full max-w-[1240px] flex-col gap-4 px-4 text-sm text-[var(--text-muted)] md:flex-row md:items-center md:justify-between md:px-6">
-        <p>&copy; {new Date().getFullYear()} NFKPROD</p>
-        <div className="flex items-center gap-5">
-          {footerLinks.map((item) => (
-            <Link key={item.href} href={withLocalePath(item.href, locale)} className="hover:text-[var(--text-main)]">
-              {locale === "en" ? item.labelEn : item.labelRu}
-            </Link>
-          ))}
-          <a href="mailto:nfkprod@yandex.ru" className="hover:text-[var(--text-main)]">
-            nfkprod@yandex.ru
+    <footer className="site-footer">
+      <Link href={withLocalePath("/", locale)} className="footer-wordmark">
+        nfkprod.
+      </Link>
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} NFKPROD</span>
+        <span>MOTION / CGI / AI</span>
+        <div>
+          <a
+            href="https://www.instagram.com/nfkprod"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
           </a>
+          <a href="https://t.me/Nfk23" target="_blank" rel="noreferrer">
+            Telegram
+          </a>
+          <Link href={withLocalePath("/contact", locale)}>
+            {locale === "ru" ? "Контакт" : "Contact"}
+          </Link>
+          <a href={linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
       </div>
     </footer>

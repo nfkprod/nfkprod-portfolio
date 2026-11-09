@@ -28,7 +28,7 @@ const initialState: FormState = {
   services: [],
   description: "",
   references: "",
-  consent: false
+  consent: false,
 };
 
 const copyByLocale = {
@@ -51,7 +51,7 @@ const copyByLocale = {
     referencesPlaceholder: "https://...",
     consent: "Согласен(на) на обработку данных для обратной связи.",
     sending: "Отправка...",
-    submit: "Отправить бриф"
+    submit: "Отправить бриф",
   },
   en: {
     requiredError: "Please complete required fields and confirm consent.",
@@ -72,11 +72,15 @@ const copyByLocale = {
     referencesPlaceholder: "https://...",
     consent: "I agree to data processing for feedback.",
     sending: "Sending...",
-    submit: "Send brief"
-  }
+    submit: "Send brief",
+  },
 } as const;
 
-export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale }) {
+export default function ContactBriefForm({
+  locale = "ru",
+}: {
+  locale?: Locale;
+}) {
   const [form, setForm] = useState<FormState>(initialState);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -84,13 +88,20 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
   const copy = copyByLocale[locale];
 
   const canSubmit = useMemo(() => {
-    return form.name.trim() && form.contact.trim() && form.description.trim() && form.consent;
+    return (
+      form.name.trim() &&
+      form.contact.trim() &&
+      form.description.trim() &&
+      form.consent
+    );
   }, [form]);
 
   function toggleService(value: string) {
     setForm((prev) => ({
       ...prev,
-      services: prev.services.includes(value) ? prev.services.filter((item) => item !== value) : [...prev.services, value]
+      services: prev.services.includes(value)
+        ? prev.services.filter((item) => item !== value)
+        : [...prev.services, value],
     }));
   }
 
@@ -109,7 +120,7 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) {
@@ -119,20 +130,28 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
       setMessage(copy.success);
       setForm(initialState);
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : copy.unknownError);
+      setError(
+        submitError instanceof Error ? submitError.message : copy.unknownError,
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass-panel rounded-3xl p-6 md:p-8" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      className="glass-panel rounded-3xl p-6 md:p-8"
+      noValidate
+    >
       <div className="grid gap-4 md:grid-cols-2">
         <label className="grid gap-2 text-sm">
           {copy.name}
           <input
             value={form.name}
-            onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, name: event.target.value }))
+            }
             className="input"
             required
           />
@@ -143,7 +162,9 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
           <input
             type="text"
             value={form.contact}
-            onChange={(event) => setForm((prev) => ({ ...prev, contact: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, contact: event.target.value }))
+            }
             className="input"
             placeholder="email@example.com or @username"
             required
@@ -154,7 +175,9 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
           {copy.company}
           <input
             value={form.company}
-            onChange={(event) => setForm((prev) => ({ ...prev, company: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, company: event.target.value }))
+            }
             className="input"
           />
         </label>
@@ -165,16 +188,24 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
             <input
               type="text"
               value={form.budgetFrom}
-              onChange={(event) => setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))
+              }
               className="input"
               placeholder={copy.budgetFrom}
+              aria-label={copy.budgetFrom}
+              inputMode="numeric"
             />
             <input
               type="text"
               value={form.budgetTo}
-              onChange={(event) => setForm((prev) => ({ ...prev, budgetTo: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, budgetTo: event.target.value }))
+              }
               className="input"
               placeholder={copy.budgetTo}
+              aria-label={copy.budgetTo}
+              inputMode="numeric"
             />
           </div>
         </div>
@@ -184,7 +215,9 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
         {copy.timeline}
         <input
           value={form.timeline}
-          onChange={(event) => setForm((prev) => ({ ...prev, timeline: event.target.value }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, timeline: event.target.value }))
+          }
           className="input"
           placeholder={copy.timelinePlaceholder}
         />
@@ -198,6 +231,7 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
               key={option}
               type="button"
               onClick={() => toggleService(option)}
+              aria-pressed={form.services.includes(option)}
               className={`rounded-full border px-3 py-1 text-xs ${
                 form.services.includes(option)
                   ? "border-white/35 bg-white/12 text-[var(--text-main)]"
@@ -214,7 +248,9 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
         {copy.description}
         <textarea
           value={form.description}
-          onChange={(event) => setForm((prev) => ({ ...prev, description: event.target.value }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, description: event.target.value }))
+          }
           className="input min-h-32"
           required
         />
@@ -224,7 +260,9 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
         {copy.references}
         <input
           value={form.references}
-          onChange={(event) => setForm((prev) => ({ ...prev, references: event.target.value }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, references: event.target.value }))
+          }
           className="input"
           placeholder={copy.referencesPlaceholder}
         />
@@ -234,15 +272,25 @@ export default function ContactBriefForm({ locale = "ru" }: { locale?: Locale })
         <input
           type="checkbox"
           checked={form.consent}
-          onChange={(event) => setForm((prev) => ({ ...prev, consent: event.target.checked }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, consent: event.target.checked }))
+          }
           className="mt-1"
           required
         />
         <span>{copy.consent}</span>
       </label>
 
-      {error ? <p className="mt-3 text-sm text-rose-300">{error}</p> : null}
-      {message ? <p className="mt-3 text-sm text-emerald-300">{message}</p> : null}
+      {error ? (
+        <p role="alert" className="mt-3 text-sm text-rose-300">
+          {error}
+        </p>
+      ) : null}
+      {message ? (
+        <p role="status" className="mt-3 text-sm text-emerald-300">
+          {message}
+        </p>
+      ) : null}
 
       <button
         type="submit"

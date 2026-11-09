@@ -1,168 +1,155 @@
 "use client";
+import { useReducedMotion } from "@/components/MotionPreference";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import type { ProjectItem, ProjectMedia } from "@/data/types";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+
+import { ArrowUpRight, Play } from "lucide-react";
+import type { ProjectItem } from "@/data/types";
 import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
+const DriftingMedia = dynamic(() => import("@/components/DriftingMedia"));
 
-const fallbackPoster = "/placeholder/og-cover.svg";
+export default function ProjectCard({
+  project,
+  locale = "ru",
+  editorial = false,
+}: {
+  project: ProjectItem;
+  locale?: Locale;
+  editorial?: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const href = withLocalePath(`/portfolio/${project.slug}`, locale);
+  const [focused, setFocused] = useState(false);
+  const [loadPreview, setLoadPreview] = useState(false);
+  const [previewPlaying, setPreviewPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const active = hovered || focused;
+  const reducedMotion = useReducedMotion();
+  const preview = project.previewVideo;
+  const localPreview = preview?.src.startsWith("/") ? preview.src : undefined;
+  // These films contain edge-to-edge brand lettering that must remain in frame.
+  const preserveFrame = ["axiom-brand-film", "helio-product-loop"].includes(
+    project.slug,
+  );
 
-function isVimeoUrl(src: string) {
-  return src.includes("vimeo.com");
-}
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (reducedMotion) {
+      video.pause();
+      return;
+    }
+    if (active) {
+      video.play().catch(() => {});
+      return;
+    }
+    // Let the preview fade back to the poster before pausing playback.
+    const pauseTimeout = window.setTimeout(() => video.pause(), 520);
+    return () => window.clearTimeout(pauseTimeout);
+  }, [active, loadPreview, reducedMotion]);
+  const poster =
+    project.heroMedia.poster ??
+    (project.heroMedia.type === "image"
+      ? project.heroMedia.src
+      : "/placeholder/og-cover.svg");
 
-function isYouTubeUrl(src: string) {
-  return src.includes("youtube.com") || src.includes("youtu.be");
-}
-
-function getVimeoId(src: string) {
-  const match = src.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-  return match?.[1];
-}
-
-function getYouTubeId(src: string) {
-  const match =
-    src.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/) ||
-    src.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
-    src.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/) ||
-    src.match(/youtube\.com\/embed\/([A-Za-z0-9_-]{6,})/);
-
-  return match?.[1];
-}
-
-function toPreviewEmbedUrl(src: string) {
-  if (isVimeoUrl(src)) {
-    const id = getVimeoId(src);
-
-    return id
-      ? `https://player.vimeo.com/video/${id}?background=1&autoplay=1&muted=1&loop=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1&quality=540p`
-      : null;
-  }
-
-  if (isYouTubeUrl(src)) {
-    const id = getYouTubeId(src);
-
-    return id
-      ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&modestbranding=1&rel=0&disablekb=1&fs=0&iv_load_policy=3`
-      : null;
-  }
-
-  return null;
-}
-
-function getPreviewVideo(project: ProjectItem): ProjectMedia | undefined {
-  if (project.previewVideo?.type === "video") {
-    return project.previewVideo;
-  }
-
-  if (project.heroMedia.type === "video") {
-    return project.heroMedia;
-  }
-
-  return undefined;
-}
-
-export default function ProjectCard({ project, locale = "ru" }: { project: ProjectItem; locale?: Locale }) {
-  const [previewActive, setPreviewActive] = useState(false);
-  const [previewReady, setPreviewReady] = useState(false);
-  const previewVideo = getPreviewVideo(project);
-  const embedPreviewUrl = useMemo(() => (previewVideo ? toPreviewEmbedUrl(previewVideo.src) : null), [previewVideo]);
-  const posterSrc = project.heroMedia.poster ?? previewVideo?.poster ?? (project.heroMedia.type === "image" ? project.heroMedia.src : fallbackPoster);
-  const canPreview = Boolean(previewVideo);
-  const revealPreview = canPreview && previewActive && previewReady;
-  const previewLabel = locale === "en" ? "Video" : "Видео";
-  const showPreview = () => {
-    setPreviewActive(true);
-    setPreviewReady(false);
+  const displayTitles: Record<string, [string, string]> = {
+    "seville-artik-asti-fashion-cgi": ["Seville", "Sasha Saharnaya × NFK"],
+    "axiom-brand-film": ["Bose", "Product film / Spec ad"],
+    "iceman-teaser-drake-concept-work": ["ICEMAN", "Drake / Concept work"],
+    "helio-product-loop": ["HEARTZ 2.0", "Brand visual"],
+    "prism-energy-ident": ["BUSHIDO ZHO × Aarne", "Slim Shady / VFX"],
+    "vanta-cgi-opener": [
+      "Comedy Club",
+      locale === "ru" ? "Новогодний выпуск" : "New Year special",
+    ],
   };
-  const hidePreview = () => {
-    setPreviewActive(false);
-    setPreviewReady(false);
-  };
+  const [title, subtitle] = displayTitles[project.slug] ?? [
+    project.title,
+    project.tags.slice(0, 2).join(" / "),
+  ];
+
+  const media = (
+    <div className="work-media">
+      <Image
+        src={poster}
+        alt={project.heroMedia.alt}
+        fill
+        sizes="(max-width: 700px) 100vw, (max-width: 1100px) 65vw, 100vw"
+        className="work-poster"
+      />
+      {loadPreview && localPreview && !reducedMotion && (
+        <video
+          ref={videoRef}
+          className={`work-video ${active && previewPlaying ? "is-playing" : ""}`}
+          src={localPreview}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={poster}
+          aria-hidden="true"
+          onPlaying={() => setPreviewPlaying(true)}
+          onPause={() => setPreviewPlaying(false)}
+        />
+      )}
+    </div>
+  );
+  const caption = (
+    <div className="work-caption">
+      <h3>
+        {title}
+        <span>{subtitle}</span>
+      </h3>
+      <span>{project.year}</span>
+    </div>
+  );
 
   return (
-    <article className="glass-card group h-full overflow-hidden rounded-2xl">
+    <article
+      className={`work-card ${editorial ? "work-card--editorial" : ""} ${preserveFrame ? "work-card--full-frame" : ""}`}
+    >
       <Link
-        href={withLocalePath(`/portfolio/${project.slug}`, locale)}
-        className="relative flex h-full flex-col focus-visible:outline-none"
-        onMouseEnter={showPreview}
-        onMouseLeave={hidePreview}
-        onFocus={showPreview}
-        onBlur={hidePreview}
+        href={href}
+        className="work-card-link"
+        aria-label={project.title}
+        onPointerEnter={(event) => {
+          if (event.pointerType !== "mouse") return;
+          setHovered(true);
+          setLoadPreview(true);
+        }}
+        onPointerLeave={() => setHovered(false)}
+        onFocus={() => {
+          setFocused(true);
+          setLoadPreview(true);
+        }}
+        onBlur={() => setFocused(false)}
       >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-y-[-20%] left-[-34%] z-20 w-[30%] rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.13)_52%,rgba(255,255,255,0)_100%)] opacity-0 blur-[4px] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[400%] group-hover:opacity-70"
-        />
-        <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10">
-          {canPreview && previewActive ? (
-            <div
-              className={`pointer-events-none absolute inset-0 z-0 bg-black transition-opacity duration-500 ${
-                previewReady ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {embedPreviewUrl ? (
-                <iframe
-                  className="h-full w-full scale-[1.04]"
-                  src={embedPreviewUrl}
-                  title={`${project.title} ${previewLabel.toLowerCase()}`}
-                  loading="lazy"
-                  allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
-                  allowFullScreen
-                  onLoad={() => setPreviewReady(true)}
-                />
-              ) : (
-                <video
-                  className="h-full w-full object-cover scale-[1.04]"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster={previewVideo?.poster}
-                  aria-label={`${project.title} ${previewLabel.toLowerCase()}`}
-                  onCanPlay={() => setPreviewReady(true)}
-                >
-                  <source src={previewVideo?.src} type="video/mp4" />
-                </video>
-              )}
-            </div>
-          ) : null}
-          <Image
-            src={posterSrc}
-            alt={project.heroMedia.alt}
-            fill
-            className={`z-10 object-cover transition-[opacity,transform] duration-700 ease-out ${
-              revealPreview ? "opacity-0 scale-[1.04]" : "opacity-100 scale-[1.01] group-hover:scale-[1.03]"
-            }`}
-            sizes="(max-width: 1024px) 100vw, 33vw"
-          />
-          {canPreview ? (
-            <span className="pointer-events-none absolute right-3 top-3 z-20 rounded-full border border-white/20 bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
-              {previewLabel}
+        <div className="work-image">
+          {editorial && !preserveFrame ? (
+            <DriftingMedia>{media}</DriftingMedia>
+          ) : (
+            media
+          )}
+          {!editorial && caption}
+          <span className="work-open" aria-hidden="true">
+            <span className="work-open-glyph">
+              <ArrowUpRight size={22} />
+              <ArrowUpRight size={22} />
             </span>
-          ) : null}
+          </span>
+          {project.heroMedia.type === "video" && (
+            <span className="work-play-mark" aria-hidden="true">
+              <Play size={12} fill="currentColor" />
+            </span>
+          )}
         </div>
-        <div className="flex flex-1 flex-col p-5">
-          <div className="flex items-center justify-between gap-2">
-            <h3 className="min-h-[2.2em] overflow-hidden font-display text-2xl font-bold leading-[1.1] tracking-[-0.02em] text-[var(--text-main)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
-              {project.title}
-            </h3>
-            <span className="shrink-0 text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{project.year}</span>
-          </div>
-          <p className="mt-3 min-h-[3.25rem] overflow-hidden text-sm leading-6 text-[var(--text-muted)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
-            {project.summary}
-          </p>
-          <div className="mt-auto flex flex-wrap gap-2 pt-4">
-            {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-[var(--text-muted)]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+        {editorial && caption}
+        <p className="sr-only">{project.summary}</p>
       </Link>
     </article>
   );

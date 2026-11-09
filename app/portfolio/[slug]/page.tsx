@@ -4,7 +4,13 @@ import { notFound } from "next/navigation";
 import ProjectCaseDetails from "@/components/ProjectCaseDetails";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeader from "@/components/SectionHeader";
-import { getProjectBySlug, getRelatedProjects, projects } from "@/data/projects";
+import CaseStage from "@/components/CaseStage";
+import ScrollReveal from "@/components/ScrollReveal";
+import {
+  getProjectBySlug,
+  getRelatedProjects,
+  projects,
+} from "@/data/projects";
 import type { ProjectMedia } from "@/data/types";
 import { withLocalePath } from "@/lib/i18n";
 
@@ -71,14 +77,23 @@ function formatTools(tools: string[]) {
   return `${tools.slice(0, 3).join(", ")}\n${tools.slice(3).join(", ")}`;
 }
 
-function getMediaFrameClass(media: ProjectMedia, area: "hero" | "gallery", projectSlug?: string) {
+function getMediaFrameClass(
+  media: ProjectMedia,
+  area: "hero" | "gallery",
+  projectSlug?: string,
+) {
   const frame = media.frame ?? "landscape";
 
   if (frame === "portrait") {
-    if (area === "gallery" && projectSlug === "seville-artik-asti-fashion-cgi") {
+    if (
+      area === "gallery" &&
+      projectSlug === "seville-artik-asti-fashion-cgi"
+    ) {
       return "aspect-[71/100] w-full";
     }
-    return area === "hero" ? "mx-auto aspect-[9/16] w-full max-w-[430px]" : "aspect-[9/16] w-full";
+    return area === "hero"
+      ? "mx-auto aspect-[9/16] w-full max-w-[430px]"
+      : "aspect-[9/16] w-full";
   }
 
   if (frame === "square") {
@@ -96,7 +111,11 @@ export function generateStaticParams() {
   return projects.map((item) => ({ slug: item.slug }));
 }
 
-export default function ProjectCasePage({ params }: { params: { slug: string } }) {
+export default function ProjectCasePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const project = getProjectBySlug(params.slug);
 
   if (!project) {
@@ -106,25 +125,24 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
   const related = getRelatedProjects(project.related).slice(0, 3);
 
   return (
-    <main className="pt-10">
-      <section className="glass-panel rounded-3xl p-6 md:p-8">
-        <SectionHeader eyebrow={`Case / ${project.year}`} title={project.title} description={project.summary} />
-
-        <ProjectCaseDetails
-          roles={project.roles}
-          toolsText={formatTools(project.tools)}
-          tags={project.tags}
-          challenge={project.challenge}
-          solution={project.solution}
-          result={project.result}
-          metrics={project.metrics}
-          credits={project.credits}
-          showContent={false}
-          locale="ru"
+    <main className="case-page">
+      <section>
+        <SectionHeader
+          as="h1"
+          eyebrow={`Case / ${project.year}`}
+          title={project.title}
+          description={project.summary}
         />
 
-        <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-          <div className={getMediaFrameClass(project.heroMedia, "hero", project.slug)}>
+        <CaseStage key={project.slug} poster={project.heroMedia.poster} embedded={project.heroMedia.type === "video" && isEmbedVideoUrl(project.heroMedia.src)}>
+          <div
+            data-case-media
+            className={getMediaFrameClass(
+              project.heroMedia,
+              "hero",
+              project.slug,
+            )}
+          >
             {project.heroMedia.type === "video" ? (
               isEmbedVideoUrl(project.heroMedia.src) ? (
                 <iframe
@@ -149,14 +167,34 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
               )
             ) : (
               <div className="relative h-full w-full">
-                <Image src={project.heroMedia.src} alt={project.heroMedia.alt} fill className="object-cover" sizes="100vw" />
+                <Image
+                  src={project.heroMedia.src}
+                  alt={project.heroMedia.alt}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                />
               </div>
             )}
           </div>
-        </div>
+        </CaseStage>
+        <div className="case-metadata"><ScrollReveal>
+          <ProjectCaseDetails
+            roles={project.roles}
+            toolsText={formatTools(project.tools)}
+            tags={project.tags}
+            challenge={project.challenge}
+            solution={project.solution}
+            result={project.result}
+            metrics={project.metrics}
+            credits={project.credits}
+            showContent={false}
+            locale="ru"
+          />
+        </ScrollReveal></div>
       </section>
 
-      <div className="mt-10">
+      <div className="case-copy">
         <ProjectCaseDetails
           roles={project.roles}
           toolsText={formatTools(project.tools)}
@@ -172,12 +210,15 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
       </div>
 
       {project.gallery.length ? (
-        <section className="mt-10">
+        <section className="case-gallery">
           <SectionHeader eyebrow="Gallery" title="Материалы проекта" />
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="case-gallery-grid">
             {project.gallery.map((media, index) => (
-              <figure key={`${media.src}-${index}`} className="glass-card overflow-hidden rounded-2xl">
-                <div className={getMediaFrameClass(media, "gallery", project.slug)}>
+              <div key={`${media.src}-${index}`} className="case-gallery-item"><ScrollReveal>
+              <figure>
+                <div
+                  className={getMediaFrameClass(media, "gallery", project.slug)}
+                >
                   {media.type === "video" ? (
                     isEmbedVideoUrl(media.src) ? (
                       <iframe
@@ -189,18 +230,32 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
                         allowFullScreen
                       />
                     ) : (
-                      <video className="h-full w-full object-cover" controls playsInline preload="none" poster={media.poster}>
+                      <video
+                        className="h-full w-full object-cover"
+                        controls
+                        playsInline
+                        preload="none"
+                        poster={media.poster}
+                      >
                         <source src={media.src} type="video/mp4" />
                       </video>
                     )
                   ) : (
                     <div className="relative h-full w-full">
-                      <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                      <Image
+                        src={media.src}
+                        alt={media.alt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
                     </div>
                   )}
                 </div>
-                <figcaption className="p-3 text-sm text-[var(--text-muted)]">{media.alt}</figcaption>
-              </figure>
+                <figcaption>
+                  {media.alt}
+                </figcaption>
+              </figure></ScrollReveal></div>
             ))}
           </div>
         </section>
@@ -218,7 +273,10 @@ export default function ProjectCasePage({ params }: { params: { slug: string } }
       ) : null}
 
       <div className="mt-10">
-        <Link href={withLocalePath("/portfolio", "ru")} className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-[var(--text-main)] hover:bg-white/10">
+        <Link
+          href={withLocalePath("/portfolio", "ru")}
+          className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-[var(--text-main)] hover:bg-white/10"
+        >
           Вернуться к портфолио
         </Link>
       </div>

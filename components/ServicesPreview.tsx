@@ -85,7 +85,7 @@ export default function ServicesPreview({ locale = "ru", packages = servicePacka
 
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.45 }} variants={sectionReveal}>
         <Link
-          href={withLocalePath("/services", locale)}
+          href={withLocalePath("/contact", locale)}
           className="mt-5 inline-flex rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-[var(--text-main)] hover:bg-white/10"
         >
           {copy.cta}

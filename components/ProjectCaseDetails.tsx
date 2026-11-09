@@ -1,9 +1,6 @@
-"use client";
-
-import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
-import { useRef } from "react";
 import type { ProjectCredit, ProjectMetric } from "@/data/types";
 import type { Locale } from "@/lib/i18n";
+import ScrollReveal from "@/components/ScrollReveal";
 
 type ProjectCaseDetailsProps = {
   roles: string[];
@@ -19,25 +16,6 @@ type ProjectCaseDetailsProps = {
   locale?: Locale;
 };
 
-const copyByLocale = {
-  ru: {
-    roles: "Roles",
-    tools: "Tools",
-    tags: "Tags",
-    challenge: "Задача",
-    solution: "Решение",
-    result: "Результат"
-  },
-  en: {
-    roles: "Roles",
-    tools: "Tools",
-    tags: "Tags",
-    challenge: "Challenge",
-    solution: "Solution",
-    result: "Result"
-  }
-} as const;
-
 export default function ProjectCaseDetails({
   roles,
   toolsText,
@@ -49,130 +27,76 @@ export default function ProjectCaseDetails({
   credits = [],
   showMeta = true,
   showContent = true,
-  locale = "ru"
+  locale = "ru",
 }: ProjectCaseDetailsProps) {
-  const metaRef = useRef<HTMLDivElement | null>(null);
-  const contentRef = useRef<HTMLElement | null>(null);
-  const metaInView = useInView(metaRef, { once: true, amount: 0.35 });
-  const contentInView = useInView(contentRef, { once: true, amount: 0.2 });
-  const prefersReducedMotion = useReducedMotion();
-  const copy = copyByLocale[locale];
-  const metaGridClass = credits.length ? "grid gap-4 md:grid-cols-2 xl:grid-cols-4" : "grid gap-4 md:grid-cols-3";
-
-  const cardVariants: Variants = prefersReducedMotion
-    ? {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
-      }
-    : {
-        hidden: { opacity: 0, y: 18, scale: 0.99, filter: "blur(4px)" },
-        show: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          filter: "blur(0px)",
-          transition: { duration: 0.45, ease: "easeOut" }
-        }
-      };
-
+  const ru = locale === "ru";
   return (
     <>
-      {showMeta ? (
-        <motion.div
-          ref={metaRef}
-          className={metaGridClass}
-          initial="hidden"
-          animate={metaInView ? "show" : "hidden"}
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } }
-          }}
+      {showMeta && (
+        <div
+          className={
+            credits.length
+              ? "grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+              : "grid gap-4 md:grid-cols-3"
+          }
         >
-          <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.roles}</p>
-            <p className="mt-2 text-sm text-[var(--text-main)]">{roles.join(", ")}</p>
-          </motion.article>
-
-          <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.tools}</p>
-            <p className="mt-2 whitespace-pre-line text-sm text-[var(--text-main)]">{toolsText}</p>
-          </motion.article>
-
-          <motion.article variants={cardVariants} className="glass-chip rounded-xl p-4">
-            <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{copy.tags}</p>
-            <motion.div
-              className="mt-2 flex flex-wrap gap-2"
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } }
-              }}
-            >
-              {tags.map((tag) => (
-                <motion.span
-                  key={tag}
-                  variants={cardVariants}
-                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-[var(--text-muted)]"
-                >
-                  {tag}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.article>
-
+          <article className="glass-chip p-4">
+            <p className="case-meta-label">{ru ? "Роль" : "Roles"}</p>
+            <p className="case-meta-value">{roles.join(", ")}</p>
+          </article>
+          <article className="glass-chip p-4">
+            <p className="case-meta-label">{ru ? "Инструменты" : "Tools"}</p>
+            <p className="case-meta-value whitespace-pre-line">{toolsText}</p>
+          </article>
+          <article className="glass-chip p-4">
+            <p className="case-meta-label">
+              {ru ? "Направления" : "Disciplines"}
+            </p>
+            <p className="case-meta-value">{tags.join(" / ")}</p>
+          </article>
           {credits.map((credit) => (
-            <motion.article key={credit.label} variants={cardVariants} className="glass-chip rounded-xl p-4">
-              <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{credit.label}</p>
-              <p className="mt-2 whitespace-pre-line text-sm text-[var(--text-main)]">{credit.value}</p>
-            </motion.article>
+            <article key={credit.label} className="glass-chip p-4">
+              <p className="case-meta-label">{credit.label}</p>
+              <p className="case-meta-value whitespace-pre-line">
+                {credit.value}
+              </p>
+            </article>
           ))}
-        </motion.div>
-      ) : null}
-
-      {showContent ? (
-        <motion.section
-          ref={contentRef}
-          className="grid gap-4 lg:grid-cols-3"
-          initial="hidden"
-          animate={contentInView ? "show" : "hidden"}
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.1, delayChildren: 0.06 } }
-          }}
-        >
-          <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.challenge}</h2>
-            <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[var(--text-muted)]">{challenge}</p>
-          </motion.article>
-
-          <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.solution}</h2>
-            <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[var(--text-muted)]">{solution}</p>
-          </motion.article>
-
-          <motion.article variants={cardVariants} className="glass-card rounded-2xl p-5 lg:col-span-1">
-            <h2 className="font-display text-2xl font-bold text-[var(--text-main)]">{copy.result}</h2>
-            <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{result}</p>
-            <motion.div
-              className="mt-4 grid gap-2"
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.06, delayChildren: 0.08 } }
-              }}
-            >
-              {metrics.map((metric) => (
-                <motion.div
-                  key={metric.label}
-                  variants={cardVariants}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-[var(--text-main)]"
-                >
-                  <span className="text-[var(--text-muted)]">{metric.label}: </span>
-                  {metric.value}
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.article>
-        </motion.section>
-      ) : null}
+        </div>
+      )}
+      {showContent && (
+        <section className="case-story">
+          {[
+            { title: ru ? "Задача" : "Challenge", text: challenge },
+            { title: ru ? "Решение" : "Approach", text: solution },
+            { title: ru ? "Результат" : "Outcome", text: result },
+          ].map((item, index) => (
+            <ScrollReveal key={item.title}>
+            <article className="case-story-step">
+              <div className="case-story-heading">
+                <span aria-hidden="true">0{index + 1}</span>
+                <h2>{item.title}</h2>
+              </div>
+              <div className="case-story-body">
+              <p className="whitespace-pre-line">
+                {item.text}
+              </p>
+              {index === 2 && (
+                <dl className="case-metrics">
+                  {metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <dt>{metric.label}</dt>
+                      <dd>{metric.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              </div>
+            </article>
+            </ScrollReveal>
+          ))}
+        </section>
+      )}
     </>
   );
 }

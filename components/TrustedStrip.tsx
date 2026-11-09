@@ -1,6 +1,7 @@
 "use client";
+import { useReducedMotion } from "@/components/MotionPreference";
 
-import { motion, useInView, useMotionValue, useReducedMotion, useSpring, type Variants } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const brands = ["MTS", "OZON", "TNT", "A+"];

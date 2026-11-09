@@ -3,18 +3,24 @@ type SectionHeaderProps = {
   title: string;
   description?: string;
   align?: "left" | "center";
+  as?: "h1" | "h2";
 };
 
-export default function SectionHeader({ eyebrow, title, description, align = "left" }: SectionHeaderProps) {
-  const isCenter = align === "center";
-
+export default function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  align = "left",
+  as = "h2",
+}: SectionHeaderProps) {
+  const Heading = as;
   return (
-    <header className={isCenter ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-soft)]">{eyebrow}</p>
-      ) : null}
-      <h2 className="mt-3 font-display text-3xl font-extrabold leading-[1.02] tracking-[-0.02em] text-[var(--text-main)] md:text-5xl">{title}</h2>
-      {description ? <p className="mt-4 text-base leading-7 text-[var(--text-muted)]">{description}</p> : null}
+    <header
+      className={`page-heading ${align === "center" ? "page-heading--center" : ""}`}
+    >
+      {eyebrow && <p className="page-context">{eyebrow}</p>}
+      <Heading>{title}</Heading>
+      {description && <p className="page-description">{description}</p>}
     </header>
   );
 }

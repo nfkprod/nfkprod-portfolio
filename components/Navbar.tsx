@@ -1,97 +1,145 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dribbble, Instagram, Send } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
 
 const links = [
-  { href: "/", labelRu: "Главная", labelEn: "Home" },
-  { href: "/about", labelRu: "О себе", labelEn: "About" },
-  { href: "/portfolio", labelRu: "Портфолио", labelEn: "Portfolio" },
-  { href: "/services", labelRu: "Услуги", labelEn: "Services" },
-  { href: "/contact", labelRu: "Контакт", labelEn: "Contact" }
-];
-
-const socials = [
-  { href: "https://t.me/Nfk23", label: "Telegram", icon: Send },
-  { href: "https://www.instagram.com/nfkprod?igsh=bGxraWV1ejZ2bmJh&utm_source=qr", label: "Instagram", icon: Instagram },
-  { href: "https://dribbble.com/", label: "Dribbble", icon: Dribbble }
+  { href: "/portfolio", ru: "Работы", en: "Work" },
+  { href: "/about", ru: "Обо мне", en: "About" },
+  { href: "/contact", ru: "Бриф", en: "Contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const locale = getLocaleFromPathname(pathname);
-  const pathWithoutLocale = locale === "en" ? pathname.replace(/^\/en(?=\/|$)/, "") || "/" : pathname;
-  const languageToggleHref = locale === "en" ? pathWithoutLocale : withLocalePath(pathWithoutLocale, "en");
-  const languageToggleLabel = locale === "en" ? "RU" : "EN";
+  const path =
+    locale === "en" ? pathname.replace(/^\/en(?=\/|$)/, "") || "/" : pathname;
+  const [open, setOpen] = useState(false);
+  const [overFilm, setOverFilm] = useState(path === "/");
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+  useEffect(() => {
+    const darkSections = document.querySelectorAll(
+      ".film-stage, .work-feature",
+    );
+    const introduction = document.querySelector(".intro-scene");
+    const updateTheme = () =>
+      setOverFilm(
+        Array.from(darkSections).some((section) => {
+          const rect = section.getBoundingClientRect();
+          const coveredByIntro =
+            section.classList.contains("film-stage") &&
+            introduction &&
+            introduction.getBoundingClientRect().top <= 80;
+          return !coveredByIntro && rect.top < 80 && rect.bottom > 80;
+        }),
+      );
+    updateTheme();
+    window.addEventListener("scroll", updateTheme, { passive: true });
+    return () => window.removeEventListener("scroll", updateTheme);
+  }, [pathname]);
 
   return (
-    <header className="sticky top-3 z-50">
-      <div className="glass-panel mx-auto flex w-full max-w-[1240px] items-center justify-between gap-2.5 rounded-2xl px-4 py-2.5 md:px-6">
-        <Link
-          href={withLocalePath("/", locale)}
-          className="group inline-flex items-center gap-2.5"
-          onClick={(event) => {
-            if (pathWithoutLocale === "/") {
-              event.preventDefault();
-              window.location.assign(withLocalePath("/", locale));
-            }
-          }}
-        >
-          <Image
-            src="/nfk-logo.png"
-            alt="NFKPROD logo"
-            width={36}
-            height={36}
-            className="h-9 w-9 object-contain transition-all duration-200 group-hover:scale-[0.95]"
-            priority
-          />
-          <span className="font-display text-xl font-bold tracking-[-0.02em] text-[var(--text-main)]">NFKPROD</span>
-        </Link>
-
-        <nav aria-label="Main navigation" className="glass-pill nav-pill-lite hidden items-center gap-1 rounded-full p-0.5 md:flex">
-          {links.map((link) => {
-            const active = link.href === "/" ? pathWithoutLocale === "/" : pathWithoutLocale.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={withLocalePath(link.href, locale)}
-                className={cn(
-                  "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] transition-colors",
-                  active ? "bg-white/12 text-[var(--text-main)]" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"
-                )}
-              >
-                  {locale === "en" ? link.labelEn : link.labelRu}
-                </Link>
-              );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-1.5">
+    <header
+      className={`site-nav ${overFilm ? "site-nav--film" : ""} ${open ? "site-nav--open" : ""}`}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setOpen(false);
+      }}
+    >
+      <a className="skip-link" href="#main-content">
+        {locale === "ru" ? "К содержимому" : "Skip to content"}
+      </a>
+      <Link
+        href={withLocalePath("/", locale)}
+        className="brand-lockup"
+        aria-label="NFKPROD — Home"
+        onClick={() => setOpen(false)}
+      >
+        <span>
+          nfkprod<span className="brand-dot">.</span>
+        </span>
+      </Link>
+      <nav
+        className="desktop-nav"
+        aria-label={locale === "ru" ? "Главная навигация" : "Main navigation"}
+      >
+        {links.map((link) => (
           <Link
-            href={languageToggleHref}
-            aria-label="Switch language"
-            className="glass-chip inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-xs font-semibold tracking-[0.08em] text-[var(--text-muted)] transition-all duration-200 hover:scale-[0.95] hover:border-white/35 hover:bg-white/10 hover:text-[var(--text-main)]"
+            key={link.href}
+            href={withLocalePath(link.href, locale)}
+            aria-current={path.startsWith(link.href) ? "page" : undefined}
           >
-            {languageToggleLabel}
+            {link[locale]}
           </Link>
-          {socials.map(({ href, label, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-              className="glass-chip inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-muted)] transition-all duration-200 hover:scale-[0.95] hover:border-white/35 hover:bg-white/10 hover:text-[var(--text-main)]"
-            >
-              <Icon size={16} />
-            </a>
-          ))}
-        </div>
+        ))}
+      </nav>
+      <div className="nav-actions">
+        <Link
+          className="language-link"
+          href={locale === "en" ? path : withLocalePath(path, "en")}
+          aria-label={
+            locale === "en" ? "Switch to Russian" : "Switch to English"
+          }
+        >
+          {locale === "en" ? "RU" : "EN"}
+        </Link>
+        <a
+          className="nav-contact"
+          href="https://t.me/Nfk23"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {locale === "ru" ? "Обсудим проект" : "Let's talk"}{" "}
+          <ArrowUpRight size={15} />
+        </a>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          aria-label={
+            open
+              ? locale === "ru"
+                ? "Закрыть меню"
+                : "Close menu"
+              : locale === "ru"
+                ? "Открыть меню"
+                : "Open menu"
+          }
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+      {open && (
+        <nav
+          id="mobile-navigation"
+          className="mobile-nav"
+          aria-label={
+            locale === "ru" ? "Мобильная навигация" : "Mobile navigation"
+          }
+        >
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={withLocalePath(link.href, locale)}
+              aria-current={path.startsWith(link.href) ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {link[locale]}
+              <ArrowUpRight size={22} />
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

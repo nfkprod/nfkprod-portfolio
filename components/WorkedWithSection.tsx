@@ -1,137 +1,166 @@
 "use client";
+import { useReducedMotion } from "@/components/MotionPreference";
 
-import Image from "next/image";
-import { useMemo, useState } from "react";
-import { motion, type Variants } from "framer-motion";
-import { brands, fullList, topArtists, type WorkedWithItem } from "@/data/workedWith";
-import { cn } from "@/lib/cn";
+import { useState, type ReactNode } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Plus } from "lucide-react";
+import { brands, topArtists, fullList } from "@/data/workedWith";
 import type { Locale } from "@/lib/i18n";
+import { getCollaboratorProfile } from "@/data/collaboratorProfiles";
 
-const nameMapEn: Record<string, string> = {
+const featuredBrands = brands.slice(0, 6).map(({ name }) => name);
+const featuredArtists = topArtists.slice(0, 6).map(({ name }) => name);
+const nameKey = (name: string) => name.toLocaleLowerCase();
+const selectedKeys = new Set(
+  [...featuredBrands, ...featuredArtists].map(nameKey),
+);
+const allNames = Array.from(
+  new Map(fullList.map((name) => [nameKey(name), name])).values(),
+);
+const additionalNames = allNames.filter(
+  (name) => !selectedKeys.has(nameKey(name)),
+);
+const translations: Record<string, string> = {
+  МТС: "MTS",
+  ИРИ: "IRI",
+  "Королевская семья Дубая": "Dubai Royal Family",
   "Ваня Дмитриенко": "Vanya Dmitrienko",
   "Григорий Лепс": "Grigory Leps",
-  "Три дня дождя": "Three days of rain",
-  "Пошлая Молли": "Naughty Molly",
-  "Динара Гараева (WHYNOEN)": "Dinara Garaeva (WHYNOEN)",
-  "Королевская семья Дубая": "Dubai Royal Family",
-  "ИРИ": "IRI",
-  "Молодой Платон": "Young Platon",
-  "Платина": "PLATINA",
-  "Кишлак": "KISHLAK",
-  "Егор Крид": "Egor Kreed",
   "ЕГОР КРИД": "Egor Kreed",
-  "Лали": "LALI"
+  "Динара Гараева (WHYNOEN)": "Dinara Garaeva (WHYNOEN)",
+  "Три дня дождя": "Three Days of Rain",
+  "Пошлая Молли": "Poshlaya Molly",
+  Платина: "PLATINA",
+  "Молодой Платон": "Young Platon",
+  Кишлак: "KISHLAK",
+  Лали: "LALI",
 };
 
-function localizeName(name: string, locale: Locale) {
-  if (locale !== "en") return name;
-  return nameMapEn[name] ?? name;
-}
-
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 14, filter: "blur(4px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
-};
-
-const chipShellClass =
-  "group glass-chip flex h-12 items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-[var(--text-main)] transition-all duration-200 [&::before]:opacity-0";
-const chipTextClass =
-  "text-center text-[11px] font-semibold uppercase tracking-[0.13em] opacity-95 transition-opacity duration-200 group-hover:opacity-100";
-
-function Chip({ item }: { item: WorkedWithItem }) {
-  return (
-    <div className={chipShellClass}>
-      {item.logoSrc ? (
-        <Image
-          src={item.logoSrc}
-          alt={item.name}
-          width={120}
-          height={28}
-          className="h-7 w-auto object-contain grayscale opacity-65 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
-        />
-      ) : (
-        <span className={chipTextClass}>{item.name}</span>
-      )}
-    </div>
-  );
-}
-
-export default function WorkedWithSection({ locale = "ru" }: { locale?: Locale }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const labels =
-    locale === "en"
-      ? { show: "View full list", hide: "Hide full list" }
-      : { show: "Показать весь список", hide: "Скрыть список" };
-
-  const featuredItems = useMemo(() => {
-    const seen = new Set<string>();
-    return [...brands, ...topArtists]
-      .map((item) => ({ ...item, name: localizeName(item.name, locale) }))
-      .filter((item) => {
-        const key = item.name.toLocaleLowerCase();
-        if (seen.has(key)) {
-          return false;
-        }
-        seen.add(key);
-        return true;
-      })
-      .slice(0, 12);
-  }, [locale]);
-
-  const fullListItems = useMemo<WorkedWithItem[]>(() => {
-    const seen = new Set<string>();
-    return fullList
-      .map((name) => localizeName(name, locale))
-      .filter((item) => {
-        const key = item.toLocaleLowerCase();
-        if (seen.has(key)) {
-          return false;
-        }
-        seen.add(key);
-        return true;
-      })
-      .map((name) => ({ name }));
-  }, [locale]);
-
-  const expandedItems = useMemo(() => {
-    const featuredSet = new Set(featuredItems.map((item) => item.name.toLocaleLowerCase()));
-    const restItems = fullListItems.filter((item) => !featuredSet.has(item.name.toLocaleLowerCase()));
-    return [...featuredItems, ...restItems];
-  }, [featuredItems, fullListItems]);
-
-  const visibleItems = isExpanded ? expandedItems : featuredItems;
+export default function WorkedWithSection({
+  locale = "ru",
+}: {
+  locale?: Locale;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const reduced = useReducedMotion();
+  const ru = locale === "ru";
+  const displayName = (name: string) =>
+    ru
+      ? name === "TNT"
+        ? "ТНТ"
+        : name
+      : (translations[name] ?? translations[name.toLocaleUpperCase()] ?? name);
+  const profile = (name: string, children: ReactNode, tabIndex?: number) => {
+    const destination = getCollaboratorProfile(name);
+    if (!destination) return children;
+    return <a className="collaborator-link" href={destination.url} target="_blank" rel="noreferrer"
+      tabIndex={tabIndex}
+      aria-label={`${displayName(name)} — ${ru ? "открыть страницу в новой вкладке" : "open profile in a new tab"}`}>
+      <span>{children}</span><ArrowUpRight size={14} aria-hidden="true" />
+    </a>;
+  };
 
   return (
-    <section className="mt-12" id="worked-with">
-      <motion.div
-        className="glass-panel worked-with-panel relative overflow-hidden rounded-3xl p-5 md:p-7"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={sectionVariants}
+    <section
+      className="collaborations"
+      id="worked-with"
+      aria-labelledby="collaborations-title"
+    >
+      <div className="collaborations-layout">
+        <div className="collaborations-heading">
+          <h2 id="collaborations-title">
+            {ru ? (
+              <>
+                В хорошей
+                <br />
+                компании.
+              </>
+            ) : (
+              <>
+                In good
+                <br />
+                company.
+              </>
+            )}
+          </h2>
+          <p>
+            {ru
+              ? "Бренды, артисты и творческие команды, с которыми я работал."
+              : "Brands, artists and creative teams I've worked with."}
+          </p>
+        </div>
+        <div className="collaborations-selected">
+          <div className="collaboration-group">
+            <h3>
+              {ru ? "Бренды и медиа" : "Brands & media"}
+              <span>01</span>
+            </h3>
+            <ul className="collaboration-brands">
+              {featuredBrands.map((name) => (
+                <li key={name}>{profile(name, displayName(name))}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="collaboration-group">
+            <h3>
+              {ru ? "Артисты и креаторы" : "Artists & creatives"}
+              <span>02</span>
+            </h3>
+            <ul className="collaboration-artists">
+              {featuredArtists.map((name) => {
+                const translated = displayName(name);
+                const primaryName = translated.replace(" (WHYNOEN)", "");
+                return (
+                  <li key={name}>
+                    {profile(name, <>{primaryName}
+                    {translated.includes("(WHYNOEN)") && <small>WHYNOEN</small>}</>)}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        className="collaboration-toggle"
+        aria-expanded={expanded}
+        aria-controls="all-collaborations"
+        onClick={() => setExpanded(!expanded)}
       >
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-soft)]">WORKED WITH</p>
-
-        <ul className="mt-6 grid grid-cols-1 gap-3 pr-3 md:grid-cols-2 lg:grid-cols-3">
-          {visibleItems.map((item) => (
-            <li key={item.name}>
-              <Chip item={item} />
-            </li>
-          ))}
-          <li className="md:col-span-2 lg:col-span-3">
-            <button
-              type="button"
-              className={cn(
-                "glass-chip inline-flex h-12 w-full items-center justify-center rounded-xl border-white/24 bg-[rgba(10,12,18,0.58)] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-main)] transition-colors duration-200 [&::before]:opacity-0",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090a0c]"
-              )}
-              aria-expanded={isExpanded}
-              onClick={() => setIsExpanded((prev) => !prev)}
-            >
-              {isExpanded ? labels.hide : labels.show}
-            </button>
-          </li>
-        </ul>
+        <span>
+          {ru
+            ? expanded
+              ? "Скрыть список"
+              : "Все коллаборации"
+            : expanded
+              ? "Show less"
+              : "All collaborations"}{" "}
+          <span className="collaboration-count">({allNames.length})</span>
+        </span>
+        <span className="collaboration-toggle-icon">
+          <Plus size={20} strokeWidth={1.5} />
+        </span>
+      </button>
+      <motion.div
+        id="all-collaborations"
+        className="collaboration-expansion"
+        aria-hidden={!expanded}
+        initial={false}
+        animate={{ height: expanded ? "auto" : 0, opacity: expanded ? 1 : 0 }}
+        transition={{ duration: reduced ? 0 : 0.5, ease: [0.32, 0.72, 0, 1] }}
+      >
+        <div className="collaboration-index">
+          <p>
+            {ru ? "Также работал с" : "Also worked with"}
+            <span>{String(additionalNames.length).padStart(2, "0")}</span>
+          </p>
+          <ul>
+            {additionalNames.map((name) => (
+              <li key={name}>{profile(name, displayName(name), expanded ? undefined : -1)}</li>
+            ))}
+          </ul>
+        </div>
       </motion.div>
     </section>
   );
