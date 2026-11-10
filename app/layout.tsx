@@ -17,21 +17,21 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nfkprod.ru"),
   icons: {
-    icon: [{ url: "/brand/icon-wordmark-v3.svg", type: "image/svg+xml" }, { url: "/brand/favicon-wordmark-v3.ico" }, { url: "/brand/icon-wordmark-v3.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/brand/apple-wordmark-v3.png", sizes: "180x180" }],
+    icon: [{ url: "/brand/icon-wordmark-v4.svg", type: "image/svg+xml" }, { url: "/brand/favicon-wordmark-v4.ico" }, { url: "/brand/icon-wordmark-v4.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/brand/apple-wordmark-v4.png", sizes: "180x180" }],
   },
   title: {
-    default: "NFKPROD - Motion, CGI, AI",
+    default: "NFKPROD - Motion, CGI, VFX & AI",
     template: "%s | NFKPROD",
   },
   openGraph: {
-    title: "NFKPROD - Motion, CGI, AI",
+    title: "NFKPROD - Motion, CGI, VFX & AI",
     type: "website",
     locale: "ru_RU",
     siteName: "NFKPROD",
     images: [
       {
-        url: "/brand/og-wordmark-v3.png",
+        url: "/brand/og-wordmark-v4.png",
         width: 1200,
         height: 630,
         alt: "NFKPROD",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NFKPROD - Motion, CGI, AI",
-    images: ["/brand/og-wordmark-v3.png"],
+    title: "NFKPROD - Motion, CGI, VFX & AI",
+    images: ["/brand/og-wordmark-v4.png"],
   },
 };
 

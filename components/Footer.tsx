@@ -14,7 +14,7 @@ export default function Footer() {
       </Link>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} NFKPROD</span>
-        <span>MOTION / CGI / AI</span>
+        <span>MOTION / CGI / VFX / AI</span>
         <div>
           <a
             href="https://www.instagram.com/nfkprod"

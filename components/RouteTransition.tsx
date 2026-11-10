@@ -111,7 +111,7 @@ export default function RouteTransition({ children }: { children: ReactNode }) {
     {children}
     <div className={`route-transition route-transition--${phase}`} aria-hidden="true">
       <div className="route-transition-wordmark"><span>nfkprod.</span></div>
-      <div className="route-transition-bottom"><span>{label}</span><span>Motion / CGI / AI</span></div>
+      <div className="route-transition-bottom"><span>{label}</span><span>Motion / CGI / VFX / AI</span></div>
     </div>
   </div>;
 }

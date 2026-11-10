@@ -169,7 +169,7 @@ export default function Hero({ locale = "ru" }: { locale?: Locale }) {
           <span>
             Independent visual creator
             <br />
-            Motion / CGI / AI
+            Motion / CGI / VFX / AI
           </span>
           <div className="film-actions">
             {!reduced && (
