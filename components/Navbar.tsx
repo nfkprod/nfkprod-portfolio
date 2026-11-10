@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const links = [
   { href: "/portfolio", ru: "Работы", en: "Work" },
@@ -82,6 +83,7 @@ export default function Navbar() {
         ))}
       </nav>
       <div className="nav-actions">
+        <ThemeToggle locale={locale} />
         <Link
           className="language-link"
           href={locale === "en" ? path : withLocalePath(path, "en")}

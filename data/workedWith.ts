@@ -1,32 +1,37 @@
 export type WorkedWithItem = {
   name: string;
   logoSrc?: string;
+  logoKind?: "wordmark" | "symbol";
 };
 
 export const brands: WorkedWithItem[] = [
-  { name: "МТС" },
-  { name: "OZON" },
-  { name: "TNT" },
-  { name: "A+" },
-  { name: "VK" },
-  { name: "ИРИ" },
-  { name: "Королевская семья Дубая" },
-  { name: "STREETBEAT" },
-  { name: "RYZE AI" }
+  { name: "МТС", logoKind: "symbol", logoSrc: "/brands/mts.svg" },
+  { name: "VK", logoKind: "symbol", logoSrc: "/brands/vk.svg" },
+  { name: "OZON", logoSrc: "/brands/ozon.svg" },
+  { name: "STREETBEAT", logoSrc: "/brands/streetbeat.svg" },
+  { name: "Racer Worldwide", logoSrc: "/brands/racer-worldwide.svg" },
+  { name: "A+", logoKind: "symbol", logoSrc: "/brands/aplus.png" },
+  { name: "TNT", logoKind: "symbol", logoSrc: "/brands/tnt-flat.png" },
+  { name: "ИРИ", logoSrc: "/brands/iri.svg" },
+  { name: "RYZE AI", logoSrc: "/brands/ryze-ai.webp" },
+  { name: "Juicy Couture", logoSrc: "/brands/juicy-couture.png" },
 ];
 
+// Editorial order: international names, then major music collaborations.
 export const topArtists: WorkedWithItem[] = [
+  { name: "Waka Flocka Flame" },
   { name: "Kali Uchis" },
+  { name: "Егор Крид" },
+  { name: "BUSHIDO ZHO" },
+  { name: "Aarne" },
+  { name: "Big Baby Tape" },
+  { name: "JONY" },
   { name: "Sasha Saharnaya" },
   { name: "Динара Гараева (WHYNOEN)" },
-  { name: "Егор Крид" },
-  { name: "JONY" },
-  { name: "Big Baby Tape" },
   { name: "Ваня Дмитриенко" },
   { name: "Григорий Лепс" },
   { name: "LIL NAKU" },
-  { name: "Waka Flocka Flame" },
-  { name: "GORILLA GLU" }
+  { name: "GORILLA GLU" },
 ];
 
 // Backward-compatible alias
@@ -44,7 +49,7 @@ export const fullList: string[] = [
   "ИРИ",
   "Королевская семья Дубая",
 
-  // Top-6 artists (НЕ ТРОГАЮ порядок)
+  // Artists and creative collaborators
   "Ваня Дмитриенко",
   "NILETTO",
   "Григорий Лепс",
@@ -57,7 +62,7 @@ export const fullList: string[] = [
   // Extra / international
   "Kali Uchis",
 
-  // Sorted by monthly listeners (по твоим скринам)
+  // Additional collaborators
   "Aarne",
   "BUSHIDO ZHO",
   "Три дня дождя",
@@ -105,5 +110,7 @@ export const fullList: string[] = [
   "Waka Flocka Flame",
   "GORILLA GLU",
   "STREETBEAT",
-  "RYZE AI"
+  "RYZE AI",
+  "Racer Worldwide",
+  "Juicy Couture"
 ].filter((x) => !removed.includes(x));

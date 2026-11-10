@@ -4,9 +4,11 @@ const selectedOrder = [
   "seville-artik-asti-fashion-cgi",
   "axiom-brand-film",
   "iceman-teaser-drake-concept-work",
-  "helio-product-loop",
+  "gridos-platform-film",
   "prism-energy-ident",
+  "helio-product-loop",
   "vanta-cgi-opener",
+  "aurora-launch-system",
 ];
 
 export function curateProjects(projects: ProjectItem[]) {

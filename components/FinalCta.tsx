@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
-import { contactEmail } from "@/lib/contact";
+import { contactEmail, telegramChannelUrl } from "@/lib/contact";
 
 export default function FinalCta({ locale = "ru" }: { locale?: Locale }) {
   const ru = locale === "ru";
@@ -42,6 +42,7 @@ export default function FinalCta({ locale = "ru" }: { locale?: Locale }) {
         <a href="https://t.me/Nfk23" target="_blank" rel="noreferrer">
           Telegram <ArrowUpRight size={15} />
         </a>
+        <a href={telegramChannelUrl} target="_blank" rel="noreferrer">{ru ? "Telegram-канал" : "Telegram channel"}</a>
       </div>
     </section>
   );

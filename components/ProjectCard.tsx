@@ -32,7 +32,7 @@ export default function ProjectCard({
   const preview = project.previewVideo;
   const localPreview = preview?.src.startsWith("/") ? preview.src : undefined;
   // These films contain edge-to-edge brand lettering that must remain in frame.
-  const preserveFrame = ["axiom-brand-film", "helio-product-loop"].includes(
+  const preserveFrame = ["axiom-brand-film", "helio-product-loop", "gridos-platform-film"].includes(
     project.slug,
   );
 
@@ -62,6 +62,7 @@ export default function ProjectCard({
     "axiom-brand-film": ["Bose", "Product film / Spec ad"],
     "iceman-teaser-drake-concept-work": ["ICEMAN", "Drake / Concept work"],
     "helio-product-loop": ["HEARTZ 2.0", "Brand visual"],
+    "gridos-platform-film": [locale === "ru" ? "МТС × OZON" : "MTS × OZON", locale === "ru" ? "Три кота / Рекламные ролики" : "Three Cats / Campaign films"],
     "prism-energy-ident": ["BUSHIDO ZHO × Aarne", "Slim Shady / VFX"],
     "vanta-cgi-opener": [
       "Comedy Club",

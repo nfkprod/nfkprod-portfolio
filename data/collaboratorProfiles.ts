@@ -1,6 +1,9 @@
-// Profiles checked against public sources on 2026-10-28. Evidence retained for future updates.
+// Music profiles standardized to Apple Music on 2026-11-10. Verification sources retained.
 export type CollaboratorProfile = { url: string; evidence: string; kind: string };
 const profiles: Record<string, CollaboratorProfile> = {
+  "a+": { url: "https://aplusmuz.ru/", evidence: "https://aplusmuz.ru/", kind: "official-label-website" },
+  "racer worldwide": { url: "https://www.racerworldwide.net/", evidence: "https://www.racerworldwide.net/", kind: "official-brand-website" },
+  "juicy couture": { url: "https://juicycouture.com/", evidence: "https://juicycouture.com/", kind: "official-brand-website" },
   "aarne": {
     "url": "https://music.apple.com/us/artist/aarne/1533716530",
     "evidence": "https://music.apple.com/us/song/1694334196",
@@ -12,9 +15,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "official-brand-website"
   },
   "artem shilovets": {
-    "url": "https://open.spotify.com/artist/3r1Md7Hk5iqtpyEoGo8032",
-    "evidence": "https://open.spotify.com/artist/3r1Md7Hk5iqtpyEoGo8032",
-    "kind": "spotify_artist"
+    "url": "https://music.apple.com/us/artist/artem-shilovets/1447052076",
+    "evidence": "https://music.apple.com/us/song/1870829576",
+    "kind": "apple-music-artist"
   },
   "big baby tape": {
     "url": "https://music.apple.com/us/artist/big-baby-tape/1356097231",
@@ -32,9 +35,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "twitch-channel"
   },
   "claude money": {
-    "url": "https://www.youtube.com/c/realclaudemoney",
-    "evidence": "https://t.me/s/djdimixer?after=223",
-    "kind": "youtube-channel"
+    "url": "https://music.apple.com/us/artist/claude-money/1069317668",
+    "evidence": "https://music.apple.com/us/artist/claude-money/1069317668",
+    "kind": "apple-music-artist"
   },
   "clonnex": {
     "url": "https://music.apple.com/us/artist/clonnex/1452875720",
@@ -44,7 +47,7 @@ const profiles: Record<string, CollaboratorProfile> = {
   "dose": {
     "url": "https://music.apple.com/us/artist/dose/1454808243",
     "evidence": "https://music.apple.com/us/artist/dose/1454808243",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "flamebaker": {
     "url": "https://t.me/flamebaker",
@@ -64,12 +67,12 @@ const profiles: Record<string, CollaboratorProfile> = {
   "heronwater": {
     "url": "https://music.apple.com/us/artist/heronwater/1659366660",
     "evidence": "https://music.apple.com/us/artist/heronwater/1659366660",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "hofmannita": {
     "url": "https://music.apple.com/us/artist/hofmannita/1476459230",
     "evidence": "https://music.apple.com/us/artist/hofmannita/1476459230?l=pt-BR",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "johnny dang": {
     "url": "https://johnnydangandco.com/",
@@ -82,9 +85,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "apple-music-artist"
   },
   "kali uchis": {
-    "url": "https://www.kaliuchis.com/home/",
-    "evidence": "https://www.kaliuchis.com/home/",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/kali-uchis/894731301",
+    "evidence": "https://music.apple.com/us/artist/kali-uchis/894731301",
+    "kind": "apple-music-artist"
   },
   "kout": {
     "url": "https://music.apple.com/us/artist/kout/1477101111",
@@ -92,14 +95,14 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "apple-music-artist"
   },
   "lil kavkaz": {
-    "url": "https://zvuk.com/artist/211416746",
-    "evidence": "https://zvuk.com/artist/211416746",
-    "kind": "zvuk-artist"
+    "url": "https://music.apple.com/us/artist/lil-kavkaz/1598317052",
+    "evidence": "https://music.apple.com/us/album/christopher-tony-single/6772724634",
+    "kind": "apple-music-artist"
   },
   "lil krystalll": {
     "url": "https://music.apple.com/us/artist/lil-krystalll/1345892399",
     "evidence": "https://music.apple.com/us/artist/lil-krystalll/1345892399",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "lil morty": {
     "url": "https://music.apple.com/us/artist/lil-morty/1450149680",
@@ -114,7 +117,7 @@ const profiles: Record<string, CollaboratorProfile> = {
   "lovv66": {
     "url": "https://music.apple.com/us/artist/lovv66/1453218855",
     "evidence": "https://music.apple.com/us/artist/lovv66/1453218855",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "luverance": {
     "url": "https://music.apple.com/us/artist/luverance/1504929593",
@@ -129,22 +132,22 @@ const profiles: Record<string, CollaboratorProfile> = {
   "mayot": {
     "url": "https://music.apple.com/us/artist/mayot/1458525039",
     "evidence": "https://music.apple.com/us/artist/mayot/1458525039",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "nasty babe": {
     "url": "https://music.apple.com/us/artist/nasty-babe/1451043072",
     "evidence": "https://music.apple.com/us/artist/nasty-babe/1451043072",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "niletto": {
-    "url": "https://niletto.su/",
-    "evidence": "https://t.me/s/nilettoofficial",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/niletto/1206741918",
+    "evidence": "https://music.apple.com/us/album/%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D0%BA%D0%B0-single/1880729581",
+    "kind": "apple-music-artist"
   },
   "nkeeei": {
-    "url": "https://open.spotify.com/artist/0kD3TUffiD0sPxGwygzjg7",
-    "evidence": "https://musicbrainz.org/artist/3493d69c-37d7-41f3-b322-df266d57e5f9/relationships",
-    "kind": "spotify_artist"
+    "url": "https://music.apple.com/us/artist/nkeeei/1528083145",
+    "evidence": "https://music.apple.com/us/song/1870829576",
+    "kind": "apple-music-artist"
   },
   "offmi": {
     "url": "https://music.apple.com/us/artist/offmi/1321919133",
@@ -152,9 +155,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "apple-music-artist"
   },
   "og buda": {
-    "url": "https://ogbuda.com/",
-    "evidence": "https://ogbuda.com/",
-    "kind": "official_website"
+    "url": "https://music.apple.com/us/artist/og-buda/1382321701",
+    "evidence": "https://music.apple.com/us/artist/og-buda/1382321701",
+    "kind": "apple-music-artist"
   },
   "ozon": {
     "url": "https://corp.ozon.ru/",
@@ -164,7 +167,7 @@ const profiles: Record<string, CollaboratorProfile> = {
   "plohoyparen": {
     "url": "https://music.apple.com/us/artist/plohoyparen/1390569747",
     "evidence": "https://music.apple.com/us/artist/plohoyparen/1390569747",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "ryze ai": {
     "url": "https://www.get-ryze.ai/",
@@ -179,7 +182,7 @@ const profiles: Record<string, CollaboratorProfile> = {
   "soda luv": {
     "url": "https://music.apple.com/gb/artist/soda-luv/1433836652",
     "evidence": "https://music.apple.com/gb/artist/soda-luv/1433836652",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "streetbeat": {
     "url": "https://street-beat.ru/",
@@ -197,9 +200,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "apple-music-artist"
   },
   "uniqe": {
-    "url": "https://open.spotify.com/artist/0NhjeTa9uSqiD1wEG3gfII/",
-    "evidence": "https://open.spotify.com/artist/0NhjeTa9uSqiD1wEG3gfII/",
-    "kind": "spotify_artist"
+    "url": "https://music.apple.com/us/artist/uniqe/1543718356",
+    "evidence": "https://music.apple.com/us/song/1870829576",
+    "kind": "apple-music-artist"
   },
   "usmanovfck": {
     "url": "https://fuckclothing.ru/",
@@ -207,9 +210,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "official-brand-website"
   },
   "vacio": {
-    "url": "https://zvuk.com/artist/187188977",
-    "evidence": "https://zvuk.com/artist/187188977",
-    "kind": "zvuk-artist"
+    "url": "https://music.apple.com/ru/artist/vac%C3%ADo/1488185823",
+    "evidence": "https://music.apple.com/ru/song/1683825697",
+    "kind": "apple-music-artist"
   },
   "velial squad": {
     "url": "https://music.apple.com/ru/artist/velial-squad/1185975352",
@@ -222,34 +225,34 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "official-corporate-website"
   },
   "waka flocka flame": {
-    "url": "https://linktr.ee/WakaFlocka",
-    "evidence": "https://wmg.jp/wakaflockaflame",
-    "kind": "official-artist-linkhub"
+    "url": "https://music.apple.com/us/artist/waka-flocka-flame/342826213",
+    "evidence": "https://music.apple.com/us/artist/waka-flocka-flame/342826213",
+    "kind": "apple-music-artist"
   },
   "white punk": {
     "url": "https://music.apple.com/us/artist/white-punk/1123087266",
     "evidence": "https://music.apple.com/us/artist/white-punk/1123087266",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "wipo": {
     "url": "https://music.apple.com/us/artist/wipo/1528248614",
     "evidence": "https://music.apple.com/us/artist/wipo/1528248614",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "xxxmanera": {
     "url": "https://music.apple.com/us/artist/xxxmanera/1512829009",
     "evidence": "https://music.apple.com/us/artist/xxxmanera/1512829009",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "ваня дмитриенко": {
-    "url": "https://vanyadmitrienko.ru/",
-    "evidence": "https://zionmusic.ru/vanya-dmitrienko",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/%D0%B2%D0%B0%D0%BD%D1%8F-%D0%B4%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B5%D0%BD%D0%BA%D0%BE/1533434174",
+    "evidence": "https://music.apple.com/us/artist/%D0%B2%D0%B0%D0%BD%D1%8F-%D0%B4%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B5%D0%BD%D0%BA%D0%BE/1533434174",
+    "kind": "apple-music-artist"
   },
   "григорий лепс": {
-    "url": "https://www.grigoryleps.ru/",
-    "evidence": "https://www.grigoryleps.ru/index.html",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/%D0%B3%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%B8%D0%B9-%D0%BB%D0%B5%D0%BF%D1%81/282234226",
+    "evidence": "https://music.apple.com/us/artist/%D0%B3%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%B8%D0%B9-%D0%BB%D0%B5%D0%BF%D1%81/282234226",
+    "kind": "apple-music-artist"
   },
   "динара гараева": {
     "url": "https://30-under-30.forbes.ru/2025/536412-dinara-garaeva",
@@ -257,9 +260,9 @@ const profiles: Record<string, CollaboratorProfile> = {
     "kind": "artist-biography"
   },
   "егор крид": {
-    "url": "https://egorkreed.com/",
-    "evidence": "https://egorkreed.com/contacts/",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/egor-kreed/818678567",
+    "evidence": "https://music.apple.com/us/artist/egor-kreed/818678567",
+    "kind": "apple-music-artist"
   },
   "ири": {
     "url": "https://xn--h1aax.xn--p1ai/",
@@ -269,7 +272,7 @@ const profiles: Record<string, CollaboratorProfile> = {
   "кишлак": {
     "url": "https://music.apple.com/us/artist/%D0%BA%D0%B8%D1%88%D0%BB%D0%B0%D0%BA/1518967860",
     "evidence": "https://music.apple.com/us/artist/%D0%BA%D0%B8%D1%88%D0%BB%D0%B0%D0%BA/1518967860",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "королевская семья дубая": {
     "url": "https://protocol.dubai.ae/en/uae-dubai/about-dubai/",
@@ -279,12 +282,12 @@ const profiles: Record<string, CollaboratorProfile> = {
   "лали": {
     "url": "https://music.apple.com/us/artist/%D0%BB%D0%B0%D0%BB%D0%B8/1515085936",
     "evidence": "https://music.apple.com/us/artist/%D0%BB%D0%B0%D0%BB%D0%B8/1515085936",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "молодой платон": {
     "url": "https://music.apple.com/kz/artist/molodoj-platon/1465587712",
     "evidence": "https://music.apple.com/kz/artist/molodoj-platon/1465587712",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "мтс": {
     "url": "https://mts.ru/",
@@ -294,17 +297,17 @@ const profiles: Record<string, CollaboratorProfile> = {
   "платина": {
     "url": "https://music.apple.com/us/artist/%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D0%BD%D0%B0/1309211809",
     "evidence": "https://music.apple.com/us/artist/%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D0%BD%D0%B0/1309211809",
-    "kind": "apple_music_artist"
+    "kind": "apple-music-artist"
   },
   "пошлая молли": {
-    "url": "https://poshlayamolly.com/",
-    "evidence": "https://t.me/s/poshlayamollyofficial?before=1498",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/%D0%BF%D0%BE%D1%88%D0%BB%D0%B0%D1%8F-%D0%BC%D0%BE%D0%BB%D0%BB%D0%B8/1212756868",
+    "evidence": "https://music.apple.com/us/artist/%D0%BF%D0%BE%D1%88%D0%BB%D0%B0%D1%8F-%D0%BC%D0%BE%D0%BB%D0%BB%D0%B8/1212756868",
+    "kind": "apple-music-artist"
   },
   "три дня дождя": {
-    "url": "https://everydayrain.com/",
-    "evidence": "https://t.me/s/everydayrain",
-    "kind": "official-website"
+    "url": "https://music.apple.com/us/artist/%D1%82%D1%80%D0%B8-%D0%B4%D0%BD%D1%8F-%D0%B4%D0%BE%D0%B6%D0%B4%D1%8F/1479626901",
+    "evidence": "https://music.apple.com/us/album/melancholia/1712676700",
+    "kind": "apple-music-artist"
   }
 };
 

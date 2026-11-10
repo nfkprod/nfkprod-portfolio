@@ -8,7 +8,7 @@ import { brands, topArtists, fullList } from "@/data/workedWith";
 import type { Locale } from "@/lib/i18n";
 import { getCollaboratorProfile } from "@/data/collaboratorProfiles";
 
-const featuredBrands = brands.slice(0, 6).map(({ name }) => name);
+const featuredBrands = brands.map(({ name }) => name);
 const featuredArtists = topArtists.slice(0, 6).map(({ name }) => name);
 const nameKey = (name: string) => name.toLocaleLowerCase();
 const selectedKeys = new Set(
@@ -55,7 +55,8 @@ export default function WorkedWithSection({
     if (!destination) return children;
     return <a className="collaborator-link" href={destination.url} target="_blank" rel="noreferrer"
       tabIndex={tabIndex}
-      aria-label={`${displayName(name)} — ${ru ? "открыть страницу в новой вкладке" : "open profile in a new tab"}`}>
+      title={destination.kind === "apple-music-artist" ? `${displayName(name)} — Apple Music` : undefined}
+      aria-label={`${displayName(name)}${destination.kind === "apple-music-artist" ? " — Apple Music" : ""} — ${ru ? "открыть страницу в новой вкладке" : "open profile in a new tab"}`}>
       <span>{children}</span><ArrowUpRight size={14} aria-hidden="true" />
     </a>;
   };
@@ -96,9 +97,15 @@ export default function WorkedWithSection({
               <span>01</span>
             </h3>
             <ul className="collaboration-brands">
-              {featuredBrands.map((name) => (
-                <li key={name}>{profile(name, displayName(name))}</li>
-              ))}
+                {brands.map(({ name, logoSrc, logoKind }) => (
+                  <li key={name} className={`brand-tile brand-tile--${logoKind ?? "wordmark"}`}>
+                    {profile(name, <span className={`brand-tile-content ${name === "RYZE AI" ? "brand-tile-content--ryze" : ""}`}>
+                      {logoSrc ? <img className="brand-tile-logo" src={logoSrc} alt={displayName(name)} loading="lazy" />
+                        : <span className="brand-tile-wordmark">{displayName(name)}</span>}
+                      {name === "RYZE AI" && <span className="brand-tile-ryze-name">Ryze</span>}
+                    </span>)}
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="collaboration-group">

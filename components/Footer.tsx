@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
-import { linkedinUrl } from "@/lib/contact";
+import { linkedinUrl, telegramChannelUrl } from "@/lib/contact";
 
 export default function Footer() {
   const locale = getLocaleFromPathname(usePathname());
@@ -25,6 +25,9 @@ export default function Footer() {
           </a>
           <a href="https://t.me/Nfk23" target="_blank" rel="noreferrer">
             Telegram
+          </a>
+          <a href={telegramChannelUrl} target="_blank" rel="noreferrer">
+            {locale === "ru" ? "Telegram-канал" : "Telegram channel"}
           </a>
           <Link href={withLocalePath("/contact", locale)}>
             {locale === "ru" ? "Контакт" : "Contact"}

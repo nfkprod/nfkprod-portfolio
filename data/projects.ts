@@ -489,20 +489,20 @@ export const projects: ProjectItem[] = [
     heroMedia: {
       type: "video",
       src: "https://vimeo.com/1165001104?share=copy&fl=sv&fe=ci",
-      poster: "/placeholder/tri-kota-cover.png",
+      poster: "/projects/mts-ozon-three-cats-cover-v3.png",
       alt: "ТРИ КОТА: МТС,OZON"
     },
     previewVideo: {
       type: "video",
       src: "/previews/gridos-platform-film.mp4",
-      poster: "/placeholder/tri-kota-cover.png",
+      poster: "/projects/mts-ozon-three-cats-cover-v3.png",
       alt: "Three Cats preview"
     },
     gallery: [
       {
         type: "video",
         src: "https://vimeo.com/1165001193?share=copy&fl=sv&fe=ci",
-        poster: "/placeholder/tri-kota-cover.png",
+        poster: "/projects/mts-ozon-three-cats-cover-v3.png",
         alt: "ТРИ КОТА: МТС,OZON - ролик 2"
       }
     ],

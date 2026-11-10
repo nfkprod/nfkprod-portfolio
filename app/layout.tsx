@@ -17,8 +17,8 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nfkprod.ru"),
   icons: {
-    icon: [{ url: "/brand/favicon-v2.ico" }, { url: "/brand/icon-v2.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/brand/apple-touch-icon-v2.png", sizes: "180x180" }],
+    icon: [{ url: "/brand/icon-wordmark-v3.svg", type: "image/svg+xml" }, { url: "/brand/favicon-wordmark-v3.ico" }, { url: "/brand/icon-wordmark-v3.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/brand/apple-wordmark-v3.png", sizes: "180x180" }],
   },
   title: {
     default: "NFKPROD - Motion, CGI, AI",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "NFKPROD",
     images: [
       {
-        url: "/brand/nfk-mark-v2.png",
-        width: 1024,
-        height: 1024,
+        url: "/brand/og-wordmark-v3.png",
+        width: 1200,
+        height: 630,
         alt: "NFKPROD",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NFKPROD - Motion, CGI, AI",
-    images: ["/brand/nfk-mark-v2.png"],
+    images: ["/brand/og-wordmark-v3.png"],
   },
 };
 
@@ -51,7 +51,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("nfk-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){}})();` }} /></head>
       <body className={`${manrope.variable} font-body`}>
         <MotionPreference>
         <RouteTransition>
