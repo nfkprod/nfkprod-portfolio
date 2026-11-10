@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { briefServiceOptions, validateBudgetRange } from "@/lib/briefValidation";
 
 type ContactBriefPayload = {
   name: string;
@@ -7,6 +8,7 @@ type ContactBriefPayload = {
   budgetFrom?: string;
   budgetTo?: string;
   budget?: string;
+  budgetCurrency: "RUB" | "USD";
   timeline?: string;
   services?: string[];
   description: string;
@@ -24,10 +26,11 @@ function formatBudgetRange(payload: ContactBriefPayload) {
   const to = asText(payload.budgetTo);
   const legacy = asText(payload.budget);
 
-  if (from && to) return `${from} - ${to}`;
-  if (from) return `from ${from}`;
-  if (to) return `to ${to}`;
-  if (legacy) return legacy;
+  const currency = payload.budgetCurrency;
+  if (from && to) return `${from} - ${to} ${currency}`;
+  if (from) return `from ${from} ${currency}`;
+  if (to) return `to ${to} ${currency}`;
+  if (legacy) return `${legacy} ${currency}`;
   return "-";
 }
 
@@ -55,17 +58,16 @@ function buildTelegramMessage(payload: ContactBriefPayload, origin: string) {
 }
 
 export async function POST(request: Request) {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-
-  if (!botToken || !chatId) {
-    return NextResponse.json(
-      { success: false, message: "Telegram is not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID." },
-      { status: 500 }
-    );
+  let parsed: unknown;
+  try {
+    parsed = await request.json();
+  } catch {
+    return NextResponse.json({ success: false, message: "Invalid JSON payload." }, { status: 400 });
   }
-
-  const rawPayload = (await request.json()) as Partial<ContactBriefPayload> & { email?: unknown; contact?: unknown };
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return NextResponse.json({ success: false, message: "Invalid brief payload." }, { status: 400 });
+  }
+  const rawPayload = parsed as Record<string, unknown>;
   const payload: ContactBriefPayload = {
     name: asText(rawPayload.name),
     contact: asText(rawPayload.contact) || asText(rawPayload.email),
@@ -73,15 +75,29 @@ export async function POST(request: Request) {
     budgetFrom: asText(rawPayload.budgetFrom),
     budgetTo: asText(rawPayload.budgetTo),
     budget: asText(rawPayload.budget),
+    budgetCurrency: rawPayload.budgetCurrency === "USD" ? "USD" : "RUB",
     timeline: asText(rawPayload.timeline),
-    services: Array.isArray(rawPayload.services) ? rawPayload.services.filter((item): item is string => typeof item === "string") : [],
+    services: Array.isArray(rawPayload.services)
+      ? rawPayload.services.filter((item): item is string => typeof item === "string" && (briefServiceOptions as readonly string[]).includes(item))
+      : [],
     description: asText(rawPayload.description),
     references: asText(rawPayload.references),
-    consent: Boolean(rawPayload.consent)
+    consent: rawPayload.consent === true
   };
 
   if (!payload.name || !payload.contact || !payload.description || !payload.consent) {
     return NextResponse.json({ success: false, message: "Missing required fields." }, { status: 400 });
+  }
+
+  const budgetValidation = validateBudgetRange(payload);
+  if (!budgetValidation.valid) {
+    return NextResponse.json({ success: false, message: "Enter a valid project budget.", field: "budget", code: budgetValidation.error }, { status: 400 });
+  }
+
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!botToken || !chatId) {
+    return NextResponse.json({ success: false, message: "Brief delivery is temporarily unavailable." }, { status: 500 });
   }
 
   const text = buildTelegramMessage(payload, request.headers.get("origin") ?? "");

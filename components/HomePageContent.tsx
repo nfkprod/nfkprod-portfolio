@@ -16,13 +16,13 @@ import type { ProjectItem } from "@/data/types";
 const disciplines = [
   {
     title: "Motion design",
-    ru: "Рекламные ролики, айдентика в движении, титры и визуал для экранов.",
-    en: "Campaign films, identities in motion, title sequences and screen visuals.",
+    ru: "Рекламные ролики, анимация логотипов, титры и графика для экранов.",
+    en: "Campaign films, animated logos, titles and graphics for screens.",
   },
   {
     title: "CGI & VFX",
-    ru: "Предметный 3D, сложный композитинг и эффекты, которые становятся частью кадра.",
-    en: "Product CGI, advanced compositing and effects that belong in the frame.",
+    ru: "3D-визуализация продуктов и визуальные эффекты для видео. Добавляю в кадр то, что сложно или невозможно снять.",
+    en: "Product CGI and visual effects for film. I add what would be difficult or impossible to shoot.",
   },
   {
     title: "AI visuals",
@@ -31,8 +31,8 @@ const disciplines = [
   },
   {
     title: "Creative production",
-    ru: "От идеи и визуального исследования до готового проекта и адаптаций.",
-    en: "From the idea and visual exploration to a finished project and its adaptations.",
+    ru: "Помогаю найти идею и собираю проект целиком: от первых эскизов до финального ролика и версий для разных площадок.",
+    en: "I help shape the idea and take it through to a finished film, with versions for each platform.",
   },
 ];
 
@@ -102,7 +102,7 @@ export default function HomePageContent({
         <figure className="creator-portrait">
           <CreatorPortrait locale={locale} />
           <figcaption>
-            <span>NFK</span>
+            <span>{ru ? "Егор Нафиков / NFK" : "Egor Nafikov / NFK"}</span>
             <span>Motion designer / Visual creator</span>
           </figcaption>
         </figure>
@@ -120,8 +120,8 @@ export default function HomePageContent({
           <ScrollReveal delay={120}>
             <p>
               {ru
-                ? "Я NFK — motion-дизайнер и визуальный креатор. Более пяти лет соединяю дизайн, технологии и эксперименты в проектах для брендов, артистов и продакшенов."
-                : "I'm NFK, a motion designer and visual creator. For over five years, I've been connecting design, technology and experimentation for brands, artists and production teams."}
+                ? "Больше пяти лет занимаюсь моушн-дизайном и постпродакшеном. Мои работы показывали на Times Square, медиафасадах Москвы и Санкт-Петербурга и на VK Fest."
+                : "Over five years in motion design and post-production. My work has been shown in Times Square, on media facades in Moscow and Saint Petersburg, and at VK Fest."}
             </p>
           </ScrollReveal>
           <Link className="text-link" href={withLocalePath("/about", locale)}>
@@ -135,7 +135,7 @@ export default function HomePageContent({
             <div className="discipline-list">
               {disciplines.map((item) => (
                 <Link
-                  href={withLocalePath("/contact", locale)}
+                  href={withLocalePath("/services", locale)}
                   key={item.title}
                   className="discipline-row"
                 >

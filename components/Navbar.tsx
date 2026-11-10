@@ -10,6 +10,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 const links = [
   { href: "/portfolio", ru: "Работы", en: "Work" },
   { href: "/about", ru: "Обо мне", en: "About" },
+  { href: "/services", ru: "Услуги", en: "Services" },
   { href: "/contact", ru: "Бриф", en: "Contact" },
 ];
 

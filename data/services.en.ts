@@ -3,9 +3,9 @@ import type { ServiceAddon, ServicePackage } from "@/data/types";
 export const servicePackagesEn: ServicePackage[] = [
   {
     id: "starter-motion-pack",
-    name: "Starter Motion Pack",
+    name: "Motion design",
     subtitle: "Short-form social videos and editing with motion graphics.",
-    priceFrom: "Custom quote",
+    priceFrom: "From RUB 65,000",
     timeline: "5-7 business days",
     revisions: "2 rounds",
     sourceFiles: "AEP + final exports",
@@ -16,9 +16,9 @@ export const servicePackagesEn: ServicePackage[] = [
   },
   {
     id: "cgi-product-shot",
-    name: "CGI Product Shot",
+    name: "CGI / 3D",
     subtitle: "3D product renders, turntables, and beauty shots.",
-    priceFrom: "Project quote",
+    priceFrom: "From RUB 140,000",
     timeline: "10-14 business days",
     revisions: "3 rounds",
     sourceFiles: "Render passes + project files",
@@ -29,9 +29,9 @@ export const servicePackagesEn: ServicePackage[] = [
   },
   {
     id: "explainer-ui-promo",
-    name: "UIX / Interface Motion",
+    name: "Interface animation",
     subtitle: "UI animations, transitions, micro-interactions, HUD/overlay, and product screen prototypes.",
-    priceFrom: "Scoped after brief",
+    priceFrom: "From RUB 95,000",
     timeline: "7-10 business days",
     revisions: "2-3 rounds",
     sourceFiles: "AEP/Figma links + master",
@@ -42,13 +42,13 @@ export const servicePackagesEn: ServicePackage[] = [
   },
   {
     id: "custom",
-    name: "Custom",
-    subtitle: "Tailored scope based on your task and deadline.",
+    name: "AI & custom projects",
+    subtitle: "Generative images and video, visual experiments, and projects that need a different approach.",
     priceFrom: "Custom quote",
     timeline: "based on brief",
     revisions: "flexible",
     sourceFiles: "as agreed",
-    deliverables: ["KPI-focused scope", "Team matched to pipeline", "Step-by-step production plan"],
+    deliverables: ["Scope built around your task", "A team if needed", "A production plan"],
     includes: ["Task audit", "Pre-estimate", "Roadmap"],
     excludes: ["Fixed checklist"],
     highlighted: false

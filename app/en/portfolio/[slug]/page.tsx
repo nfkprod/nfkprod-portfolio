@@ -5,6 +5,7 @@ import ProjectCaseDetails from "@/components/ProjectCaseDetails";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeader from "@/components/SectionHeader";
 import CaseStage from "@/components/CaseStage";
+import DeferredVideoEmbed from "@/components/DeferredVideoEmbed";
 import ScrollReveal from "@/components/ScrollReveal";
 import {
   getProjectBySlugEn,
@@ -134,7 +135,7 @@ export default function ProjectCasePageEn({
           description={project.summary}
         />
 
-        <CaseStage key={project.slug} poster={project.heroMedia.poster} embedded={project.heroMedia.type === "video" && isEmbedVideoUrl(project.heroMedia.src)}>
+        <CaseStage key={project.slug}>
           <div
             data-case-media
             className={getMediaFrameClass(
@@ -145,13 +146,12 @@ export default function ProjectCasePageEn({
           >
             {project.heroMedia.type === "video" ? (
               isEmbedVideoUrl(project.heroMedia.src) ? (
-                <iframe
-                  className="h-full w-full"
+                <DeferredVideoEmbed
                   src={toEmbedVideoUrl(project.heroMedia.src)}
+                  watchUrl={project.heroMedia.src}
+                  poster={project.heroMedia.poster}
                   title={project.heroMedia.alt}
-                  loading="lazy"
-                  allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
-                  allowFullScreen
+                  locale="en"
                 />
               ) : (
                 <video
@@ -221,13 +221,12 @@ export default function ProjectCasePageEn({
                 >
                   {media.type === "video" ? (
                     isEmbedVideoUrl(media.src) ? (
-                      <iframe
-                        className="h-full w-full"
+                      <DeferredVideoEmbed
                         src={toEmbedVideoUrl(media.src)}
+                        watchUrl={media.src}
+                        poster={media.poster}
                         title={media.alt}
-                        loading="lazy"
-                        allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
-                        allowFullScreen
+                        locale="en"
                       />
                     ) : (
                       <video

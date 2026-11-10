@@ -1,5 +1,6 @@
-import { redirect } from "next/navigation";
+import ServicesPageContent from "@/components/ServicesPageContent";
+import { servicePackagesEn } from "@/data/services.en";
 
 export default function ServicesPageEn() {
-  redirect("/en/contact");
+  return <ServicesPageContent locale="en" packages={servicePackagesEn} />;
 }

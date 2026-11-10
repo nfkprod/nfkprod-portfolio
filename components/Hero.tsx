@@ -220,22 +220,22 @@ export default function Hero({ locale = "ru" }: { locale?: Locale }) {
         <div className="studio-intro" id="introduction">
           <div className="intro-index" aria-hidden="true">
             <span>01 / NFKPROD</span>
-            <span>Motion. CGI. New realities.</span>
+            <span>Motion. CGI. VFX. AI.</span>
           </div>
           <RevealHeading
             as="h1"
             lines={
               ru
-                ? ["Визуал, который", "запоминают."]
-                : ["Visuals that", "stay with you."]
+                ? ["Из воображения", "в кадр."]
+                : ["From imagination", "to the screen."]
             }
           />
           <div className="intro-description">
             <ScrollReveal delay={140}>
               <p>
                 {ru
-                  ? "Я NFK — независимый визуальный креатор. Соединяю дизайн, CGI и новые технологии в проектах для брендов, артистов и творческих команд."
-                  : "I'm NFK, an independent visual creator. I bring design, CGI and new technologies together for brands, artists and creative teams."}
+                  ? "Я Егор Нафиков (NFK), независимый креатор и дизайнер. Создаю CGI, AI-видео и моушн-графику для брендов, артистов и творческих команд."
+                  : "I'm Egor Nafikov (NFK), an independent creator and designer. I make CGI, AI films and motion graphics for brands, artists and creative teams."}
               </p>
             </ScrollReveal>
           </div>

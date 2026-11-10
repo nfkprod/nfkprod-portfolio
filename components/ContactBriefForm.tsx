@@ -1,9 +1,9 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 
-const serviceOptions = ["Motion", "CGI", "3D", "VFX", "Explainer", "Social"];
+import { briefServiceOptions, validateBudgetRange } from "@/lib/briefValidation";
 
 type FormState = {
   name: string;
@@ -40,7 +40,13 @@ const copyByLocale = {
     name: "Имя *",
     contact: "Email / Telegram *",
     company: "Компания/проект",
-    budget: "Бюджет",
+    budget: "Бюджет *",
+    budgetHint: "Укажите сумму или диапазон. Достаточно заполнить «От» или «До».",
+    budgetErrors: {
+      required: "Укажите бюджет проекта.",
+      invalid: "Введите сумму больше нуля цифрами, например 65000.",
+      range: "Сумма «До» должна быть не меньше суммы «От».",
+    },
     budgetFrom: "От, ₽",
     budgetTo: "До, ₽",
     timeline: "Сроки",
@@ -61,9 +67,15 @@ const copyByLocale = {
     name: "Name *",
     contact: "Email / Telegram *",
     company: "Company / project",
-    budget: "Budget",
-    budgetFrom: "From, USD",
-    budgetTo: "To, USD",
+    budget: "Budget *",
+    budgetHint: "Enter an amount or a range. You can fill in either From or To.",
+    budgetErrors: {
+      required: "Enter your project budget.",
+      invalid: "Enter an amount greater than zero using digits, for example 65000.",
+      range: "The To amount must be at least the From amount.",
+    },
+    budgetFrom: "From, RUB",
+    budgetTo: "To, RUB",
     timeline: "Timeline",
     timelinePlaceholder: "For example: by March 28",
     serviceType: "Service type",
@@ -86,6 +98,12 @@ export default function ContactBriefForm({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const copy = copyByLocale[locale];
+  const [budgetAttempted, setBudgetAttempted] = useState(false);
+  const budgetFromRef = useRef<HTMLInputElement>(null);
+  const budgetToRef = useRef<HTMLInputElement>(null);
+  const budgetValidation = validateBudgetRange(form);
+  const budgetError = budgetAttempted && !budgetValidation.valid
+    ? copy.budgetErrors[budgetValidation.error] : "";
 
   const canSubmit = useMemo(() => {
     return (
@@ -110,6 +128,13 @@ export default function ContactBriefForm({
     setError("");
     setMessage("");
 
+    setBudgetAttempted(true);
+    if (!budgetValidation.valid) {
+      const invalidFrom = form.budgetFrom.trim() && !validateBudgetRange({ budgetFrom: form.budgetFrom }).valid;
+      const target = invalidFrom || !form.budgetTo.trim() ? budgetFromRef : budgetToRef;
+      target.current?.focus();
+      return;
+    }
     if (!canSubmit) {
       setError(copy.requiredError);
       return;
@@ -120,7 +145,7 @@ export default function ContactBriefForm({
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, budgetCurrency: "RUB" }),
       });
 
       if (!response.ok) {
@@ -129,6 +154,7 @@ export default function ContactBriefForm({
 
       setMessage(copy.success);
       setForm(initialState);
+      setBudgetAttempted(false);
     } catch (submitError) {
       setError(
         submitError instanceof Error ? submitError.message : copy.unknownError,
@@ -182,33 +208,45 @@ export default function ContactBriefForm({
           />
         </label>
 
-        <div className="grid gap-2 text-sm">
-          <span>{copy.budget}</span>
+        <fieldset className="grid min-w-0 gap-2 text-sm" aria-describedby={`brief-budget-hint${budgetError ? " brief-budget-error" : ""}`}>
+          <legend className="mb-2">{copy.budget}</legend>
           <div className="grid grid-cols-2 gap-2">
-            <input
-              type="text"
-              value={form.budgetFrom}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))
-              }
-              className="input"
-              placeholder={copy.budgetFrom}
-              aria-label={copy.budgetFrom}
-              inputMode="numeric"
-            />
-            <input
-              type="text"
-              value={form.budgetTo}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, budgetTo: event.target.value }))
-              }
-              className="input"
-              placeholder={copy.budgetTo}
-              aria-label={copy.budgetTo}
-              inputMode="numeric"
-            />
+            <label className="grid min-w-0 gap-2">
+              <span>{copy.budgetFrom}</span>
+              <input
+                ref={budgetFromRef}
+                type="text"
+                value={form.budgetFrom}
+                onChange={(event) => setForm((prev) => ({ ...prev, budgetFrom: event.target.value }))}
+                onBlur={() => setBudgetAttempted(true)}
+                className="input min-w-0"
+                aria-label={copy.budgetFrom}
+                aria-invalid={Boolean(budgetError)}
+                aria-describedby={`brief-budget-hint${budgetError ? " brief-budget-error" : ""}`}
+                required={!form.budgetTo.trim()}
+                inputMode="decimal"
+              />
+            </label>
+            <label className="grid min-w-0 gap-2">
+              <span>{copy.budgetTo}</span>
+              <input
+                ref={budgetToRef}
+                type="text"
+                value={form.budgetTo}
+                onChange={(event) => setForm((prev) => ({ ...prev, budgetTo: event.target.value }))}
+                onBlur={() => setBudgetAttempted(true)}
+                className="input min-w-0"
+                aria-label={copy.budgetTo}
+                aria-invalid={Boolean(budgetError)}
+                aria-describedby={`brief-budget-hint${budgetError ? " brief-budget-error" : ""}`}
+                required={!form.budgetFrom.trim()}
+                inputMode="decimal"
+              />
+            </label>
           </div>
-        </div>
+          <p id="brief-budget-hint" className="text-xs leading-5 text-[var(--text-muted)]">{copy.budgetHint}</p>
+          {budgetError && <p id="brief-budget-error" role="alert" className="text-sm text-[#b32535]">{budgetError}</p>}
+        </fieldset>
       </div>
 
       <label className="mt-4 grid gap-2 text-sm">
@@ -226,7 +264,7 @@ export default function ContactBriefForm({
       <fieldset className="mt-4">
         <legend className="text-sm">{copy.serviceType}</legend>
         <div className="mt-2 flex flex-wrap gap-2">
-          {serviceOptions.map((option) => (
+          {briefServiceOptions.map((option) => (
             <button
               key={option}
               type="button"
